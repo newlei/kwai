@@ -7,8 +7,8 @@ import pandas as pd
 # data_file = pd.read_csv(data_path, sep='|')
 
 
-data_good_path='../poi_pdate_20241104.csv'
-poi_data = pd.read_csv(data_good_path, usecols=['poi_id', 'poi_name','category_id','category_name','cate_2_id','cate_2_name','cate_1_id','cate_1_name']) # 按列名，列名必须存在  
+data_poi_path='../poi_pdate_20241104.csv'
+poi_data = pd.read_csv(data_poi_path, usecols=['poi_id', 'poi_name','category_id','category_name','cate_2_id','cate_2_name','cate_1_id','cate_1_name'], sep='|') # 按列名，列名必须存在  
 
 poi_id = set()
 for index, row in poi_data.iterrows():
@@ -16,8 +16,8 @@ for index, row in poi_data.iterrows():
     poi_id.add(row[0])
     pdb.set_trace()
 
-data_good_path='../photo_pdate_20241104.csv'
-photo_data = pd.read_csv(data_good_path, usecols=['photo_id', 'poi_id','poi_name','origin_poi_id','photo_cate_type','photo_second_cate_type']) # 按列名，列名必须存在  
+data_photo_path='../photo_pdate_20241104.csv'
+photo_data = pd.read_csv(data_photo_path, usecols=['photo_id', 'poi_id','poi_name','origin_poi_id','photo_cate_type','photo_second_cate_type'], sep='|') # 按列名，列名必须存在  
 count_all=0
 count = 0
 for index, row in photo_data.iterrows():
