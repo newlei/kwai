@@ -69,7 +69,7 @@ model = AutoModel.from_pretrained('Alibaba-NLP/gte-Qwen2-7B-instruct', trust_rem
 max_length = 8192
 
 # Tokenize the input texts
-batch_dict = tokenizer([response,response], max_length=max_length, padding=True, truncation=True, return_tensors='pt')
+batch_dict = tokenizer(['I love BGE','I love NLP'], max_length=max_length, padding=True, truncation=True, return_tensors='pt')
 outputs = model(**batch_dict)
 embeddings = last_token_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
 
