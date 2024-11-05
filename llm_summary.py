@@ -23,7 +23,7 @@ text = tokenizer.apply_chat_template(
 )
 model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
 
-sampling_params = SamplingParams(temperature=0.7, top_p=0.8,top_k=20, repetition_penalty=1.1, max_tokens=1024)
+# sampling_params = SamplingParams(temperature=0.7, top_p=0.8,top_k=20, repetition_penalty=1.1, max_tokens=1024)
 
 generated_ids = model.generate(
     **model_inputs,
