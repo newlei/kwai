@@ -7,9 +7,11 @@ import pandas as pd
 # data_file = pd.read_csv(data_path, sep='|')
 
 df1 = pd.read_csv('../poi_pdate_20241104.csv', usecols=['poi_id'], sep='|') # 按列名，列名必须存在  
-df2 = pd.read_csv('../photo_pdate_20241104.csv', usecols=['poi_id'], sep='|') # 按列名，列名必须存在 
+df2 = pd.read_csv('../photo_pdate_20241104.csv', usecols=['poi_id'], sep='|', lineterminator='\n') # 按列名，列名必须存在 
 
 df3 = df1.append(df2).drop_duplicates(keep=False)
+
+df3.size
 
 pdb.set_trace()
 
