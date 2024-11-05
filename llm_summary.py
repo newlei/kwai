@@ -70,7 +70,7 @@ embeddings = last_token_pool(outputs.last_hidden_state, batch_dict['attention_ma
 embeddings = F.normalize(embeddings, p=2, dim=1)
 scores = (embeddings[:2] @ embeddings[2:].T) * 100
 print(scores.tolist())
-
+print(embeddings)
 
 pdb.set_trace()
 
