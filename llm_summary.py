@@ -71,4 +71,6 @@ embeddings = F.normalize(embeddings, p=2, dim=1)
 scores = (embeddings[:2] @ embeddings[2:].T) * 100
 print(scores.tolist())
 
+
 pdb.set_trace()
+
