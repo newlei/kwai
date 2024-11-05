@@ -6,6 +6,13 @@ import pandas as pd
 # data_path='../'
 # data_file = pd.read_csv(data_path, sep='|')
 
+df1 = pd.read_csv('../poi_pdate_20241104.csv', usecols=['poi_id'], sep='|') # 按列名，列名必须存在  
+df2 = pd.read_csv('../photo_pdate_20241104.csv', usecols=['poi_id'], sep='|') # 按列名，列名必须存在 
+
+df3 = df1.append(df2).drop_duplicates(keep=False)
+
+pdb.set_trace()
+
 
 data_poi_path='../poi_pdate_20241104.csv'
 poi_data = pd.read_csv(data_poi_path, usecols=['poi_id', 'poi_name','category_id','category_name','cate_2_id','cate_2_name','cate_1_id','cate_1_name'], sep='|') # 按列名，列名必须存在  
