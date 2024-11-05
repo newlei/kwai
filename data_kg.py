@@ -12,9 +12,9 @@ poi_data = pd.read_csv(data_poi_path, usecols=['poi_id', 'poi_name','category_id
 
 poi_id = set()
 for index, row in poi_data.iterrows():
-    print(index) # 输出每行的索引值
-    poi_id.add(row[0])
-    pdb.set_trace()
+    # print(index) # 输出每行的索引值
+    poi_id.add(row['poi_id'])
+    # pdb.set_trace()
 
 data_photo_path='../photo_pdate_20241104.csv'
 photo_data = pd.read_csv(data_photo_path, usecols=['photo_id', 'poi_id','poi_name','origin_poi_id','photo_cate_type','photo_second_cate_type'], sep='|') # 按列名，列名必须存在  
@@ -23,7 +23,7 @@ count = 0
 for index, row in photo_data.iterrows():
     # print(index) # 输出每行的索引值
     count_all+=1
-    if row[1] in poi_id:
+    if row['poi_id'] in poi_id:
         count+=1
 
 print(count/count_all)
