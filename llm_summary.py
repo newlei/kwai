@@ -67,37 +67,35 @@ def get_detailed_instruct(task_description: str, query: str) -> str:
 
 
 # Each query must come with a one-sentence instruction that describes the task
-task = 'Given a web search query, retrieve relevant passages that answer the query'
-queries = [
-    get_detailed_instruct(task, 'how much protein should a female eat'),
-    get_detailed_instruct(task, 'summit define')
-]
-# No need to add instruction for retrieval documents
-documents = [
-    "As a general guideline, the CDC's average requirement of protein for women ages 19 to 70 is 46 grams per day. But, as you can see from this chart, you'll need to increase that if you're expecting or training for a marathon. Check out the chart below to see how much protein you should be eating each day.",
-    "Definition of summit for English Language Learners. : 1  the highest point of a mountain : the top of a mountain. : 2  the highest level. : 3  a meeting or series of meetings between the leaders of two or more governments."
-]
-input_texts = queries + documents
+# task = 'Given a web search query, retrieve relevant passages that answer the query'
+# queries = [
+#     get_detailed_instruct(task, 'how much protein should a female eat'),
+#     get_detailed_instruct(task, 'summit define')
+# ]
+# # No need to add instruction for retrieval documents
+# documents = [
+#     "As a general guideline, the CDC's average requirement of protein for women ages 19 to 70 is 46 grams per day. But, as you can see from this chart, you'll need to increase that if you're expecting or training for a marathon. Check out the chart below to see how much protein you should be eating each day.",
+#     "Definition of summit for English Language Learners. : 1  the highest point of a mountain : the top of a mountain. : 2  the highest level. : 3  a meeting or series of meetings between the leaders of two or more governments."
+# ]
+# input_texts = queries + documents
 
 tokenizer = AutoTokenizer.from_pretrained('Alibaba-NLP/gte-Qwen2-7B-instruct', trust_remote_code=True)
 model = AutoModel.from_pretrained('Alibaba-NLP/gte-Qwen2-7B-instruct', trust_remote_code=True)
 
 max_length = 8192
 
-# Tokenize the input texts
-batch_dict = tokenizer(input_texts, max_length=max_length, padding=True, truncation=True, return_tensors='pt')
+# # Tokenize the input texts
+# batch_dict = tokenizer(input_texts, max_length=max_length, padding=True, truncation=True, return_tensors='pt')
+batch_dict = tokenizer([response,response,response,response], max_length=max_length, padding=True, truncation=True, return_tensors='pt')
 outputs = model(**batch_dict)
 embeddings = last_token_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
 
 # normalize embeddings
 embeddings = F.normalize(embeddings, p=2, dim=1)
-scores = (embeddings[:2] @ embeddings[2:].T) * 100
+scores = (embeddings[:2] @ embeddings[2:].T) * 100 #计算向量的相似度。
 print(scores.tolist())
 
 print(embeddings)#torch.Size([1, 3584])
 
 pdb.set_trace()
-
-# Tokenize the input texts
-batch_dict = tokenizer(['I love BGE','I love NLP'], max_length=max_length, padding=True, truncation=True, return_tensors='pt')
  
