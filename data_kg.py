@@ -17,7 +17,7 @@ for index, row in poi_data.iterrows():
     # pdb.set_trace()
 
 data_photo_path='../photo_pdate_20241104.csv'
-photo_data = pd.read_csv(data_photo_path, usecols=['photo_id', 'poi_id','poi_name','origin_poi_id','photo_cate_type','photo_second_cate_type'], sep='|') # 按列名，列名必须存在  
+photo_data = pd.read_csv(data_photo_path, usecols=['photo_id', 'poi_id','poi_name','origin_poi_id','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n') # 按列名，列名必须存在  
 count_all=0
 count = 0
 for index, row in photo_data.iterrows():
