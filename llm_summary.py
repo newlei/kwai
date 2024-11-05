@@ -31,7 +31,7 @@ generated_ids = model.generate(
     top_p=0.8,
     top_k=20,
     repetition_penalty=1.1,
-    max_tokens=1024
+    max_new_tokens=512
 )
 
 generated_ids = [
