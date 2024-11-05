@@ -92,7 +92,7 @@ embeddings = last_token_pool(outputs.last_hidden_state, batch_dict['attention_ma
 
 # normalize embeddings
 embeddings = F.normalize(embeddings, p=2, dim=1)
-scores = (embeddings[:2] @ embeddings[2:].T) * 100 #计算向量的相似度。
+scores = (embeddings[:2] @ embeddings[2:].T) #计算向量的相似度。0-1
 print(scores.tolist())
 
 print(embeddings)#torch.Size([1, 3584])
