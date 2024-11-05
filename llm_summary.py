@@ -62,7 +62,7 @@ model = AutoModel.from_pretrained('Alibaba-NLP/gte-Qwen2-7B-instruct', trust_rem
 max_length = 8192
 
 # Tokenize the input texts
-batch_dict = tokenizer([response], max_length=max_length, padding=True, truncation=True, return_tensors='pt')
+batch_dict = tokenizer([response,response], max_length=max_length, padding=True, truncation=True, return_tensors='pt')
 outputs = model(**batch_dict)
 embeddings = last_token_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
 
@@ -70,7 +70,7 @@ embeddings = last_token_pool(outputs.last_hidden_state, batch_dict['attention_ma
 embeddings = F.normalize(embeddings, p=2, dim=1)
 scores = (embeddings[:2] @ embeddings[2:].T) * 100
 print(scores.tolist())
-print(embeddings)
+print(embeddings)#torch.Size([1, 3584])
 
 pdb.set_trace()
 
