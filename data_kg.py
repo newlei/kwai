@@ -3,8 +3,8 @@ import pdb
 import pandas as pd
 
 
-data_path='../'
-data_file = pd.read_csv(data_path, sep='|')
+# data_path='../'
+# data_file = pd.read_csv(data_path, sep='|')
 
 
 data_good_path='../poi_pdate_20241104.csv'
@@ -18,9 +18,17 @@ for index, row in poi_data.iterrows():
 
 data_good_path='../photo_pdate_20241104.csv'
 photo_data = pd.read_csv(data_good_path, usecols=['photo_id', 'poi_id','poi_name','origin_poi_id','photo_cate_type','photo_second_cate_type']) # 按列名，列名必须存在  
+count_all=0
+count = 0
 for index, row in photo_data.iterrows():
-    print(index) # 输出每行的索引值
-    poi_id.add(row[0])
+    # print(index) # 输出每行的索引值
+    count_all+=1
+    if row[1] in poi_id:
+        count+=1
+
+print(count/count_all)
+
+pdb.set_trace()
 
 
 
