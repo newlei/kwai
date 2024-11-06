@@ -5,8 +5,13 @@ import pandas as pd
 
 #交互数据提取：user_id|photo_id|time_second|poi_id
 data_interaction = pd.read_csv('../photo_payorder_pdate_20241104.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
-
 print(data_interaction.size)
+
+df_clear = data_interaction.drop(data_interaction[data_interaction['poi_id']==0].index)
+print(df_clear.size)
+pdb.set_trace()
+
+
 
 count = 0
 user_pid = dict()
