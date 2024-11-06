@@ -29,9 +29,15 @@ data_interaction2_pid_f1_split =  pd.DataFrame([
     [u, p] for u, P in data_interaction2_pid_f1.itertuples(index=False)
     for p in P 
 ], columns=data_interaction2_pid_f1.columns)
-
-
-
+#交换2列的顺序。
+data_interaction2_pid_f1_split[['user_id', 'photo_id']] = data_interaction2_pid_f1_split[['photo_id', 'user_id']]
+#拼接，并去除重复的，就能使得user_id和photo_id，都存在的保留下来。
+data_interaction3_cat = pd.concat([data_interaction2_uid_f1_split, data_interaction2_pid_f1_split], axis=0)
+#  使用duplicated()方法查找重复行
+duplicates3 = data_interaction3_cat.duplicated()
+#  使用布尔索引选择重复行
+duplicate3_all = data_interaction3_cat[duplicates3]
+duplicate3 = duplicate3_all.drop_duplicates()
 
 # data_interaction2_uid_f1_split = data_interaction2_uid_f1['p_id'].apply(pd.Series).reset_index().melt(id_vars='index').dropna()[['index', 'value']].set_index('index')
 
