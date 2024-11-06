@@ -20,8 +20,8 @@ def data_process(data_interaction2):
     data_interaction2_pid = data_interaction2.groupby('photo_id')["user_id"].apply(list).reset_index(name="user_id")
 
     #过滤掉，交互行为为5以下的。
-    data_interaction2_uid_f1 = data_interaction2_uid[data_interaction2_uid['photo_id'].apply(lambda x: len(x) > 1)]
-    data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['user_id'].apply(lambda x: len(x) > 1)]
+    data_interaction2_uid_f1 = data_interaction2_uid[data_interaction2_uid['photo_id'].apply(lambda x: len(x) > 2)]
+    data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['user_id'].apply(lambda x: len(x) > 2)]
 
     #拆分，过滤后的数据，然后进行比对，保留2个表中u_id和p_id都出现数据，用于下一轮的过滤
     data_interaction2_uid_f1_split =  pd.DataFrame([
@@ -33,9 +33,8 @@ def data_process(data_interaction2):
         for p in P 
     ], columns=data_interaction2_pid_f1.columns)
 
-
-    print(data_interaction2_uid_f1_split.size)
-    print(data_interaction2_pid_f1_split.size)
+    # print(data_interaction2_uid_f1_split.size)
+    # print(data_interaction2_pid_f1_split.size)
 
 
     #交换2列的顺序。
@@ -49,7 +48,7 @@ def data_process(data_interaction2):
     # 对于重复的行，只保留一个数据就行了。
     duplicate3 = duplicate3_all.drop_duplicates()
 
-    print("清洗之后的行为数量:",duplicate3.size) #357366 >=3  14607884 >=2
+    print("清洗之后的行为数量:",duplicate3.size) #357366 >2  462012 >1
     return duplicate3
 
 data_interaction3 = data_process(data_interaction2)
