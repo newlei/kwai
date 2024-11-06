@@ -58,6 +58,16 @@ data_interaction3 = data_process(data_interaction2,core=5,epoch=1)
 data_interaction4 = data_process(data_interaction3,core=5,epoch=2)
 data_interaction5 = data_process(data_interaction4,core=5,epoch=3)
 
+file_name = '../data_process/data_interaction3.csv'
+data_interaction3.to_csv(file_name, sep='|')
+file_name = '../data_process/data_interaction4.csv'
+data_interaction4.to_csv(file_name, sep='|')
+file_name = '../data_process/data_interaction5.csv'
+data_interaction5.to_csv(file_name, sep='|')
+
+exit()
+
+
 pdb.set_trace()
 
 
