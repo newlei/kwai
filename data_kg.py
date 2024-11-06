@@ -4,7 +4,10 @@ import pandas as pd
 
 
 #交互数据提取：user_id|photo_id|time_second|poi_id
-data_interaction = pd.read_csv('../photo_payorder_pdate_20241104.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+#购买行为数据
+# data_interaction = pd.read_csv('../photo_payorder_pdate_20241104.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+#点击行为数据
+data_interaction = pd.read_csv('../goods_click_pdate_20241105.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 print(data_interaction.size)
 
 #poi_id == 0是没有意义的数据，所以直接过滤掉。
@@ -51,9 +54,9 @@ def data_process(data_interaction2,core,epoch):
     print(str_out,duplicate3.size) #357366 >2  462012 >1
     return duplicate3
 
-data_interaction3 = data_process(data_interaction2,core=1,epoch=1)
-data_interaction4 = data_process(data_interaction3,core=1,epoch=2)
-data_interaction5 = data_process(data_interaction4,core=1,epoch=3)
+data_interaction3 = data_process(data_interaction2,core=5,epoch=1)
+data_interaction4 = data_process(data_interaction3,core=5,epoch=2)
+data_interaction5 = data_process(data_interaction4,core=5,epoch=3)
 
 pdb.set_trace()
 
