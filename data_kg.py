@@ -3,6 +3,23 @@ import pdb
 import pandas as pd
 
 
+#交互数据提取：user_id|photo_id|time_second|poi_id
+data_interaction = pd.read_csv('../photo_payorder_pdate_20241104.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+
+count = 0
+user_pid = dict()
+user_poi = dict()
+for index, row in photo_data.iterrows():
+    # print(index) # 输出每行的索引值
+    if row['poi_id']==0:
+        photo_data.drop(index=index)
+
+pdb.set_trace()
+
+
+exit()
+
+
 # data_path='../'
 # data_file = pd.read_csv(data_path, sep='|')
 
