@@ -65,6 +65,8 @@ data_interaction4.to_csv(file_name, sep='|')
 file_name = '../data_process/data_interaction5.csv'
 data_interaction5.to_csv(file_name, sep='|')
 
+pdb.set_trace()
+
 exit()
 
 
