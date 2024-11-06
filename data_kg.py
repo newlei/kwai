@@ -14,7 +14,7 @@ print(data_interaction1.size)
 #先只看主要的交互行为，并统计用户交互行为数量，以及pid被点击的数量。
 data_interaction2 =  data_interaction1[['user_id', 'photo_id']]
 
-def data_process(data_interaction2,core):
+def data_process(data_interaction2,core,epoch):
         
     data_interaction2_uid = data_interaction2.groupby('user_id')["photo_id"].apply(list).reset_index(name="photo_id")
     data_interaction2_pid = data_interaction2.groupby('photo_id')["user_id"].apply(list).reset_index(name="user_id")
@@ -46,13 +46,14 @@ def data_process(data_interaction2,core):
     duplicate3_all = data_interaction3_cat[duplicates3]
     # 对于重复的行，只保留一个数据就行了。
     duplicate3 = duplicate3_all.drop_duplicates()
-
-    print("清洗之后的行为数量",str(core+1),"-core:",duplicate3.size) #357366 >2  462012 >1
+    
+    str_out = "使用"+str(core+1)+"-core,第"+str(epoch)+"轮清洗之后的行为数量:"
+    print(str_out,duplicate3.size) #357366 >2  462012 >1
     return duplicate3
 
-data_interaction3 = data_process(data_interaction2,1)
-data_interaction4 = data_process(data_interaction3,1)
-data_interaction5 = data_process(data_interaction4,1)
+data_interaction3 = data_process(data_interaction2,core=1,epoch=1)
+data_interaction4 = data_process(data_interaction3,core=1,epoch=2)
+data_interaction5 = data_process(data_interaction4,core=1,epoch=3)
 
 pdb.set_trace()
 
