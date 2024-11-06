@@ -36,7 +36,6 @@ def data_process(data_interaction2,core):
     # print(data_interaction2_uid_f1_split.size)
     # print(data_interaction2_pid_f1_split.size)
 
-
     #交换2列的顺序。
     data_interaction2_pid_f1_split[['user_id', 'photo_id']] = data_interaction2_pid_f1_split[['photo_id', 'user_id']]
     #拼接，并保留重复的，就是2个表中均出现的数据，保留下来的就是，共同的部分。即user_id和photo_id，均出现在2张表（data_interaction2_uid_f1_split, data_interaction2_pid_f1_split）
