@@ -10,8 +10,14 @@ print(data_interaction.size)
 data_interaction1 = data_interaction.drop(data_interaction[data_interaction['poi_id']==0].index)
 print(data_interaction1.size)
 
-data_interaction2 = data_interaction1.groupby('user_id').apply(lambda x: x[['photo_id', 'poi_id', 'time_second']].to_string(index=False)).reset_index(name='item_id')
-print(data_interaction2.size)
+data_interaction2 =  data_interaction1[['user_id', 'photo_id']]
+data_interaction2_uid = data_interaction2.groupby('user_id')
+data_interaction2_pid = data_interaction2.groupby('photo_id')
+print(data_interaction2_uid.size)
+print(data_interaction2_pid.size)
+
+# data_interaction2 = data_interaction2.groupby('user_id').apply(lambda x: x[['photo_id', 'poi_id', 'time_second']].to_string(index=False)).reset_index(name='item_id')
+# print(data_interaction2.size)
 
 pdb.set_trace()
 
