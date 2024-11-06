@@ -30,6 +30,11 @@ data_interaction2_pid_f1_split =  pd.DataFrame([
     for p in P 
 ], columns=data_interaction2_pid_f1.columns)
 
+
+print(data_interaction2_uid_f1_split.size)
+print(data_interaction2_pid_f1_split.size)
+
+
 #交换2列的顺序。
 data_interaction2_pid_f1_split[['user_id', 'photo_id']] = data_interaction2_pid_f1_split[['photo_id', 'user_id']]
 #拼接，并保留重复的，就是2个表中均出现的数据，保留下来的就是，共同的部分。即user_id和photo_id，均出现在2张表（data_interaction2_uid_f1_split, data_interaction2_pid_f1_split）
@@ -41,14 +46,7 @@ duplicate3_all = data_interaction3_cat[duplicates3]
 # 对于重复的行，只保留一个数据就行了。
 duplicate3 = duplicate3_all.drop_duplicates()
 
-
-# data_interaction2_uid_f1_split = data_interaction2_uid_f1['p_id'].apply(pd.Series).reset_index().melt(id_vars='index').dropna()[['index', 'value']].set_index('index')
-
-print(data_interaction2_uid_f1_split.size)
-print(data_interaction2_pid_f1_split.size)
-
-# data_interaction2 = data_interaction2.groupby('user_id').apply(lambda x: x[['photo_id', 'poi_id', 'time_second']].to_string(index=False)).reset_index(name='item_id')
-# print(data_interaction2.size)
+print(duplicate3.size)
 
 pdb.set_trace()
 
