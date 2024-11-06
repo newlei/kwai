@@ -10,10 +10,25 @@ print(data_interaction.size)
 data_interaction1 = data_interaction.drop(data_interaction[data_interaction['poi_id']==0].index)
 print(data_interaction1.size)
 
+#先只看主要的交互行为，并统计用户交互行为数量，以及pid被点击的数量。
 data_interaction2 =  data_interaction1[['user_id', 'photo_id']]
-data_interaction2_uid = data_interaction2.groupby('user_id').apply(lambda x: ','.join(map(str, x))).reset_index(name='p_id_list')
-data_interaction2_pid = data_interaction2.groupby('photo_id').apply(lambda x: ','.join(map(str, x))).reset_index(name='u_id_list')
-print(data_interaction2_uid.size)
+data_interaction2_uid = data_interaction2.groupby('user_id')["photo_id"].apply(list).reset_index(name="p_id")
+data_interaction2_pid = data_interaction2.groupby('photo_id')["user_id"].apply(list).reset_index(name="u_id")
+
+#过滤掉，交互行为为5以下的。
+data_interaction2_uid_f1 = data_interaction2_uid[data_interaction2_uid['p_id'].apply(lambda x: len(x) > 5)]
+data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['u_id'].apply(lambda x: len(x) > 5)]
+
+#拆分，过滤后的数据，然后进行比对，保留u_id和p_id都在数据，用于下一轮的过滤
+
+data_interaction2_uid_f1_split =  pd.DataFrame([
+    [u, p] for U, P in data_interaction2_uid_f1.itertuples(index=False)
+    for p in P 
+], columns=df.columns)
+
+data_interaction2_uid_f1_split = data_interaction2_uid_f1['p_id'].apply(pd.Series).reset_index().melt(id_vars='index').dropna()[['index', 'value']].set_index('index')
+
+print(data_interaction2_uid_f1_split.size)
 print(data_interaction2_pid.size)
 
 # data_interaction2 = data_interaction2.groupby('user_id').apply(lambda x: x[['photo_id', 'poi_id', 'time_second']].to_string(index=False)).reset_index(name='item_id')
