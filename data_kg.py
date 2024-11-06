@@ -11,8 +11,8 @@ data_interaction1 = data_interaction.drop(data_interaction[data_interaction['poi
 print(data_interaction1.size)
 
 data_interaction2 =  data_interaction1[['user_id', 'photo_id']]
-data_interaction2_uid = data_interaction2.groupby('user_id')
-data_interaction2_pid = data_interaction2.groupby('photo_id')
+data_interaction2_uid = data_interaction2.groupby('user_id').apply(lambda x: ','.join(map(str, x))).reset_index(name='p_id_list')
+data_interaction2_pid = data_interaction2.groupby('photo_id').apply(lambda x: ','.join(map(str, x))).reset_index(name='u_id_list')
 print(data_interaction2_uid.size)
 print(data_interaction2_pid.size)
 
