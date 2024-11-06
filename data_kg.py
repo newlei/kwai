@@ -22,7 +22,7 @@ data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['u_id'].a
 #拆分，过滤后的数据，然后进行比对，保留u_id和p_id都在数据，用于下一轮的过滤
 
 data_interaction2_uid_f1_split =  pd.DataFrame([
-    [u, p] for U, P in data_interaction2_uid_f1.itertuples(index=False)
+    [u, p] for u, P in data_interaction2_uid_f1.itertuples(index=False)
     for p in P 
 ], columns=df.columns)
 
