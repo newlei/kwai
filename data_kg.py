@@ -17,8 +17,8 @@ data_interaction2_uid = data_interaction2.groupby('user_id')["photo_id"].apply(l
 data_interaction2_pid = data_interaction2.groupby('photo_id')["user_id"].apply(list).reset_index(name="user_id")
 
 #过滤掉，交互行为为5以下的。
-data_interaction2_uid_f1 = data_interaction2_uid[data_interaction2_uid['photo_id'].apply(lambda x: len(x) > 2)]
-data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['user_id'].apply(lambda x: len(x) > 2)]
+data_interaction2_uid_f1 = data_interaction2_uid[data_interaction2_uid['photo_id'].apply(lambda x: len(x) > 1)]
+data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['user_id'].apply(lambda x: len(x) > 1)]
 
 #拆分，过滤后的数据，然后进行比对，保留2个表中u_id和p_id都出现数据，用于下一轮的过滤
 data_interaction2_uid_f1_split =  pd.DataFrame([
@@ -46,7 +46,7 @@ duplicate3_all = data_interaction3_cat[duplicates3]
 # 对于重复的行，只保留一个数据就行了。
 duplicate3 = duplicate3_all.drop_duplicates()
 
-print(duplicate3.size)
+print("duplicate3:",duplicate3.size) #357366 >2
 
 pdb.set_trace()
 
