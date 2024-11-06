@@ -7,6 +7,7 @@ import pandas as pd
 data_interaction = pd.read_csv('../photo_payorder_pdate_20241104.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 print(data_interaction.size)
 
+#poi_id == 0是没有意义的数据，所以直接过滤掉。
 data_interaction1 = data_interaction.drop(data_interaction[data_interaction['poi_id']==0].index)
 print(data_interaction1.size)
 
@@ -20,16 +21,20 @@ data_interaction2_uid_f1 = data_interaction2_uid[data_interaction2_uid['p_id'].a
 data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['u_id'].apply(lambda x: len(x) > 5)]
 
 #拆分，过滤后的数据，然后进行比对，保留u_id和p_id都在数据，用于下一轮的过滤
-
 data_interaction2_uid_f1_split =  pd.DataFrame([
     [u, p] for u, P in data_interaction2_uid_f1.itertuples(index=False)
     for p in P 
 ], columns=data_interaction2_uid_f1.columns)
+data_interaction2_pid_f1_split =  pd.DataFrame([
+    [u, p] for u, P in data_interaction2_pid_f1.itertuples(index=False)
+    for p in P 
+], columns=data_interaction2_pid_f1.columns)
+
 
 # data_interaction2_uid_f1_split = data_interaction2_uid_f1['p_id'].apply(pd.Series).reset_index().melt(id_vars='index').dropna()[['index', 'value']].set_index('index')
 
 print(data_interaction2_uid_f1_split.size)
-print(data_interaction2_pid.size)
+print(data_interaction2_pid_f1_split.size)
 
 # data_interaction2 = data_interaction2.groupby('user_id').apply(lambda x: x[['photo_id', 'poi_id', 'time_second']].to_string(index=False)).reset_index(name='item_id')
 # print(data_interaction2.size)
