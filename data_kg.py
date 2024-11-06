@@ -24,9 +24,9 @@ data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['u_id'].a
 data_interaction2_uid_f1_split =  pd.DataFrame([
     [u, p] for u, P in data_interaction2_uid_f1.itertuples(index=False)
     for p in P 
-], columns=df.columns)
+], columns=data_interaction2_uid_f1.columns)
 
-data_interaction2_uid_f1_split = data_interaction2_uid_f1['p_id'].apply(pd.Series).reset_index().melt(id_vars='index').dropna()[['index', 'value']].set_index('index')
+# data_interaction2_uid_f1_split = data_interaction2_uid_f1['p_id'].apply(pd.Series).reset_index().melt(id_vars='index').dropna()[['index', 'value']].set_index('index')
 
 print(data_interaction2_uid_f1_split.size)
 print(data_interaction2_pid.size)
