@@ -54,9 +54,9 @@ def data_process(data_interaction2,core,epoch):
     print(str_out,duplicate3.size) #357366 >2  462012 >1
     return duplicate3
 
-data_interaction3 = data_process(data_interaction2,core=5,epoch=1)
-data_interaction4 = data_process(data_interaction3,core=5,epoch=2)
-data_interaction5 = data_process(data_interaction4,core=5,epoch=3)
+data_interaction3 = data_process(data_interaction2,core=10,epoch=1)
+data_interaction4 = data_process(data_interaction3,core=10,epoch=2)
+data_interaction5 = data_process(data_interaction4,core=10,epoch=3)
 
 file_name = '../data_process/data_interaction3.csv'
 data_interaction3.to_csv(file_name, sep='|')
@@ -64,6 +64,10 @@ file_name = '../data_process/data_interaction4.csv'
 data_interaction4.to_csv(file_name, sep='|')
 file_name = '../data_process/data_interaction5.csv'
 data_interaction5.to_csv(file_name, sep='|')
+
+# 使用6-core,第1轮清洗之后的行为数量: 83803880
+# 使用6-core,第2轮清洗之后的行为数量: 45008556
+# 使用6-core,第3轮清洗之后的行为数量: 17144888
 
 pdb.set_trace()
 
