@@ -23,7 +23,7 @@ print('user_att',user_att.size)
 # file_photo = '../photo_pdate_20241104.csv'
 # photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n')
 
-file_poi = '../poi_pdate_20241104.csv.csv'
+file_poi = '../poi_pdate_20241104.csv'
 poi_att = pd.read_csv(file_poi, sep='|')
 print('poi_att',poi_att.size)
 
