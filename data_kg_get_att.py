@@ -10,15 +10,15 @@ print(data_interaction.size)
 
 
 file_user = '../user_pdate_20241104.csv'
-user_att = pd.read_csv(file_name, sep='|')
+user_att = pd.read_csv(file_user, usecols=['user_id','photo_id','time_second','poi_id','label','play_duration','poi_page_stay_time'], sep='|')
 user_att.rename(columns={'user_id': 'user_id', 'photo_id': 'gender','time_second': 'age','poi_id': 'age_part','label': 'city','play_duration': 'region'}, inplace=True)
 
 
 file_photo = '../photo_pdate_20241104.csv'
-photo_att = pd.read_csv(file_name, sep='|')
+photo_att = pd.read_csv(file_photo, sep='|')
 
 file_poi = '../goods_pdate_20241104.csv'
-poi_att = pd.read_csv(file_name, sep='|')
+poi_att = pd.read_csv(file_poi, sep='|')
 user_att.rename(columns={'goods_id': 'poi_id'}, inplace=True)
 
 
