@@ -19,7 +19,12 @@ data_interaction8 = pd.read_csv(file_name, usecols=['user_id','photo_id'], sep='
 print(data_interaction.size)
 merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
 
-data_interaction1_test = data_interaction1.drop(data_interaction1[data_interaction1['user_id']>8686].index)
+
+# 8686  100014228410658   1729353600  3002790283314925585
+# 1     8686  100014228410658   1729094400  3002790283314925585
+
+data_interaction1 = data_interaction1.drop(data_interaction1[data_interaction1['user_id']>8686].index)
+ 
  
 pdb.set_trace()
 
@@ -93,9 +98,6 @@ merged_table = pd.merge(data_interaction8, data_interaction1, on='user_id', how=
 
 merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
 
-
-8686  100014228410658   1729353600  3002790283314925585
-1     8686  100014228410658   1729094400  3002790283314925585
 
 # 使用6-core,第1轮清洗之后的行为数量: 83803880
 # 使用6-core,第2轮清洗之后的行为数量: 45008556
