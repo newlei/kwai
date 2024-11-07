@@ -22,8 +22,8 @@ if os.path.isfile(file_name):
 
     file_name = '../data_process/core'+str(10)+'/data_interaction_final.csv'
     merged_table.to_csv(file_name, sep='|')
-
-    pdb.set_trace()
+    
+    exit()
 
 
 
