@@ -1,7 +1,7 @@
 import numpy as np 
 import pdb 
 import pandas as pd
-
+import os.path
 
 #交互数据提取：user_id|photo_id|time_second|poi_id
 #购买行为数据
@@ -14,19 +14,16 @@ print(data_interaction.size)
 data_interaction1 = data_interaction.drop(data_interaction[data_interaction['poi_id']==0].index)
 print(data_interaction1.size)
 
+#先得到了data_interaction8.csv,没有和原始的数据合并。这里重新处理一下，得到最终的清洗结果。
 file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
-data_interaction8 = pd.read_csv(file_name, usecols=['user_id','photo_id'], sep='|')
-print(data_interaction.size)
-merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
+if os.path.isfile(file_name): 
+    data_interaction8 = pd.read_csv(file_name, usecols=['user_id','photo_id'], sep='|') 
+    merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
 
+    file_name = '../data_process/core'+str(10)+'/data_interaction_final.csv'
+    merged_table.to_csv(file_name, sep='|')
 
-# 8686  100014228410658   1729353600  3002790283314925585
-# 1     8686  100014228410658   1729094400  3002790283314925585
-
-data_interaction1 = data_interaction1.drop(data_interaction1[data_interaction1['user_id']>8686].index)
- 
- 
-pdb.set_trace()
+    pdb.set_trace()
 
 
 
@@ -90,13 +87,10 @@ data_interaction7.to_csv(file_name, sep='|')
 file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
 data_interaction8.to_csv(file_name, sep='|')
 
-
-
-#  data_interaction1  data_interaction8
-
-merged_table = pd.merge(data_interaction8, data_interaction1, on='user_id', how='outer')
-
+#获得清洗后的数据
 merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
+file_name = '../data_process/core'+str(10)+'/data_interaction_final.csv'
+merged_table.to_csv(file_name, sep='|')
 
 
 # 使用6-core,第1轮清洗之后的行为数量: 83803880
@@ -110,9 +104,17 @@ merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'ph
 # 使用10-core,第5轮清洗之后的行为数量: 4525662
 # 使用10-core,第6轮清洗之后的行为数量: 4396544
 
-pdb.set_trace()
+# pdb.set_trace()
 
 exit()
+
+
+
+
+
+
+
+
 
 
 pdb.set_trace()
