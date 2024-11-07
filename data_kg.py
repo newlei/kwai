@@ -50,24 +50,38 @@ def data_process(data_interaction2,core,epoch):
     # 对于重复的行，只保留一个数据就行了。
     duplicate3 = duplicate3_all.drop_duplicates()
     
-    str_out = "使用"+str(core+1)+"-core,第"+str(epoch)+"轮清洗之后的行为数量:"
+    str_out = "使用"+str(core)+"-core,第"+str(epoch)+"轮清洗之后的行为数量:"
     print(str_out,duplicate3.size) #357366 >2  462012 >1
     return duplicate3
 
 data_interaction3 = data_process(data_interaction2,core=10,epoch=1)
 data_interaction4 = data_process(data_interaction3,core=10,epoch=2)
 data_interaction5 = data_process(data_interaction4,core=10,epoch=3)
+data_interaction6 = data_process(data_interaction5,core=10,epoch=3)
+data_interaction7 = data_process(data_interaction6,core=10,epoch=3)
+data_interaction8 = data_process(data_interaction7,core=10,epoch=3)
 
-file_name = '../data_process/data_interaction3_'+str(10)+'-core.csv'
+file_name = '../data_process/core'+str(10)+'/data_interaction3.csv'
 data_interaction3.to_csv(file_name, sep='|')
-file_name = '../data_process/data_interaction4_'+str(10)+'-core.csv'
+file_name = '../data_process/core'+str(10)+'/data_interaction4.csv'
 data_interaction4.to_csv(file_name, sep='|')
-file_name = '../data_process/data_interaction5_'+str(10)+'-core.csv'
+file_name = '../data_process/core'+str(10)+'/data_interaction5.csv'
 data_interaction5.to_csv(file_name, sep='|')
+file_name = '../data_process/core'+str(10)+'/data_interaction6.csv'
+data_interaction6.to_csv(file_name, sep='|')
+file_name = '../data_process/core'+str(10)+'/data_interaction7.csv'
+data_interaction7.to_csv(file_name, sep='|')
+file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
+data_interaction8.to_csv(file_name, sep='|')
+
 
 # 使用6-core,第1轮清洗之后的行为数量: 83803880
 # 使用6-core,第2轮清洗之后的行为数量: 45008556
 # 使用6-core,第3轮清洗之后的行为数量: 17144888
+
+# 使用11-core,第1轮清洗之后的行为数量: 74768032
+# 使用11-core,第2轮清洗之后的行为数量: 29794666
+# 使用11-core,第3轮清洗之后的行为数量: 5685002
 
 pdb.set_trace()
 
