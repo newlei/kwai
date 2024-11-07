@@ -18,22 +18,13 @@ file_photo = '../photo_pdate_20241104.csv'
 photo_list =[]
 for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], chunksize=chunksize, sep='|', lineterminator='\n'):
     photo_list.append(chunk) 
-    pdb.set_trace()
-
-
-file_photo = '../photo_pdate_20241104.csv'
-photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n')
-
-pdb.set_trace()
-
-
 
 file_user = '../user_pdate_20241104.csv'
 user_att = pd.read_csv(file_user, usecols=['user_id','photo_id','time_second','poi_id','label','play_duration','poi_page_stay_time'], sep='|')
 user_att.rename(columns={'user_id': 'user_id', 'photo_id': 'gender','time_second': 'age','poi_id': 'age_part','label': 'city','play_duration': 'region'}, inplace=True)
 
-file_photo = '../photo_pdate_20241104.csv'
-photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n')
+# file_photo = '../photo_pdate_20241104.csv'
+# photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n')
 
 file_poi = '../goods_pdate_20241104.csv'
 poi_att = pd.read_csv(file_poi, sep='|')
