@@ -15,7 +15,7 @@ user_att.rename(columns={'user_id': 'user_id', 'photo_id': 'gender','time_second
 
 
 file_photo = '../photo_pdate_20241104.csv'
-photo_att = pd.read_csv(file_photo, sep='|')
+photo_att = pd.read_csv(file_photo, sep='|', on_bad_lines='skip')
 
 file_poi = '../goods_pdate_20241104.csv'
 poi_att = pd.read_csv(file_poi, sep='|')
