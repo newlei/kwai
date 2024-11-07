@@ -10,7 +10,7 @@ print(data_interaction.size)
 
 
 file_photo = '../photo_pdate_20241104.csv'
-photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n',engine='python' )
+photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator=';', engine='python' )
 
 pdb.set_trace()
 
