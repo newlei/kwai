@@ -13,6 +13,14 @@ data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id'
 print(data_interaction.size)
 
 
+chunksize = 10 ** 6
+file_photo = '../photo_pdate_20241104.csv'
+photo_list =[]
+for chunk in pd.read_csv(file_photo, chunksize=chunksize, sep='|', lineterminator='\n'):
+    photo_list.append(chunk) 
+    pdb.set_trace()
+
+
 file_photo = '../photo_pdate_20241104.csv'
 photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n')
 
