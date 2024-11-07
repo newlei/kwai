@@ -58,11 +58,11 @@ data_interaction3 = data_process(data_interaction2,core=10,epoch=1)
 data_interaction4 = data_process(data_interaction3,core=10,epoch=2)
 data_interaction5 = data_process(data_interaction4,core=10,epoch=3)
 
-file_name = '../data_process/data_interaction3.csv'
+file_name = '../data_process/data_interaction3_'+str(10)+'-core.csv'
 data_interaction3.to_csv(file_name, sep='|')
-file_name = '../data_process/data_interaction4.csv'
+file_name = '../data_process/data_interaction4_'+str(10)+'-core.csv'
 data_interaction4.to_csv(file_name, sep='|')
-file_name = '../data_process/data_interaction5.csv'
+file_name = '../data_process/data_interaction5_'+str(10)+'-core.csv'
 data_interaction5.to_csv(file_name, sep='|')
 
 # 使用6-core,第1轮清洗之后的行为数量: 83803880
