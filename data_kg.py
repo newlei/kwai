@@ -14,9 +14,20 @@ print(data_interaction.size)
 data_interaction1 = data_interaction.drop(data_interaction[data_interaction['poi_id']==0].index)
 print(data_interaction1.size)
 
+file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
+data_interaction8 = pd.read_csv(file_name, usecols=['user_id','photo_id'], sep='|')
+print(data_interaction.size)
+merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
+
+data_interaction1_test = data_interaction1.drop(data_interaction1[data_interaction1['user_id']>8686].index)
+ 
+pdb.set_trace()
+
+
+
 #先只看主要的交互行为，并统计用户交互行为数量，以及pid被点击的数量。
 data_interaction2 =  data_interaction1[['user_id', 'photo_id']]
-
+ 
 def data_process(data_interaction2,core,epoch):
         
     data_interaction2_uid = data_interaction2.groupby('user_id')["photo_id"].apply(list).reset_index(name="photo_id")
@@ -57,9 +68,9 @@ def data_process(data_interaction2,core,epoch):
 data_interaction3 = data_process(data_interaction2,core=10,epoch=1)
 data_interaction4 = data_process(data_interaction3,core=10,epoch=2)
 data_interaction5 = data_process(data_interaction4,core=10,epoch=3)
-data_interaction6 = data_process(data_interaction5,core=10,epoch=3)
-data_interaction7 = data_process(data_interaction6,core=10,epoch=3)
-data_interaction8 = data_process(data_interaction7,core=10,epoch=3)
+data_interaction6 = data_process(data_interaction5,core=10,epoch=4)
+data_interaction7 = data_process(data_interaction6,core=10,epoch=5)
+data_interaction8 = data_process(data_interaction7,core=10,epoch=6)
 
 file_name = '../data_process/core'+str(10)+'/data_interaction3.csv'
 data_interaction3.to_csv(file_name, sep='|')
@@ -75,13 +86,27 @@ file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
 data_interaction8.to_csv(file_name, sep='|')
 
 
+
+#  data_interaction1  data_interaction8
+
+merged_table = pd.merge(data_interaction8, data_interaction1, on='user_id', how='outer')
+
+merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
+
+
+8686  100014228410658   1729353600  3002790283314925585
+1     8686  100014228410658   1729094400  3002790283314925585
+
 # 使用6-core,第1轮清洗之后的行为数量: 83803880
 # 使用6-core,第2轮清洗之后的行为数量: 45008556
-# 使用6-core,第3轮清洗之后的行为数量: 17144888
+# 使用6-core,第3轮清洗之后的行为数量: 17144888 
 
-# 使用11-core,第1轮清洗之后的行为数量: 74768032
-# 使用11-core,第2轮清洗之后的行为数量: 29794666
-# 使用11-core,第3轮清洗之后的行为数量: 5685002
+# 用10-core,第1轮清洗之后的行为数量: 74768032
+# 使用10-core,第2轮清洗之后的行为数量: 29794666
+# 使用10-core,第3轮清洗之后的行为数量: 5685002
+# 使用10-core,第4轮清洗之后的行为数量: 4904226
+# 使用10-core,第5轮清洗之后的行为数量: 4525662
+# 使用10-core,第6轮清洗之后的行为数量: 4396544
 
 pdb.set_trace()
 
