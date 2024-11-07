@@ -2,6 +2,9 @@ import numpy as np
 import pdb 
 import pandas as pd
 import os.path
+import csv
+csv.field_size_limit(sys.maxsize)
+
 
 #交互数据提取：user_id|photo_id|time_second|poi_id
 file_name = '../data_process/core10/data_interaction_final.csv'
