@@ -50,8 +50,9 @@ with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
     for one_data in f.readlines(): 
         # 将josn字符串转化为dict字典
+        pdb.set_trace()
         prompt_one = json.loads(one_data)
-        llm_summary(prompt_one)
+        llm_summary(one_data)
         pdb.set_trace()
  
 
