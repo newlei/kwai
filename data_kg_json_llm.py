@@ -37,7 +37,7 @@ for index, row in data_interaction_poi_att.iterrows():
     # print(index) # 输出每行的索引值
     poi_id = row['poi_id']
     if poi_id not in poi_att_dict:
-        poi_att_dict[poi_id] = "名称是"+str(row['poi_name'])+",类型是"+str(row['category_name'])+","+str(row['cate_2_name'])+","+str(row['cate_1_name'])+",所在地是"+str(row['city_name'])
+        poi_att_dict[poi_id] = "名称是"+str(row['poi_name'])+",类型是"+str(row['category_name'])+"-"+str(row['cate_2_name'])+"-"+str(row['cate_1_name'])+",所在地是"+str(row['city_name'])
 
 
 data = []
@@ -48,9 +48,7 @@ for index, row in data_interaction.iterrows():
     text = "用户"+"ID是："+str(user_id)+","+u_att_dict[user_id]
     text += "\\n 用户交互的产品序列如下：\\n"
     poi_list = row['poi_id']
-    for poi_id in poi_list:
-        pdb.set_trace()
-
+    for poi_id in poi_list:  
         text = text+ "产品ID是："+str(poi_id)+","+poi_att_dict[poi_id] 
         text+='\\n'
     data.append({
