@@ -22,10 +22,14 @@ print('user_att',user_att.size)
 # file_photo = '../photo_pdate_20241104.csv'
 # photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n')
 
+# poi_id|poi_name|category_id|category_name|cate_2_id|cate_2_name|cate_1_id|cate_1_name|country|province_id|province_name|city_id|city_name|district_id|district_name|town_name|brand_name|is_busi_goods|brand_level_reco|collect_poi_user_num
+
 file_poi = '../poi_pdate_20241104.csv'
-poi_att = pd.read_csv(file_poi, sep='|')
+poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'] sep='|')
 print('poi_att',poi_att.size)
 poi_att['poi_id'] = poi_att['poi_id'].fillna(0.0).astype('int', errors='ignore')
+
+pdb.set_trace()
 
 # df.astype({'value': 'int'}, errors='ignore')
 # poi_att[poi_att[poi_att['poi_id']=='seemly假发'].index]
