@@ -26,10 +26,10 @@ for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','p
     elif flag>1:
         data_pid = pd.concat([data_pid, chunk], axis=0)
     data_pid = data_pid.drop_duplicates(subset='photo_id')
-    print(data_pi.shape)
+    print(data_pid.shape)
 
 print(len(photo_list))
-print(data_pi.shape)
+print(data_pid.shape)
 
 pdb.set_trace()
 
