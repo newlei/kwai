@@ -27,15 +27,14 @@ print('user_att',user_att.size)
 file_poi = '../poi_pdate_20241104.csv'
 poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
 print('poi_att',poi_att.size)
-poi_att['poi_id'] = poi_att['poi_id'].fillna(0.0).astype('int', errors='ignore')
-
-pdb.set_trace()
-
-# df.astype({'value': 'int'}, errors='ignore')
-# poi_att[poi_att[poi_att['poi_id']=='seemly假发'].index]
+poi_att1 = poi_att[pd.to_numeric(poi_att['poi_id'], errors='coerce').notnull()]
+poi_att2 = poi_att1['poi_id'].astype('int64') 
 
 merged_table = pd.merge(data_interaction, user_att, on=['user_id'], how='inner')
-merged_table2 = pd.merge(data_interaction, poi_att, on=['poi_id'], how='inner')
+merged_table2 = pd.merge(data_interaction, poi_att2, on=['poi_id'], how='inner')
+
+print('merged_table:',merged_table.size)
+print('merged_table2:',merged_table2.size)
 
 pdb.set_trace()
 
