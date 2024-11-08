@@ -48,6 +48,8 @@ for index, row in data_interaction.iterrows():
     text += "用户交互的产品序列如下：\n"
     poi_list = row['poi_id']
     for poi_id in poi_list:
+        pdb.set_trace()
+        
         text = text+ "产品ID是："+str(poi_id)+","+poi_att_dict[poi_id] 
         text+='\n'
     data.append({
