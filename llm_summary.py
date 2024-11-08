@@ -16,7 +16,7 @@ prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击
 def llm_summary(prompt):
     messages = [
         {"role": "system", "content": "You are a helpful assistant."},
-        prompt
+        {"role": "user", "content": prompt}
     ]
     text = tokenizer.apply_chat_template(
         messages,
@@ -51,7 +51,6 @@ with open(json_path, 'r', encoding="utf-8") as f:
     for one_data in f.readlines(): 
         # 将josn字符串转化为dict字典
         prompt_one = json.loads(one_data)
-        pdb.set_trace()
         llm_summary(prompt_one)
         pdb.set_trace()
  
