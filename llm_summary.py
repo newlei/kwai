@@ -14,11 +14,11 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击产品1（肯德基套餐）,时间：周六的晚上，空间：商场；点击产品2（麦当劳套餐）,时间：周一的晚上，空间：公司。请总结出用户在时空场景的推荐偏好：从时间偏好，空间偏好，时空整体偏好，产品类型偏好"#"Give me a short introduction to large language model."
 
 def llm_summary(prompt):
-    # messages = [
-    #     {"role": "system", "content": "You are a helpful assistant."},
-    #     {"role": "user", "content": prompt}
-    # ]
-    messages = [prompt]
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": prompt}
+    ]
+    # messages = [prompt]
     text = tokenizer.apply_chat_template(
         messages,
         tokenize=False,
@@ -51,12 +51,10 @@ with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
     for one_data in f.readlines(): 
         # 将josn字符串转化为dict字典
-        pdb.set_trace()
-        prompt_one = json.loads(one_data)
-        llm_summary(one_data)
-        pdb.set_trace()
- 
-
+        llm_summary(one_data) 
+        # prompt_one = json.loads(one_data)
+        # llm_summary(prompt_one)
+        # pdb.set_trace()
 
 import torch
 import torch.nn.functional as F
