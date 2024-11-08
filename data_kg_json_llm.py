@@ -56,6 +56,9 @@ for index, row in data_interaction.iterrows():
     count_sel = -1
     for poi_id in poi_list:  
         count_sel+=1
+        
+        pdb.set_trace()
+
         try:
             time_local = time.localtime(time_list[count_sel])  
             dt1 = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
