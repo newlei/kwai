@@ -6,7 +6,8 @@ import pdb
 
 
 file_name = '../data_process/core10/data_interaction_final.csv'
-data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+# data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
 file_name = '../data_process/core10/data_interaction_final_cat_u_att.csv'
 data_interaction_u_att = pd.read_csv(file_name, sep='|')
@@ -40,18 +41,18 @@ for index, row in data_interaction_poi_att.iterrows():
 
 
 data = []
-instruction = "针对时空场景的推荐问题，请总结出用户在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，产品类型偏好，总体偏好。每个偏好用一句话描述。"
-data_interaction = data_interaction.groupby('user_id')["poi_id",].apply(list).reset_index(name="poi_id")
+instruction = "针对时空场景的推荐问题，请总结出用户在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，产品类型偏好，总体偏好。每个偏好用一句话描述。" 
+data_interaction = data_interaction.groupby('user_id').agg(list).reset_index()
 for index, row in data_interaction.iterrows():
     user_id = row['user_id']
     text = "用户"+"ID是："+str(user_id)+","+u_att_dict[user_id]
-    text += "用户交互的产品序列如下：\n"
+    text += "\\n 用户交互的产品序列如下：\\n"
     poi_list = row['poi_id']
     for poi_id in poi_list:
         pdb.set_trace()
-        
+
         text = text+ "产品ID是："+str(poi_id)+","+poi_att_dict[poi_id] 
-        text+='\n'
+        text+='\\n'
     data.append({
         "instruction": instruction,
         "input": text
