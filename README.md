@@ -26,7 +26,10 @@
 ../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv
 
 
-### 
+###  data_kg_json_llm.py
 将生成的数据构建成LLM读取的json文件。文件路径
 
 '../data_process/core'+str(10)+'/data_kg_llm.json'
+
+###  llm_summary.py
+总结用户的时空偏好

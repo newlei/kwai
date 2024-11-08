@@ -54,7 +54,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         llm_summary(one_data) 
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
-        # pdb.set_trace()
+        pdb.set_trace()
 
 import torch
 import torch.nn.functional as F
