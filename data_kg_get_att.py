@@ -14,13 +14,31 @@ print('data_interaction:',data_interaction.shape)
 
 
 
+chunksize = 10 ** 6
+file_photo = '../photo_pdate_20241104.csv'
+photo_list =[]
+flag = 0
+for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], chunksize=chunksize, sep='|', lineterminator='\n'):
+    photo_list.append(chunk) 
+    flag+=1
+    if flag ==1:
+        data_pid = chunk
+    elif flag>1:
+        data_pi = pd.concat([data_pid, chunk], axis=0)
+    data_pi = data_pi.drop_duplicates(subset='photo_id')
+
+print(len(photo_list))
+print(data_pi.shape)
+
+pdb.set_trace()
+
+
+
+
 file_user = '../user_pdate_20241104.csv'
 user_att = pd.read_csv(file_user, usecols=['user_id','photo_id','time_second','poi_id','label','play_duration','poi_page_stay_time'], sep='|')
 user_att.rename(columns={'user_id': 'user_id', 'photo_id': 'u_gender','time_second': 'u_age','poi_id': 'u_age_part','label': 'u_city','poi_page_stay_time': 'u_region'}, inplace=True)
 print('user_att',user_att.shape)
-
-# file_photo = '../photo_pdate_20241104.csv'
-# photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n')
 
 # poi_id|poi_name|category_id|category_name|cate_2_id|cate_2_name|cate_1_id|cate_1_name|country|province_id|province_name|city_id|city_name|district_id|district_name|town_name|brand_name|is_busi_goods|brand_level_reco|collect_poi_user_num
 
@@ -56,12 +74,4 @@ merged_poiatt.to_csv(file_name, sep='|')
 pdb.set_trace()
 
 
-
-chunksize = 10 ** 6
-file_photo = '../photo_pdate_20241104.csv'
-photo_list =[]
-for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], chunksize=chunksize, sep='|', lineterminator='\n'):
-    photo_list.append(chunk) 
-
-print(len(photo_list))
 
