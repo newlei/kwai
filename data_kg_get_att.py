@@ -48,7 +48,7 @@ user_att = pd.read_csv(file_user, names=column_names, header=None)
 # user_att = pd.read_csv(file_user, usecols=['user_id','photo_id','time_second','poi_id','label','play_duration','poi_page_stay_time'], sep='|')
 # user_att.rename(columns={'user_id': 'user_id', 'photo_id': 'u_gender','time_second': 'u_age','poi_id': 'u_age_part','label': 'u_city','poi_page_stay_time': 'u_region'}, inplace=True)
 print('user_att',user_att.shape)
-
+pdb.set_trace()
 
 # poi_id|poi_name|category_id|category_name|cate_2_id|cate_2_name|cate_1_id|cate_1_name|country|province_id|province_name|city_id|city_name|district_id|district_name|town_name|brand_name|is_busi_goods|brand_level_reco|collect_poi_user_num
 file_poi = '../poi_pdate_20241104.csv'

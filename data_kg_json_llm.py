@@ -39,9 +39,11 @@ for index, row in data_interaction_poi_att.iterrows():
         poi_att_dict[user_id] = "商品名称是"+str(row['poi_name'])+",商品类型是"+str(row['category_name'])+","+str(row['cate_2_name'])+","+str(row['cate_1_name'])+",商品所在地是"+str(row['city_name'])
 
 
+data = []
 data_interaction = data_interaction.groupby('user_id')["poi_id",].apply(list).reset_index(name="poi_id")
 for index, row in data_interaction.iterrows():
-
+    user_id = row['user_id']
+    
 
 
 
