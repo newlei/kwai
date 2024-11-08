@@ -45,12 +45,19 @@ instruction = "针对时空场景的推荐问题，请总结出用户在时空�
 data_interaction = data_interaction.groupby('user_id').agg(list).reset_index()
 for index, row in data_interaction.iterrows():
     user_id = row['user_id']
-    text = "用户"+"ID是："+str(user_id)+","+u_att_dict[user_id]
+    text = ""
+    try:
+        text = "用户"+"ID是："+str(user_id)+","+u_att_dict[user_id]
+    except:
+        text = ""
     text += "\\n 用户交互的产品序列如下：\\n"
     poi_list = row['poi_id']
     for poi_id in poi_list:  
-        text = text+ "产品ID是："+str(poi_id)+","+poi_att_dict[poi_id] 
-        text+='\\n'
+        try:
+            text = text+ "产品ID是："+str(poi_id)+","+poi_att_dict[poi_id] 
+            text+='\\n'
+        except:
+            continue
     data.append({
         "instruction": instruction,
         "input": text
