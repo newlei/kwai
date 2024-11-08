@@ -55,14 +55,12 @@ for index, row in data_interaction.iterrows():
     time_list = row['time_second']
     count_sel = -1
     for poi_id in poi_list:  
-        count_sel+=1
-
-        pdb.set_trace()
+        count_sel+=1 
 
         try:
             time_local = time.localtime(time_list[count_sel])  
             dt1 = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
-            text = text+ "在"+str()+"时间交互的产品ID是："+str(dt1)+","+poi_att_dict[poi_id]
+            text = text+ "在"+dt1+"时间交互的产品ID是："+str(poi_id)+","+poi_att_dict[poi_id]
             text+='\\n'
         except:
             continue
