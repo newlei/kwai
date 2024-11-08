@@ -10,14 +10,14 @@ csv.field_size_limit(sys.maxsize)
 #交互数据提取：user_id|photo_id|time_second|poi_id
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
-print(data_interaction.size)
+print(data_interaction.shape)
 
 
 
 file_user = '../user_pdate_20241104.csv'
 user_att = pd.read_csv(file_user, usecols=['user_id','photo_id','time_second','poi_id','label','play_duration','poi_page_stay_time'], sep='|')
 user_att.rename(columns={'user_id': 'user_id', 'photo_id': 'u_gender','time_second': 'u_age','poi_id': 'u_age_part','label': 'u_city','poi_page_stay_time': 'u_region'}, inplace=True)
-print('user_att',user_att.size)
+print('user_att',user_att.shape)
 
 # file_photo = '../photo_pdate_20241104.csv'
 # photo_att = pd.read_csv(file_photo, usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], sep='|', lineterminator='\n')
@@ -26,15 +26,29 @@ print('user_att',user_att.size)
 
 file_poi = '../poi_pdate_20241104.csv'
 poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
-print('poi_att',poi_att.size)
+print('poi_att',poi_att.shape)
 poi_att1 = poi_att[pd.to_numeric(poi_att['poi_id'], errors='coerce').notnull()]
-poi_att2 = poi_att1['poi_id'].astype('int64') 
+poi_att1['poi_id'] = poi_att1['poi_id'].astype('int64') 
 
-merged_table = pd.merge(data_interaction, user_att, on=['user_id'], how='inner')
-merged_table2 = pd.merge(data_interaction, poi_att2, on=['poi_id'], how='inner')
 
-print('merged_table:',merged_table.size)
-print('merged_table2:',merged_table2.size)
+# user att中有太多重复的了。
+# print(user_att['user_id'].duplicated().sum())
+user_att_unique = user_att.drop_duplicates(subset='user_id') 
+poi_att_unique = poi_att1.drop_duplicates(subset='poi_id') 
+data_interaction_u = data_interaction.drop_duplicates(subset='poi_id') 
+
+# print(poi_att_unique['poi_id'].duplicated().sum())
+# merged_table2 = pd.merge(data_interaction.head(10), poi_att_unique, on=['poi_id'], how='inner').size 
+
+# data_interaction.shape  (3201191, 4)
+merged_table = pd.merge(data_interaction,  user_att_unique,  on=['user_id'], how='inner')
+merged_table2 = pd.merge(data_interaction, poi_att_unique, on=['poi_id'], how='inner')
+
+print('merged_table:',merged_table.shape)
+print('merged_table2:',merged_table2.shape)
+
+
+
 
 pdb.set_trace()
 
