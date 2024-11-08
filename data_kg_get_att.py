@@ -10,7 +10,7 @@ csv.field_size_limit(sys.maxsize)
 #交互数据提取：user_id|photo_id|time_second|poi_id
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
-print(data_interaction.shape)
+print('data_interaction:',data_interaction.shape)
 
 
 
@@ -35,19 +35,22 @@ poi_att1['poi_id'] = poi_att1['poi_id'].astype('int64')
 # print(user_att['user_id'].duplicated().sum())
 user_att_unique = user_att.drop_duplicates(subset='user_id') 
 poi_att_unique = poi_att1.drop_duplicates(subset='poi_id') 
-data_interaction_u = data_interaction.drop_duplicates(subset='poi_id') 
+data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
 
 # print(poi_att_unique['poi_id'].duplicated().sum())
-# merged_table2 = pd.merge(data_interaction.head(10), poi_att_unique, on=['poi_id'], how='inner').size 
+# merged_table0 = pd.merge(data_interaction_u, poi_att_unique, on=['poi_id'], how='inner') 
 
 # data_interaction.shape  (3201191, 4)
-merged_table = pd.merge(data_interaction,  user_att_unique,  on=['user_id'], how='inner')
-merged_table2 = pd.merge(data_interaction, poi_att_unique, on=['poi_id'], how='inner')
+merged_uatt = pd.merge(data_interaction,  user_att_unique,  on=['user_id'], how='inner')
+merged_poiatt = pd.merge(data_interaction, poi_att_unique, on=['poi_id'], how='inner')
 
 print('merged_table:',merged_table.shape)
 print('merged_table2:',merged_table2.shape)
 
-
+file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att.csv'
+merged_uatt.to_csv(file_name, sep='|')
+file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv'
+merged_poiatt.to_csv(file_name, sep='|')
 
 
 pdb.set_trace()
