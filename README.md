@@ -26,3 +26,7 @@
 ../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv
 
 
+### 
+将生成的数据构建成LLM读取的json文件。文件路径
+
+'../data_process/core'+str(10)+'/data_kg_llm.json'

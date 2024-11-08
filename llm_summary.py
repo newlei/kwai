@@ -12,8 +12,16 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 
 prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击产品1（肯德基套餐）,时间：周六的晚上，空间：商场；点击产品2（麦当劳套餐）,时间：周一的晚上，空间：公司。请总结出用户在时空场景的推荐偏好：从时间偏好，空间偏好，时空整体偏好，产品类型偏好"#"Give me a short introduction to large language model."
 
+json_path = '../data_process/core'+str(10)+'/data_kg_llm.json'
+with open(json_path, 'r', encoding="utf-8") as f:
+    # 读取所有行 每行会是一个字符串
+    for one_data in f.readlines(): 
+        # 将josn字符串转化为dict字典
+        prompt_one = json.loads(one_data)
+        pdb.set_trace()
+ 
 messages = [
-    {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
+    {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": prompt}
 ]
 text = tokenizer.apply_chat_template(
