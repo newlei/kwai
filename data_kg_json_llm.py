@@ -36,14 +36,26 @@ for index, row in data_interaction_poi_att.iterrows():
     # print(index) # 输出每行的索引值
     user_id = row['user_id']
     if user_id not in poi_att_dict:
-        poi_att_dict[user_id] = "商品名称是"+str(row['poi_name'])+",商品类型是"+str(row['category_name'])+","+str(row['cate_2_name'])+","+str(row['cate_1_name'])+",商品所在地是"+str(row['city_name'])
+        poi_att_dict[user_id] = "名称是"+str(row['poi_name'])+",类型是"+str(row['category_name'])+","+str(row['cate_2_name'])+","+str(row['cate_1_name'])+",所在地是"+str(row['city_name'])
 
 
 data = []
+instruction = "针对时空场景的推荐问题，请总结出用户在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，产品类型偏好，总体偏好。每个偏好用一句话描述。"
 data_interaction = data_interaction.groupby('user_id')["poi_id",].apply(list).reset_index(name="poi_id")
 for index, row in data_interaction.iterrows():
     user_id = row['user_id']
-    
+    text = "用户"+"ID是："+str(user_id)+","+u_att_dict[user_id]
+    text += "用户交互的产品序列如下：\n"
+    poi_list = row['poi_id']
+    for poi_id in poi_list:
+        text = text+ "产品ID是："+str(poi_id)+","+poi_att_dict[poi_id] 
+        text+='\n'
+    data.append({
+        "instruction": instruction,
+        "input": text
+    })
+    pdb.set_trace()
+
 
 
 
