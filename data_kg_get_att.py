@@ -37,6 +37,8 @@ print('merged_pidatt:',merged_pidatt.shape)
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv'
 merged_pidatt.to_csv(file_name, sep='|') 
 
+exit()
+
 pdb.set_trace()
 
 

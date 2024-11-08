@@ -55,16 +55,6 @@ for index, row in data_interaction.iterrows():
         "instruction": instruction,
         "input": text
     })
-    pdb.set_trace()
-
-
-
-
-
-data.append({
-        "instruction": instruction,
-        "input": text
-    })
 
 output_file = '../data_process/core'+str(10)+'/data_kg_llm.json'
 
