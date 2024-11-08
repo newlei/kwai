@@ -14,10 +14,11 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击产品1（肯德基套餐）,时间：周六的晚上，空间：商场；点击产品2（麦当劳套餐）,时间：周一的晚上，空间：公司。请总结出用户在时空场景的推荐偏好：从时间偏好，空间偏好，时空整体偏好，产品类型偏好"#"Give me a short introduction to large language model."
 
 def llm_summary(prompt):
-    messages = [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": prompt}
-    ]
+    # messages = [
+    #     {"role": "system", "content": "You are a helpful assistant."},
+    #     {"role": "user", "content": prompt}
+    # ]
+    messages = [prompt]
     text = tokenizer.apply_chat_template(
         messages,
         tokenize=False,
