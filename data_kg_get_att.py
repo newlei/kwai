@@ -24,8 +24,9 @@ for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','p
     if flag ==1:
         data_pid = chunk
     elif flag>1:
-        data_pi = pd.concat([data_pid, chunk], axis=0)
-    data_pi = data_pi.drop_duplicates(subset='photo_id')
+        data_pid = pd.concat([data_pid, chunk], axis=0)
+    data_pid = data_pid.drop_duplicates(subset='photo_id')
+    print(data_pi.shape)
 
 print(len(photo_list))
 print(data_pi.shape)
