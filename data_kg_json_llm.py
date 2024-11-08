@@ -6,8 +6,8 @@ import time
 
 
 file_name = '../data_process/core10/data_interaction_final.csv'
-# data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
-data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
+data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+# data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
 file_name = '../data_process/core10/data_interaction_final_cat_u_att.csv'
 data_interaction_u_att = pd.read_csv(file_name, sep='|')
@@ -56,7 +56,7 @@ for index, row in data_interaction.iterrows():
     count_sel = -1
     for poi_id in poi_list:  
         count_sel+=1
-        
+
         pdb.set_trace()
 
         try:
