@@ -14,30 +14,30 @@ print('data_interaction:',data_interaction.shape)
 
 
 
-# chunksize = 10 ** 6
-# file_photo = '../photo_pdate_20241104.csv'
-# photo_list =[]
-# flag = 0
-# for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], chunksize=chunksize, sep='|', lineterminator='\n'):
-#     photo_list.append(chunk) 
-#     flag+=1
-#     if flag ==1:
-#         data_pid = chunk
-#     elif flag>1:
-#         data_pid = pd.concat([data_pid, chunk], axis=0)
-#     data_pid = data_pid.drop_duplicates(subset='photo_id')
-#     print(data_pid.shape,flag)
+chunksize = 10 ** 6
+file_photo = '../photo_pdate_20241104.csv'
+photo_list =[]
+flag = 0
+for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], chunksize=chunksize, sep='|', lineterminator='\n'):
+    photo_list.append(chunk) 
+    flag+=1
+    if flag ==1:
+        data_pid = chunk
+    elif flag>1:
+        data_pid = pd.concat([data_pid, chunk], axis=0)
+    data_pid = data_pid.drop_duplicates(subset='photo_id')
+    print(data_pid.shape,flag)
 
-# print(len(photo_list))
-# print(data_pid.shape)
+print(len(photo_list))
+print(data_pid.shape)
 
-# merged_pidatt = pd.merge(data_interaction, data_pid, on=['photo_id'], how='inner')
-# print('merged_pidatt:',merged_pidatt.shape) 
+merged_pidatt = pd.merge(data_interaction, data_pid, on=['photo_id'], how='inner')
+print('merged_pidatt:',merged_pidatt.shape) 
 
-# file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv'
-# merged_pidatt.to_csv(file_name, sep='|') 
+file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv'
+merged_pidatt.to_csv(file_name, sep='|') 
 
-# pdb.set_trace()
+pdb.set_trace()
 
 
 
