@@ -26,10 +26,16 @@ for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','p
     elif flag>1:
         data_pid = pd.concat([data_pid, chunk], axis=0)
     data_pid = data_pid.drop_duplicates(subset='photo_id')
-    print(data_pid.shape)
+    print(data_pid.shape,flag)
 
 print(len(photo_list))
 print(data_pid.shape)
+
+merged_pidatt = pd.merge(data_interaction, data_pid, on=['photo_id'], how='inner')
+print('merged_pidatt:',merged_pidatt.shape) 
+
+file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv'
+merged_pidatt.to_csv(file_name, sep='|') 
 
 pdb.set_trace()
 
