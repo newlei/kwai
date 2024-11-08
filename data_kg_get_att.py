@@ -44,8 +44,8 @@ data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
 merged_uatt = pd.merge(data_interaction,  user_att_unique,  on=['user_id'], how='inner')
 merged_poiatt = pd.merge(data_interaction, poi_att_unique, on=['poi_id'], how='inner')
 
-print('merged_table:',merged_table.shape)
-print('merged_table2:',merged_table2.shape)
+print('merged_uatt:',merged_uatt.shape)
+print('merged_poiatt:',merged_poiatt.shape)
 
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att.csv'
 merged_uatt.to_csv(file_name, sep='|')
