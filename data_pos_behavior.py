@@ -50,18 +50,17 @@ for index, row in data_interaction_i.iterrows():
         print("poi id double appear error",poi_id)
         pdb.set_trace()
 
-
 #针对任意item i和j，就计算交集，计算得到值，构建成矩阵。
 alpah=0.1
 # i_sim = np.zeros((len(i_ulist),len(i_ulist))) #reid 之后就可以用了。
-i_sim = np.zeros((i_id_max,i_id_max))
+i_sim = np.zeros((i_id_max+1,i_id_max+1))
 for i in i_ulist:
     for j in i_ulist:
        i_sim[i][j] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
 
 list_user_pair = []
 # pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
-pos_u_v = np.zeros((u_id_max,u_id_max))
+pos_u_v = np.zeros((u_id_max+1,u_id_max+1))
 for u,v in list_user_pair:
     same_item = u_ilist[u] &u_ilist[v] 
     sim_uv = 0
