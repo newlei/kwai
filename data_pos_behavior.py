@@ -13,10 +13,17 @@ user_id_list =[]
 u_id_max = 0
 i_id_max = 0
 
+u_id_current=0
+i_id_current=0
+
 data_interaction_u = data_interaction.groupby('user_id').agg(list).reset_index()
 for index, row in data_interaction_u.iterrows():
     user_id = row['user_id']
     poi_list = row['poi_id']
+    #reid 
+    user_id = u_id_current
+    u_id_current+=1
+
     user_id_list.append(user_id)
     if u_id_max<user_id:
         u_id_max = user_id
@@ -31,6 +38,10 @@ data_interaction_i = data_interaction.groupby('poi_id').agg(list).reset_index()
 for index, row in data_interaction_i.iterrows():
     poi_id = row['poi_id']
     user_list = row['user_id']
+    #reid 
+    poi_id = i_id_current
+    i_id_current+=1
+
     if i_id_max<poi_id:
         i_id_max = poi_id
     if poi_id not in i_ulist:
