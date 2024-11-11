@@ -47,7 +47,7 @@ pdb.set_trace()
 file_user = '../user_pdate_20241104.csv' 
 column_names = ["user_id", "u_gender", "u_age", "u_age_part","u_city","u_province","u_country","u_north","u_region"]
 user_att = pd.read_csv(file_user, names=column_names, header=None, sep='|')
-user_att = user_att.iloc[1: , :]
+# user_att = user_att.iloc[1: , :]
 # user_att = pd.read_csv(file_user, usecols=['user_id','photo_id','time_second','poi_id','label','play_duration','poi_page_stay_time'], sep='|')
 # user_att.rename(columns={'user_id': 'user_id', 'photo_id': 'u_gender','time_second': 'u_age','poi_id': 'u_age_part','label': 'u_city','poi_page_stay_time': 'u_region'}, inplace=True)
 print('user_att',user_att.shape) 
