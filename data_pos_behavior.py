@@ -1,7 +1,7 @@
 import numpy as np 
 import pdb 
 import time
-
+import pandas as pd
 
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
@@ -17,7 +17,7 @@ for index, row in data_interaction.iterrows():
     if user_id not in u_ilist:
         u_ilist[user_id]=set(poi_list)
     pdb.set_trace()
-    
+
 
 
 u_ilist[u] = set()
