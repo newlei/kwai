@@ -2,6 +2,67 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import pdb
 import json
 
+from transformers import AutoTokenizer
+from vllm import LLM, SamplingParams
+from huggingface_hub import snapshot_download
+from vllm.lora.request import LoRARequest
+import pdb
+
+#  CUDA_VISIBLE_DEVICES=4  python llm_summary.py
+# Initialize the tokenizer
+model_name = "Qwen/Qwen2.5-7B-Instruct"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+# Pass the default decoding hyperparameters of Qwen2.5-7B-Instruct
+# max_tokens is for the maximum length for generation.
+sampling_params = SamplingParams(temperature=0.7, top_p=0.8,top_k=20, repetition_penalty=1.1, max_tokens=512)
+# Input the model name or path. Can be GPTQ or AWQ models.
+llm = LLM(model=model_name, enforce_eager=True)
+
+def llm_gen(prompt):
+    messages = [
+        # {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "system", "content": prompt},
+    ]
+
+    # text = tokenizer.apply_chat_template(messages,tokenize=False, add_generation_prompt=True)
+    # print(text)
+    # pdb.set_trace()
+
+
+    text = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True
+    )
+
+    # generate outputs
+    # outputs = llm.generate([text], sampling_params,lora_request=LoRARequest("sql_adapter", 1, lora_local_path=sql_lora_path))
+    outputs = llm.generate([text], sampling_params)#,lora_request=LoRARequest("sql_adapter", 1, lora_local_path=sql_lora_path))
+
+    # Print the outputs.
+    for output in outputs:
+        prompt = output.prompt
+        generated_text = output.outputs[0].text
+        print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
+
+
+count=0
+json_path = '../data_process/core'+str(10)+'/data_kg_llm.json'
+with open(json_path, 'r', encoding="utf-8") as f:
+    # 读取所有行 每行会是一个字符串
+    for one_data in f.readlines(): 
+        # 将josn字符串转化为dict字典
+        llm_gen(one_data) 
+        # prompt_one = json.loads(one_data)
+        # llm_summary(prompt_one)
+        if count>4:
+            pdb.set_trace()
+        count+=1
+
+exit()
+
+
+
 model_name = "Qwen/Qwen2.5-7B-Instruct"
 # from_pretrained(model_path, device_map = "balanced_low_0")
 
