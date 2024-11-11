@@ -41,7 +41,7 @@ for index, row in data_interaction_poi_att.iterrows():
 
 
 data = []
-instruction = "针对时空场景的推荐问题，请总结出用户在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，产品类型偏好，总体偏好。每个偏好用一句话描述。其中对于时间相关信息需要分类成工作日、节假日、上午、中午、晚上等多种细粒度的时间标签，然后用于推理总结偏好" 
+instruction = "针对时空场景的推荐问题，请总结出用户在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，产品类型偏好，总体偏好。每个偏好用一句话描述。其中对于出现的时间信息需先分类成，早上，上午，中午，下午，傍晚，晚上，凌晨，工作日，节假日，法定节假日等多种细粒度的时间标签，然后用于推理总结偏好" 
 data_interaction = data_interaction.groupby('user_id').agg(list).reset_index()
 for index, row in data_interaction.iterrows():
     user_id = row['user_id']
