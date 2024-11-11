@@ -9,36 +9,61 @@ data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id'
 
 u_ilist = dict()
 i_ulist = dict()
+user_id_list =[]
+u_id_max = 0
+i_id_max = 0
 
-data_interaction = data_interaction.groupby('user_id').agg(list).reset_index()
-for index, row in data_interaction.iterrows():
+data_interaction_u = data_interaction.groupby('user_id').agg(list).reset_index()
+for index, row in data_interaction_u.iterrows():
     user_id = row['user_id']
     poi_list = row['poi_id']
+    user_id_list.append(user_id)
+    if u_id_max<user_id:
+        u_id_max = user_id
     if user_id not in u_ilist:
         u_ilist[user_id]=set(poi_list)
-    pdb.set_trace()
+    else:
+        print("user id double appear error",user_id)
+        pdb.set_trace()
 
 
+data_interaction_i = data_interaction.groupby('poi_id').agg(list).reset_index()
+for index, row in data_interaction_i.iterrows():
+    poi_id = row['poi_id']
+    user_list = row['user_id']
+    if i_id_max<poi_id:
+        i_id_max = poi_id
+    if poi_id not in i_ulist:
+        i_ulist[poi_id]=set(user_list)
+    else:
+        print("poi id double appear error",poi_id)
+        pdb.set_trace()
 
-u_ilist[u] = set()
-i_ulist[i] = set()
 
 #针对任意item i和j，就计算交集，计算得到值，构建成矩阵。
 alpah=0.1
-i_sim = np.zeros((len(i_ulist),len(i_ulist)))
+# i_sim = np.zeros((len(i_ulist),len(i_ulist))) #reid 之后就可以用了。
+i_sim = np.zeros((i_id_max,i_id_max))
 for i in i_ulist:
     for j in i_ulist:
        i_sim[i][j] = 1/(i_ulist[i]&i_ulist[j]+alpah)
 
+list_user_pair = []
+# pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
+pos_u_v = np.zeros((u_id_max,u_id_max))
 for u,v in list_user_pair:
     same_item = u_ilist[u] &u_ilist[v] 
     sim_uv = 0
     for i_one in same_item:
         for j_one in same_item:
             sim_uv+=i_sim[i_one][j_one]
+    # u_v_id = u+'-'+v
+    pos_u_v[u][v] = sim_uv
+    pos_u_v[v][u] = sim_uv
+
+pdb.set_trace()
 
 
-            
 
 
 
