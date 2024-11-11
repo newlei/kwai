@@ -47,31 +47,33 @@ def llm_summary(prompt):
     response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
     print(response)
+    return response
 
 # llm_summary(prompt)
 # pdb.set_trace()
 
 count=0
+input_texts =[] 
 json_path = '../data_process/core'+str(10)+'/data_kg_llm.json'
 with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
     for one_data in f.readlines(): 
         # 将josn字符串转化为dict字典
-        llm_summary(one_data) 
+        response_one = llm_summary(one_data) 
+        input_texts.append(response_one)
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
         if count>4:
-            pdb.set_trace()
+            break
+            # pdb.set_trace()
         count+=1
+
 
 
 import torch
 import torch.nn.functional as F
-
 from torch import Tensor
 from transformers import AutoTokenizer, AutoModel
-
-
 def last_token_pool(last_hidden_states: Tensor,
                  attention_mask: Tensor) -> Tensor:
     left_padding = (attention_mask[:, -1].sum() == attention_mask.shape[0])
@@ -81,7 +83,6 @@ def last_token_pool(last_hidden_states: Tensor,
         sequence_lengths = attention_mask.sum(dim=1) - 1
         batch_size = last_hidden_states.shape[0]
         return last_hidden_states[torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths]
-
 
 def get_detailed_instruct(task_description: str, query: str) -> str:
     return f'Instruct: {task_description}\nQuery: {query}'
@@ -106,8 +107,8 @@ model = AutoModel.from_pretrained('Alibaba-NLP/gte-Qwen2-7B-instruct', trust_rem
 max_length = 8192
 
 # # Tokenize the input texts
-# batch_dict = tokenizer(input_texts, max_length=max_length, padding=True, truncation=True, return_tensors='pt')
-batch_dict = tokenizer([response,response,response,response], max_length=max_length, padding=True, truncation=True, return_tensors='pt')
+batch_dict = tokenizer(input_texts, max_length=max_length, padding=True, truncation=True, return_tensors='pt')
+# batch_dict = tokenizer([response,response,response,response], max_length=max_length, padding=True, truncation=True, return_tensors='pt')
 outputs = model(**batch_dict)
 embeddings = last_token_pool(outputs.last_hidden_state, batch_dict['attention_mask'])
 
