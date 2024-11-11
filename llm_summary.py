@@ -46,6 +46,7 @@ def llm_summary(prompt):
 # llm_summary(prompt)
 # pdb.set_trace()
 
+count=0
 json_path = '../data_process/core'+str(10)+'/data_kg_llm.json'
 with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
@@ -54,7 +55,10 @@ with open(json_path, 'r', encoding="utf-8") as f:
         llm_summary(one_data) 
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
-        pdb.set_trace()
+        if count>4:
+            pdb.set_trace()
+        count+=1
+
 
 import torch
 import torch.nn.functional as F
