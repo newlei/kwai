@@ -57,6 +57,7 @@ i_sim = np.zeros((i_id_max+1,i_id_max+1))
 for i in i_ulist:
     for j in i_ulist:
        i_sim[i][j] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
+       i_sim[j][i] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
 
 list_user_pair = []
 # pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
