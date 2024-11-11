@@ -2,8 +2,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import pdb
 import json
 
-model_name = "Qwen/Qwen2.5-7B-Instruct"
-# model_name ="Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
+# model_name = "Qwen/Qwen2.5-7B-Instruct"
+model_name ="Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
 # from_pretrained(model_path, device_map = "balanced_low_0")
 
 model = AutoModelForCausalLM.from_pretrained(
@@ -29,7 +29,7 @@ def llm_summary(prompt):
         add_generation_prompt=True
     )
     print(model.device,"model.device")
-    model_inputs = tokenizer([text], return_tensors="pt").to("cuda:1")#model.device)
+    model_inputs = tokenizer([text], return_tensors="pt").to(model.device) #"cuda:1")#
     # sampling_params = SamplingParams(temperature=0.7, top_p=0.8,top_k=20, repetition_penalty=1.1, max_tokens=1024)
     generated_ids = model.generate(
         **model_inputs,
