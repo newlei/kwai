@@ -19,10 +19,15 @@
 最后生成的数据在
 
 拼接了user的属性，少了3K个user，交互从300w到了100w
+
 ../data_process/core'+str(10)+'/data_interaction_final_cat_u_att.csv
+
 拼接了poi的属性，几乎poi都在，交互还是300万，少了一点零头
+
 ../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv
+
 拼接了photo的属性
+
 ../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv
 
 
@@ -31,5 +36,11 @@
 
 '../data_process/core'+str(10)+'/data_kg_llm.json'
 
+- 还缺一个针对item的数据构建。
+
 ###  llm_summary.py
-总结用户的时空偏好
+总结用户的时空偏好并提取emb，目前是一条条的送进去，还没有形成batch，因为显存不够。
+
+
+###  data_pos_behavoir.py
+用于找到正样本，便于利用对比学习，将信号对齐。
