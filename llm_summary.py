@@ -3,11 +3,13 @@ import pdb
 import json
 
 model_name = "Qwen/Qwen2.5-7B-Instruct"
+# from_pretrained(model_path, device_map = "balanced_low_0")
 
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
     torch_dtype="auto",
-    device_map="balanced_low_0"
+    device_map="auto",
+    tensor_parallel_size=4
 )
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
