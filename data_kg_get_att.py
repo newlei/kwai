@@ -33,8 +33,8 @@ mapping_dict['poi_id'] = mapping
 
 
 file_poi = '../poi_pdate_20241104.csv'
-poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
-
+poi_att1 = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
+poi_att = poi_att1[pd.to_numeric(poi_att1['poi_id'], errors='coerce').notnull()]
 poi_att['poi_id'] = poi_att['poi_id'].map(lambda x: mapping_dict['poi_id'].get_loc(x) if x in mapping_dict['poi_id'] else -1)
 
 pdb.set_trace()
