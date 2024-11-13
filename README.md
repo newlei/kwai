@@ -44,3 +44,8 @@
 
 ###  data_pos_behavoir.py
 用于找到正样本，便于利用对比学习，将信号对齐。
+目前1/(len(i_ulist[i]&i_ulist[j])+alpah)计算过程特别慢，因为要计算所有的i，j的pair情况
+
+
+###  adapter_network.py
+adapter网络，因为现在还没有真实数据，给了一下随机的数据进行测试。目前loss稳定下降。
