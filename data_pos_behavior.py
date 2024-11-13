@@ -107,7 +107,7 @@ print('set intersection set, start')
 start_time = time.time()
 result = intersection_lengths_sparse(i_ulist_list)
 elapsed_time = time.time() - start_time
-print('--train--',elapsed_time)
+print('--train--',elapsed_time)#只要15s，最快的方法。
 
 
 alpah = 0.2
