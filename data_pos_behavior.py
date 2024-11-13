@@ -113,7 +113,7 @@ print('--train--',elapsed_time)#只要15s，最快的方法。
 alpah = 0.2
 list_user_pair = []
 for i in range(u_id_max+1):
-    for i in range(u_id_max+1):
+    for j in range(u_id_max+1):
         list_user_pair.append([i,j])
 # pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
 pos_u_v = np.zeros((u_id_max+1,u_id_max+1))
