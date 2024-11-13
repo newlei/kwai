@@ -44,6 +44,7 @@ class Adapter(nn.Module):
             nn.Dropout(0.25),
             nn.Tanh(),
             nn.Linear(int(3584/64), int(3584/128)),#56-28
+            nn.Tanh(),
         )
         self.temperature = 0.7
         self.neg_sample = neg_sample#10
@@ -56,7 +57,7 @@ class Adapter(nn.Module):
 
         cos_sim_pos = F.cosine_similarity(input_emb_f, pos_emb_f, dim=-1)/self.temperature
         cos_sim_neg = F.cosine_similarity(input_copy_emb_f, neg_emb_f, dim=-1)/self.temperature
-        loss_base = torch.exp(cos_sim_pos)/torch.exp(cos_sim_neg).view(-1, self.neg_sample).mean(dim=1)
+        loss_base = torch.exp(cos_sim_pos)/torch.exp(cos_sim_neg).view(-1, self.neg_sample).sum(dim=1)
         loss = -torch.log(loss_base).mean(-1)
         return loss
 
@@ -104,7 +105,7 @@ batch_size = 128
 model = Adapter(neg_sample)
 model = model.to('cuda') 
 
-optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.01)#, betas=(0.5, 0.99))
+optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.005)#, betas=(0.5, 0.99))
 
 # emb_dict  #是个dict，dict[i]=emb，emb是llm得到的。
 # pair_dict #是个dict，dict[i]=postive of i，通过data_pos_behavior.py得到的，dict[user]的postive user of dict[user], dict[item]的postive item of dict[item]
