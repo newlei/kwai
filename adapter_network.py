@@ -65,7 +65,8 @@ class Adapter(nn.Module):
         neg_loss = neg_loss.mean(dim=1)
         # 总损失是正样本损失和负样本损失之和
         loss = pos_loss.mean() + neg_loss.mean()
-
+        return loss
+        
         # loss_base = torch.exp(cos_sim_pos)/torch.exp(cos_sim_neg).view(-1, self.neg_sample).sum(dim=1)
         # loss = -torch.log(loss_base).mean(-1)
         # return loss
