@@ -84,7 +84,7 @@ class embData(data.Dataset):
         u_id = self.all_id[idx] 
         pos_id_list  = self.pair_dict[u_id]
         pos_id = np.random.choice(pos_id_list,1)[0]#random.sample(set(pos_id_list),1)
-        print(pos_id,'----') 
+        # print(pos_id,'----') 
 
         u = self.emb_dict[u_id]
         u_pos = self.emb_dict[pos_id]
