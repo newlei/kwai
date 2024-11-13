@@ -110,37 +110,29 @@ def intersection_lengths_sparse(sets_list):
     # upper_triangle = np.triu_indices_from(intersect_counts.toarray(), k=1)
     # return intersect_counts[upper_triangle].toarray()
 
-count=0
-for i_one in range(len(i_ulist_list)):
-    try:
-        if len(i_ulist_list[i_one])<=0:
-            print(count)
-            pdb.set_trace()
-        count+=1
-    except:
-        print(count)
-        pdb.set_trace()
-        
-
 # 示例
 print('set intersection set, start')
 start_time = time.time()
-result = intersection_lengths_sparse(i_ulist_list)
+result_iu = intersection_lengths_sparse(i_ulist_list)
 elapsed_time = time.time() - start_time
 print('--train--',elapsed_time)#只要15s，最快的方法。
 
 
 alpah = 0.2
-list_user_pair = list(itertools.product(range(u_id_max), range(u_id_max)))
+# list_user_pair = list(itertools.product(range(u_id_max), range(u_id_max)))
 # pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
-pos_u_v = np.zeros((u_id_max+1,u_id_max+1))
-print('pos_u_v end',u_id_max,i_id_max)
-for u,v in list_user_pair:
+pos_u_v = np.zeros((u_id_max,u_id_max))
+
+result_ui = intersection_lengths_sparse(u_ilist_list)
+list_user_pair = np.argwhere(result_ui>0) #6830267,2
+
+for one_pair in list_user_pair:
+    u,v = one_pair
     same_item = u_ilist[u] &u_ilist[v] 
     sim_uv = 0
     for i_one in same_item:
         for j_one in same_item:
-            sim_uv+=1/(result[i_one][j_one]+alpah)
+            sim_uv+=1/(result_iu[i_one][j_one]+alpah)
     # u_v_id = u+'-'+v
     pos_u_v[u][v] = sim_uv
     pos_u_v[v][u] = sim_uv
