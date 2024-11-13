@@ -7,6 +7,45 @@ import csv
 csv.field_size_limit(sys.maxsize)
 
 
+
+# 做reid操作。
+
+u_reid_old2new = dict()
+u_reid_new2old = dict()
+u_reid_newid = 0 
+
+i_reid_old2new = dict()
+i_reid_new2old = dict()
+i_reid_nweid = 0 
+
+
+file_name = '../data_process/core10/data_interaction_final.csv'
+data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+print('data_interaction:',data_interaction.shape)
+
+for index, row in data_interaction.iterrows():
+    # print(index) # 输出每行的索引值
+    u_id = row['user_id']
+    poi_id = row['poi_id']
+
+    if u_id not in u_reid_old2new:
+        u_reid_old2new[u_id] = u_reid_newid
+        u_reid_new2old[u_reid_newid] = u_id
+        u_reid_newid+=1
+
+    if poi_id not in i_reid_old2new:
+        i_reid_old2new[poi_id] = i_reid_nweid
+        i_reid_new2old[i_reid_nweid] = poi_id
+        i_reid_nweid+=1
+    
+    row['user_id'] = u_reid_old2new[u_id]
+    row['poi_id'] = i_reid_old2new[poi_id]
+
+pdb.set_trace()
+
+
+
+
 #交互数据提取：user_id|photo_id|time_second|poi_id
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
@@ -83,6 +122,9 @@ merged_poiatt.to_csv(file_name, sep='|')
 
 
 pdb.set_trace()
+
+
+
 
 
 
