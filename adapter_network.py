@@ -166,7 +166,6 @@ all_user_list = np.array(range(user_len))
 for i in range(user_len): 
     emb_dict[i] = np.random.rand(3584).astype(np.float32)
     pair_dict[i] = np.random.choice(all_user_list,np.random.randint(98)+2)
-    # np.random.choice(list(all_user_list),np.random.randint(98)+2)
     # pdb.set_trace()
 
 
