@@ -91,7 +91,7 @@ class embData(data.Dataset):
 
         u_copy = [u]*self.neg_sample
         neg_id_list = self.all_id_set -set(pos_id_list)
-        u_neg_id = random.sample(neg_id_list,self.neg_sample)
+        u_neg_id = np.random.choice(list(neg_id_list),self.neg_sample) #random.sample(neg_id_list,self.neg_sample)
         u_neg = [self.emb_dict[k] for k in u_neg_id]# self.emb_dict[u_neg_id]
  
         #实际上只用到一半去计算，不需要j的。
@@ -113,11 +113,12 @@ optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.001)#, betas=(0.5, 0.9
 user_len = 1000
 emb_dict =dict()
 pair_dict =dict()
-all_user_list = set(np.array(range(user_len)))
+all_user_list = np.array(range(user_len))
 for i in range(user_len): 
     emb_dict[i] = np.random.rand(3584).astype(np.float32)
-    pair_dict[i] = random.sample(all_user_list,np.random.randint(98)+2)
-    pdb.set_trace()
+    pair_dict[i] = np.random.choice(all_user_list,np.random.randint(98)+2)
+    # np.random.choice(list(all_user_list),np.random.randint(98)+2)
+    # pdb.set_trace()
 
 
 # emb_dict=None,neg_sample=0,pair_dict=None
