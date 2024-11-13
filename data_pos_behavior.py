@@ -133,12 +133,15 @@ for one_pair in list_user_pair:
     
     pos_u_v[u][v] = sim_uv
     pos_u_v[v][u] = sim_uv
-    
+
     elapsed_time = time.time() - start_time
     elapsed_time_all+=elapsed_time
     elapsed_time_count+=1
     elapsed_time_average = elapsed_time_all/elapsed_time_count
-    print('--train--',elapsed_time,'---avg time--',elapsed_time_average)#只要15s，最快的方法。
+    print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
+
+elapsed_time = time.time() - start_time
+print('--all time--',elapsed_time,'---avg time--',elapsed_time_average) 
 
 pdb.set_trace()
 
