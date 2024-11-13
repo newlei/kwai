@@ -121,6 +121,8 @@ list_user_pair = np.argwhere(result_ui>0) #6830267,2
 
 print('list_user_pair is end,list_user_pair.shape',list_user_pair.shape)
 
+result_iu = 1/(result_iu+alpah)
+
 elapsed_time_all = 0
 elapsed_time_count =0
 for one_pair in list_user_pair:
@@ -129,7 +131,8 @@ for one_pair in list_user_pair:
     u,v = one_pair
     same_item = u_ilist[u] &u_ilist[v] 
     same_item_list = list(same_item)
-    sim_uv = np.sum(1/(result_iu[np.ix_(same_item_list, same_item_list)]+alpah))
+    # sim_uv = np.sum(1/(result_iu[np.ix_(same_item_list, same_item_list)]+alpah))
+    sim_uv = np.sum(result_iu[np.ix_(same_item_list, same_item_list)])
     
     pos_u_v[u][v] = sim_uv
     pos_u_v[v][u] = sim_uv
