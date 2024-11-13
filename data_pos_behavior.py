@@ -141,7 +141,7 @@ for one_pair in list_user_pair:
     print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
 
 elapsed_time = time.time() - start_time
-print('--all time--',elapsed_time,'---avg time--',elapsed_time_average) 
+print('--all time--',elapsed_time,'---avg time--',elapsed_time_average) #预计22分钟。
 
 pdb.set_trace()
 
