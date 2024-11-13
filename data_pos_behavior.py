@@ -64,6 +64,29 @@ i_sim = np.zeros((i_id_max+1,i_id_max+1))
 # nt = lambda a, b: i_ulist[a].intersection(i_ulist[b])
 # res = dict([ (t, nt(*t)) for t in pairs ])
 
+
+# 构建反向索引
+element_to_sets = defaultdict(list)
+for i, s in enumerate(i_ulist):
+    for elem in s:
+        element_to_sets[elem].append(i)
+
+for target_set in i_ulist: 
+    # 仅检查 target_set 中的元素对应的集合
+    start_time = time.time()
+    print(i)
+    candidate_indices = set()
+    for elem in target_set:
+        candidate_indices.update(element_to_sets.get(elem, []))
+    # 计算交集
+    intersection_results = [target_set & set_list[i] for i in candidate_indices if target_set & set_list[i]]
+    i_sim[i][j] = 1/(len(intersection_results)+alpah)
+    i_sim[j][i] = i_sim[i][j]
+    print('--train--',elapsed_time)
+    pdb.set_trace()
+
+
+
 for i in i_ulist: 
     start_time = time.time()
     print(i)
