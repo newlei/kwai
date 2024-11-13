@@ -46,7 +46,7 @@ class Adapter(nn.Module):
             # nn.Tanh(),
             nn.LeakyReLU(0.2,inplace=True),
             nn.Linear(int(3584/64), int(3584/128)),#56-28
-            nn.Tanh(),
+            # nn.Tanh(),
         )
         self.temperature = 0.9
         self.neg_sample = neg_sample#10
