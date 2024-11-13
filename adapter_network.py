@@ -49,11 +49,14 @@ class Adapter(nn.Module):
         self.neg_sample = neg_sample#10
     def forward(self, input_emb, pos_emb, input_copy_emb, neg_emb):
         
+        
+
         input_emb_f = self.net(input_emb)
         pos_emb_f = self.net(pos_emb)
         input_copy_emb_f = self.net(input_copy_emb)
         neg_emb_f = self.net(neg_emb)
-
+        pdb.set_trace()
+        
         cos_sim_pos = F.cosine_similarity(input_emb, pos_emb, dim=-1)/self.temperature
         cos_sim_neg = F.cosine_similarity(input_copy_emb_f, neg_emb, dim=-1)/self.temperature
         loss_base = torch.exp(cos_sim_pos)/torch.exp(cos_sim_neg).view(-1, self.neg_sample, M).sum(dim=1)
@@ -143,7 +146,6 @@ for epoch in range(350):
         pos_emb = pos_emb.cuda()
         u_copy = u_copy.cuda() 
         neg_emb = neg_emb.cuda()
-        pdb.set_trace()
 
         model.zero_grad()
         loss= model(u_emb, pos_emb, u_copy, neg_emb) 
