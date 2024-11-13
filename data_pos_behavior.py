@@ -150,7 +150,7 @@ def compute_intersections(list_user_pair, max_workers=8):
 start_time = time.time()
 list_sim_uv = compute_intersections(list_user_pair,8)
 elapsed_time = time.time() - start_time
-print('--each pair time--',elapsed_time)
+print('--each pair time--',elapsed_time) #550.3678503036499
 pdb.set_trace()
 
 
