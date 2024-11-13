@@ -102,8 +102,18 @@ model = model.to('cuda')
 
 optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.001)#, betas=(0.5, 0.99))
 
-emb_dict #是个dict，dict[i]=emb，emb是llm得到的。
-pair_dict #是个dict，dict[i]=postive of i，通过data_pos_behavior.py得到的，dict[user]的postive user of dict[user], dict[item]的postive item of dict[item]
+# emb_dict  #是个dict，dict[i]=emb，emb是llm得到的。
+# pair_dict #是个dict，dict[i]=postive of i，通过data_pos_behavior.py得到的，dict[user]的postive user of dict[user], dict[item]的postive item of dict[item]
+
+# 测试的案例 emb_dict and pair_dict
+user_len = 1000
+emb_dict =dict()
+pair_dict =dict()
+all_user_list = np.array(range(user_len))
+for i in range(user_len):
+    emb_dict[i] = np.random.rand(3584)
+    pair_dict[i] = random.sample(all_user_list,np.random.randint(100))
+
 
 # emb_dict=None,neg_sample=0,pair_dict=None
 train_dataset = embData(
