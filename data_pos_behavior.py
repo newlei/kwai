@@ -7,6 +7,7 @@ from collections import defaultdict
 from itertools import combinations
 from joblib import Parallel, delayed
 from itertools import combinations 
+import scipy
 from scipy.sparse import csr_matrix 
 
 file_name = '../data_process/core10/data_interaction_final.csv'
