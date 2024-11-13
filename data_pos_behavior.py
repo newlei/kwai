@@ -122,11 +122,14 @@ alpah = 0.2
 # list_user_pair = list(itertools.product(range(u_id_max), range(u_id_max)))
 # pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
 pos_u_v = np.zeros((u_id_max,u_id_max))
-
 result_ui = intersection_lengths_sparse(u_ilist_list)
 list_user_pair = np.argwhere(result_ui>0) #6830267,2
 
+print('list_user_pair is end,list_user_pair.shape',list_user_pair.shape)
+
 for one_pair in list_user_pair:
+    start_time = time.time()
+
     u,v = one_pair
     same_item = u_ilist[u] &u_ilist[v] 
     sim_uv = 0
@@ -136,6 +139,8 @@ for one_pair in list_user_pair:
     # u_v_id = u+'-'+v
     pos_u_v[u][v] = sim_uv
     pos_u_v[v][u] = sim_uv
+    elapsed_time = time.time() - start_time
+    print('--train--',elapsed_time)#只要15s，最快的方法。
 
     pdb.set_trace()
 
@@ -206,6 +211,7 @@ for i in i_ulist:
        i_sim[j][i] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
     elapsed_time = time.time() - start_time
     print('--train--',elapsed_time)
+
 
 
 
