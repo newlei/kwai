@@ -130,8 +130,10 @@ for one_pair in list_user_pair:
     same_item = u_ilist[u] &u_ilist[v] 
     sim_uv = 0
 
-    pdb.set_trace()
-    x1 = np.sum(1/arr[same_item][same_item]+alpah)
+    
+    same_item_list = list(same_item)
+    x1 = np.sum(1/(result_iu[np.ix_(same_item_list, same_item_list)]+alpah))
+    
 
     for i_one in same_item:
         for j_one in same_item:
@@ -139,6 +141,7 @@ for one_pair in list_user_pair:
     # u_v_id = u+'-'+v
     pos_u_v[u][v] = sim_uv
     pos_u_v[v][u] = sim_uv
+    pdb.set_trace()
     elapsed_time = time.time() - start_time
     elapsed_time_all+=elapsed_time
     elapsed_time_count+=1
