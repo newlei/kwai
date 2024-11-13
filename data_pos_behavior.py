@@ -90,16 +90,17 @@ def sets_to_sparse_matrix(sets_list):
 def intersection_lengths_sparse(sets_list):
     # 转换为稀疏矩阵
     sparse_matrix = sets_to_sparse_matrix(sets_list)
-    print('sparse_matrix is end')
+    # print('sparse_matrix is end')
     # 稀疏矩阵乘法计算交集大小
     # intersect_counts = sparse_matrix @ sparse_matrix.T
     intersect_counts = sparse_matrix.dot(sparse_matrix.T)
-    print('sparse_matrix dot is end')
-    pdb.set_trace()
+    # print('sparse_matrix dot is end')
+    return intersect_counts.toarray()
 
-    # 提取上三角部分，不包括对角线元素
-    upper_triangle = np.triu_indices_from(intersect_counts.toarray(), k=1)
-    return intersect_counts[upper_triangle].toarray()
+    # pdb.set_trace()
+    # # 提取上三角部分，不包括对角线元素
+    # upper_triangle = np.triu_indices_from(intersect_counts.toarray(), k=1)
+    # return intersect_counts[upper_triangle].toarray()
 
 # 示例
 print('set intersection set, start')
