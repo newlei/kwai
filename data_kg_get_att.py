@@ -10,6 +10,34 @@ csv.field_size_limit(sys.maxsize)
 
 # 做reid操作。
 
+file_name = '../data_process/core10/data_interaction_final.csv'
+data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+print('data_interaction:',data_interaction.shape)
+
+# 创建字典保存原值和reid后的映射关系
+mapping_dict = {}
+
+data_interaction['user_id'], mapping = pd.factorize(data_interaction['user_id'])
+mapping_dict['user_id'] = mapping
+
+data_interaction['poi_id'], mapping = pd.factorize(data_interaction['poi_id'])
+mapping_dict['poi_id'] = mapping
+
+# # 重新编码（reid）每一列
+# for col in df.columns:
+#     df[col], mapping = pd.factorize(df[col])
+#     mapping_dict[col] = mapping
+
+pdb.set_trace()
+
+
+# # 打印每列原值和reid值的映射关系
+# for col, mapping in mapping_dict.items():
+#     print(f"\n列 '{col}' 的映射关系：")
+#     for idx, original_value in enumerate(mapping):
+#         print(f"{original_value} -> {idx}")
+
+
 u_reid_old2new = dict()
 u_reid_new2old = dict()
 u_reid_newid = 0 
@@ -22,6 +50,7 @@ i_reid_nweid = 0
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 print('data_interaction:',data_interaction.shape)
+
 
 for index, row in data_interaction.iterrows():
     # print(index) # 输出每行的索引值
