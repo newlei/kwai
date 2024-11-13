@@ -124,7 +124,7 @@ for u,v in list_user_pair:
     pos_u_v[u][v] = sim_uv
     pos_u_v[v][u] = sim_uv
 
-pdb.set_trace()
+    pdb.set_trace()
 
 
 
