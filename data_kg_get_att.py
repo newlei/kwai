@@ -76,7 +76,7 @@ merged_poiatt = pd.merge(data_interaction, poi_att_unique, on=['poi_id'], how='i
 
 print('merged_uatt:',merged_uatt.shape)
 print('merged_poiatt:',merged_poiatt.shape)
-pdb.set_trace()
+# pdb.set_trace()
 
 x1= merged_uatt.drop_duplicates(subset='user_id') 
 x2= data_interaction.drop_duplicates(subset='user_id') 
