@@ -84,7 +84,7 @@ def sets_to_sparse_matrix(sets_list):
             cols.append(element_index[element])
     
     # 稀疏布尔矩阵
-    sparse_matrix = csr_matrix((data, (rows, cols)), shape=(len(sets_list), len(all_elements)), dtype=int)
+    sparse_matrix = csr_matrix((data, (rows, cols)), shape=(len(sets_list)+1, len(all_elements)+1), dtype=int)
     return sparse_matrix
 
 def intersection_lengths_sparse(sets_list):
@@ -92,7 +92,7 @@ def intersection_lengths_sparse(sets_list):
     sparse_matrix = sets_to_sparse_matrix(sets_list)
     
     # 稀疏矩阵乘法计算交集大小
-    intersect_counts = sparse_matrix @ sparse_matrix.T
+    # intersect_counts = sparse_matrix @ sparse_matrix.T
     intersect_counts = sparse_matrix.dot(sparse_matrix.T)
     # 提取上三角部分，不包括对角线元素
     upper_triangle = np.triu_indices_from(intersect_counts.toarray(), k=1)
