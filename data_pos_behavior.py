@@ -129,7 +129,7 @@ for one_pair in list_user_pair:
     start_time = time.time()
 
     u,v = one_pair
-    same_item = u_ilist[u] &u_ilist[v] 
+    same_item = u_ilist[u]&u_ilist[v] 
     same_item_list = list(same_item)
     # sim_uv = np.sum(1/(result_iu[np.ix_(same_item_list, same_item_list)]+alpah))
     sim_uv = np.sum(result_iu[np.ix_(same_item_list, same_item_list)])
