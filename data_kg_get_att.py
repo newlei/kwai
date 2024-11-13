@@ -123,7 +123,7 @@ mapping_dict = pickle.load(file)
 #         print(f"{original_value} -> {idx}")
 
 file_poi = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv'
-poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
+poi_att = pd.read_csv(file_poi, sep='|')
 poi_att['poi_id'] = poi_att['poi_id'].map(lambda x: mapping_dict['poi_id'].get_loc(x) if x in mapping_dict['poi_id'] else -1)
 
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att_reid.csv'
