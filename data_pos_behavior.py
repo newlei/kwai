@@ -3,7 +3,7 @@ import pdb
 import time
 import pandas as pd
 import itertools as IT
-
+from collections import defaultdict
 
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
