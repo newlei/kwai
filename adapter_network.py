@@ -149,7 +149,7 @@ class Adapter(nn.Module):
 
 
 neg_sample =10
-batch_size = 1024*8
+batch_size = 1024*4
 model = Adapter(neg_sample)
 model = model.to('cuda') 
 
