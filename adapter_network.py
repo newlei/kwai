@@ -78,7 +78,8 @@ class embData_allpos(data.Dataset):
 
         u = self.emb_dict[u_id]
         u_pos = self.emb_dict[pos_id]
- 
+        
+        pos_id_list  = self.pair_dict[u_id]
         neg_id_list = self.all_id_set -set(pos_id_list)
         u_neg_id = np.random.choice(list(neg_id_list),self.neg_sample) #random.sample(neg_id_list,self.neg_sample)
         u_neg = [self.emb_dict[k] for k in u_neg_id]# self.emb_dict[u_neg_id]
