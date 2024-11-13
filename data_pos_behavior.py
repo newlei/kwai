@@ -28,8 +28,6 @@ i_ulist = dict()
 i_ulist_list = [None]*i_id_max #[set() for _ in range(i_id_max)]
 
 user_id_list =[]
-u_id_max = 0
-i_id_max = 0
 
 u_id_current=0
 i_id_current=0
@@ -40,8 +38,6 @@ for index, row in data_interaction_u.iterrows():
     poi_list = row['poi_id']
 
     user_id_list.append(user_id)
-    if u_id_max<user_id:
-        u_id_max = user_id
     if user_id not in u_ilist:
         u_ilist[user_id]=set(poi_list) 
         u_ilist_list[user_id]=set(poi_list)
@@ -58,8 +54,6 @@ for index, row in data_interaction_i.iterrows():
     poi_id = i_id_current
     i_id_current+=1
 
-    if i_id_max<poi_id:
-        i_id_max = poi_id
     if poi_id not in i_ulist:
         i_ulist[poi_id]=set(user_list)
         i_ulist_list[poi_id]= set(user_list)
@@ -137,7 +131,7 @@ for one_pair in list_user_pair:
     sim_uv = 0
 
     pdb.set_trace()
-    = np.sum(1/arr[same_item][same_item]+alpah)
+    x1 = np.sum(1/arr[same_item][same_item]+alpah)
 
     for i_one in same_item:
         for j_one in same_item:
