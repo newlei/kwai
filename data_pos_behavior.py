@@ -136,6 +136,12 @@ exit()
 
 
 
+
+
+
+
+
+
 #使用布尔运算的方案。
 def sets_to_bool_matrix(sets_list):
     # 获取所有元素的全集
