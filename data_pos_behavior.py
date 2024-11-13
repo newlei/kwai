@@ -23,9 +23,9 @@ i_id_max = data_interaction_i.shape[0]+1
 print(u_id_max,i_id_max)
 
 u_ilist = dict()
-u_ilist_list = [set() for _ in range(u_id_max)]#[set()]*u_id_max
+u_ilist_list = [None]*u_id_max #[set() for _ in range(u_id_max)]
 i_ulist = dict()
-i_ulist_list = [set() for _ in range(i_id_max)#[]*i_id_max
+i_ulist_list = [None]*i_id_max #[set() for _ in range(i_id_max)]
 
 user_id_list =[]
 u_id_max = 0
