@@ -4,6 +4,7 @@ import time
 import pandas as pd
 import itertools as IT
 from collections import defaultdict
+from itertools import combinations
 
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
@@ -60,34 +61,14 @@ alpah=0.1
 i_sim = np.zeros((i_id_max+1,i_id_max+1))
 
 
-# pairs = IT.combinations(i_ulist, 2)
-# nt = lambda a, b: i_ulist[a].intersection(i_ulist[b])
-# res = dict([ (t, nt(*t)) for t in pairs ])
 
 
-# 构建反向索引
-element_to_sets = defaultdict(list)
-for i, s in enumerate(i_ulist_list):
-    for elem in s:
-        element_to_sets[elem].append(i)
-
-for i in i_ulist: 
-    # 仅检查 target_set 中的元素对应的集合
-    start_time = time.time()
-    print(i)
-
-    target_set = i_ulist[i]
-    candidate_indices = set()
-    for elem in target_set:
-        candidate_indices.update(element_to_sets.get(elem, []))
-    # 计算交集
-    intersection_results = [target_set & set_list[i] for i in candidate_indices if target_set & set_list[i]]
-    # i_sim[i][j] = 1/(len(intersection_results)+alpah)
-    # i_sim[j][i] = i_sim[i][j]
-    elapsed_time = time.time() - start_time
-    print('--train--',elapsed_time)
-    pdb.set_trace()
-
+def intersection_lengths(sets_list):
+    # 使用combinations生成list中每两个set的组合
+    return [(len(a & b)) for a, b in combinations(sets_list, 2)]
+    
+result = intersection_lengths(i_ulist_list)
+print(result)  # 输出每对set的交集长度
 
 
 for i in i_ulist: 
