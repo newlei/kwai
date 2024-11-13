@@ -106,7 +106,7 @@ data_interaction['poi_id'], mapping = pd.factorize(data_interaction['poi_id'])
 mapping_dict['poi_id'] = mapping
 
 file_name = '../data_process/core10/data_interaction_final_reid.csv'
-merged_poiatt.to_csv(file_name, sep='|')
+data_interaction.to_csv(file_name, sep='|')
 
 
 with open('../data_process/core10/mapping_dict.pkl', 'wb') as f:
