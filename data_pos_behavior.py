@@ -5,6 +5,8 @@ import pandas as pd
 import itertools as IT
 from collections import defaultdict
 from itertools import combinations
+from joblib import Parallel, delayed
+
 
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
@@ -63,11 +65,15 @@ i_sim = np.zeros((i_id_max+1,i_id_max+1))
 
 
 
-def intersection_lengths(sets_list):
-    # 使用combinations生成list中每两个set的组合
-    return [(len(a & b)) for a, b in combinations(sets_list, 2)]
-    
-result = intersection_lengths(i_ulist_list)
+def intersection_length(a, b):
+    return len(a & b)
+
+def intersection_lengths_parallel(sets_list):
+    # 使用并行计算计算每对set的交集长度
+    return Parallel(n_jobs=-1)(delayed(intersection_length)(a, b) for a, b in combinations(sets_list, 2))
+
+print('set intersection set, start')
+result = intersection_lengths_parallel(i_ulist_list)
 print(result)  # 输出每对set的交集长度
 
 
