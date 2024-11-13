@@ -65,7 +65,7 @@ class embData_allpos(data.Dataset):
         for id_one in self.pair_dict:
             self.all_id.append(id_one)
             for pos_id in self.pair_dict[id_one]:
-                self.all_id_pair.append(id_one,pos_id) 
+                self.all_id_pair.append([id_one,pos_id]) 
 
         self.all_id_set = set(self.all_id)
 
