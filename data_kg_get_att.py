@@ -71,18 +71,31 @@ data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
 # merged_table0 = pd.merge(data_interaction_u, poi_att_unique, on=['poi_id'], how='inner') 
 
 # data_interaction.shape  (3201191, 4)
-merged_uatt = pd.merge(data_interaction,  user_att_unique,  on=['user_id'], how='inner')
+merged_uatt = pd.merge(data_interaction,  user_att_unique,  on='user_id', how='inner')
 merged_poiatt = pd.merge(data_interaction, poi_att_unique, on=['poi_id'], how='inner')
 
 print('merged_uatt:',merged_uatt.shape)
 print('merged_poiatt:',merged_poiatt.shape)
 pdb.set_trace()
 
+x1= merged_uatt.drop_duplicates(subset='user_id') 
+x2= data_interaction.drop_duplicates(subset='user_id') 
+x3 = pd.merge(data_interaction,  user_att,  on=['user_id'], how='left')
+
+data_interaction['user_id'].isin([4451526748]).any()
+user_att_unique['user_id'].isin([4451526748]).any()
+user_att['user_id'].isin([4451526748]).any()
+
+
+x1 = user_att_unique[user_att_unique['user_id'] == 4451526748]
+pd.merge(data_interaction,  x1,  on='user_id', how='inner')
+
 
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att.csv'
 merged_uatt.to_csv(file_name, sep='|')
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv'
 merged_poiatt.to_csv(file_name, sep='|')
+
 
 
 pdb.set_trace()
