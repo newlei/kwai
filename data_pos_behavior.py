@@ -2,6 +2,8 @@ import numpy as np
 import pdb 
 import time
 import pandas as pd
+import itertools as IT
+
 
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
@@ -56,13 +58,13 @@ for index, row in data_interaction_i.iterrows():
 alpah=0.1
 # i_sim = np.zeros((len(i_ulist),len(i_ulist))) #reid 之后就可以用了。
 i_sim = np.zeros((i_id_max+1,i_id_max+1))
-for i in i_ulist:
-    pdb.set_trace()
 
-    i_ulist_one =i_ulist[i]
-    x1 = i_ulist_one.intersection(*i_ulist_list)
-    pdb.set_trace()
-     
+
+# pairs = IT.combinations(i_ulist, 2)
+# nt = lambda a, b: i_ulist[a].intersection(i_ulist[b])
+# res = dict([ (t, nt(*t)) for t in pairs ])
+
+for i in i_ulist: 
     for j in i_ulist:
        i_sim[i][j] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
        i_sim[j][i] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
