@@ -27,23 +27,23 @@ class Adapter(nn.Module):
         self.dropout1 = nn.Dropout2d(0.25)
         self.dropout2 = nn.Dropout2d(0.5) 
         # First fully connected layer
-        self.fc1 = nn.Linear(3548, int(3548/4)) #3584-896
-        self.fc2 = nn.Linear(int(3548/4), int(3548/16))#896-224
-        self.fc3 = nn.Linear(int(3548/16), int(3548/64))#224-56
-        self.fc4 = nn.Linear(int(3548/64), int(3548/128))#56-28
+        self.fc1 = nn.Linear(3584, int(3548/4)) #3584-896
+        self.fc2 = nn.Linear(int(3584/4), int(3584/16))#896-224
+        self.fc3 = nn.Linear(int(3584/16), int(3584/64))#224-56
+        self.fc4 = nn.Linear(int(3584/64), int(3584/128))#56-28
 
         self.net = nn.Sequential(
-            nn.Linear(3548, int(3548/4)),#3584-896
+            nn.Linear(3584, int(3584/4)),#3584-896
             nn.Dropout2d(0.25),
             nn.Tanh(),
             # nn.LeakyReLU(0.2,inplace=True),
-            nn.Linear(int(3548/4), int(3548/16)),#896-224
+            nn.Linear(int(3584/4), int(3584/16)),#896-224
             nn.Dropout2d(0.25),
             nn.Tanh(),
-            nn.Linear(int(3548/16), int(3548/64)),#224-56
+            nn.Linear(int(3584/16), int(3584/64)),#224-56
             nn.Dropout2d(0.25),
             nn.Tanh(),
-            nn.Linear(int(3548/64), int(3548/128)),#56-28
+            nn.Linear(int(3584/64), int(3584/128)),#56-28
         )
         self.temperature = 0.7
         self.neg_sample = neg_sample#10
