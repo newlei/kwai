@@ -163,7 +163,8 @@ for epoch in range(350):
     emb_dict_list = []
     for i in emb_dict:
         emb_dict_list.append(emb_dict[i])
-    emb_dict_learned = model.output_emb(torch.from_numpy(np.array(emb_dict_list)))
+    emb_dict_list_input = torch.from_numpy(np.array(emb_dict_list)).cuda()
+    emb_dict_learned = model.output_emb(emb_dict_list_input)
     pdb.set_trace()
     # emb_dict_learned_path = './emb_dict_learned.npy'
     # np.save(emb_dict_learned_path,emb_dict_learned)
