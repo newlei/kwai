@@ -70,7 +70,7 @@ for index, row in data_interaction_i.iterrows():
 #针对任意item i和j，就计算交集，计算得到值，构建成矩阵。
 alpah=0.1
 # i_sim = np.zeros((len(i_ulist),len(i_ulist))) #reid 之后就可以用了。
-i_sim = np.zeros((i_id_max+1,i_id_max+1))
+i_sim = np.zeros((i_id_max,i_id_max))
 
 
 
@@ -110,6 +110,13 @@ def intersection_lengths_sparse(sets_list):
     # upper_triangle = np.triu_indices_from(intersect_counts.toarray(), k=1)
     # return intersect_counts[upper_triangle].toarray()
 
+count=0
+for i_one in range(i_ulist_list):
+    if len(i_one)==0:
+        print(count)
+        pdb.set_trace()
+    count+=1
+
 # 示例
 print('set intersection set, start')
 start_time = time.time()
@@ -119,7 +126,7 @@ print('--train--',elapsed_time)#只要15s，最快的方法。
 
 
 alpah = 0.2
-list_user_pair = list(itertools.product(range(u_id_max+1), range(u_id_max+1)))
+list_user_pair = list(itertools.product(range(u_id_max), range(u_id_max)))
 # pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
 pos_u_v = np.zeros((u_id_max+1,u_id_max+1))
 print('pos_u_v end',u_id_max,i_id_max)
