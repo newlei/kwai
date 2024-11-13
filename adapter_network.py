@@ -143,6 +143,7 @@ for epoch in range(350):
         pos_emb = pos_emb.cuda()
         u_copy = u_copy.cuda() 
         neg_emb = neg_emb.cuda()
+        pdb.set_trace()
 
         model.zero_grad()
         loss= model(u_emb, pos_emb, u_copy, neg_emb) 
