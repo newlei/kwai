@@ -5,6 +5,7 @@ import os.path
 import sys
 import csv
 csv.field_size_limit(sys.maxsize)
+import pickle
 
 
 
@@ -23,6 +24,14 @@ mapping_dict['user_id'] = mapping
 data_interaction['poi_id'], mapping = pd.factorize(data_interaction['poi_id'])
 mapping_dict['poi_id'] = mapping
 
+
+with open('../mapping_dict.pkl', 'wb') as f:
+    pickle.dump(mapping_dict, f)
+print("映射关系已保存至../mapping_dict.pkl")
+mapping_dict = pickle.load('../mapping_dict.pkl')
+
+
+
 # mapping[0]=原始值
 # # 打印每列原值和reid值的映射关系
 # for col, mapping in mapping_dict.items():
@@ -31,11 +40,11 @@ mapping_dict['poi_id'] = mapping
 #         print(f"{original_value} -> {idx}")
 
 
-
 file_poi = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv'
 poi_att1 = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
 poi_att = poi_att1[pd.to_numeric(poi_att1['poi_id'], errors='coerce').notnull()]
 poi_att['poi_id'] = poi_att['poi_id'].map(lambda x: mapping_dict['poi_id'].get_loc(x) if x in mapping_dict['poi_id'] else -1)
+
 
 pdb.set_trace()
 
@@ -118,9 +127,4 @@ merged_poiatt.to_csv(file_name, sep='|')
 
 
 pdb.set_trace()
-
-
-
-
-
 
