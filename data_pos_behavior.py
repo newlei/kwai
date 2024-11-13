@@ -16,7 +16,7 @@ data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id'
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
 data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
-u_id_max = data_interaction_u.shape+1
+u_id_max = data_interaction_u.shape
 data_interaction_i = data_interaction.drop_duplicates(subset='poi_id')
 i_id_max = data_interaction_i.shape
 
