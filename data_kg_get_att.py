@@ -122,6 +122,8 @@ mapping_dict = pickle.load(file)
 #     for idx, original_value in enumerate(mapping):
 #         print(f"{original_value} -> {idx}")
 
+print("reid is start")
+
 file_poi = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv'
 poi_att = pd.read_csv(file_poi, sep='|')
 poi_att['poi_id'] = poi_att['poi_id'].map(lambda x: mapping_dict['poi_id'].get_loc(x) if x in mapping_dict['poi_id'] else -1)
@@ -137,4 +139,5 @@ user_att['user_id'] = user_att['user_id'].map(lambda x: mapping_dict['user_id'].
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att_reid.csv'
 user_att.to_csv(file_name, sep='|')
 
+print("reid is end")
 
