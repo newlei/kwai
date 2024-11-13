@@ -108,7 +108,6 @@ start_time = time.time()
 result = intersection_lengths_sparse(i_ulist_list)
 elapsed_time = time.time() - start_time
 print('--train--',elapsed_time)
-pdb.set_trace()
 
 
 alpah = 0.2
