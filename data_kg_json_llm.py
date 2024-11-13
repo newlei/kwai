@@ -5,14 +5,14 @@ import pdb
 import time
 
 
-file_name = '../data_process/core10/data_interaction_final.csv'
+file_name = '../data_process/core10/data_interaction_final_reid.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
-file_name = '../data_process/core10/data_interaction_final_cat_u_att.csv'
+file_name = '../data_process/core10/data_interaction_final_cat_u_att_reid.csv'
 data_interaction_u_att = pd.read_csv(file_name, sep='|')
 
-file_name = '../data_process/core10/data_interaction_final_cat_poi_att.csv'
+file_name = '../data_process/core10/data_interaction_final_cat_poi_att_reid.csv'
 data_interaction_poi_att = pd.read_csv(file_name, sep='|')
 
 # file_name = '../data_process/core10/data_interaction_final_cat_p_att.csv'
