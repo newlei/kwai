@@ -84,6 +84,7 @@ for i in i_ulist:
     intersection_results = [target_set & set_list[i] for i in candidate_indices if target_set & set_list[i]]
     # i_sim[i][j] = 1/(len(intersection_results)+alpah)
     # i_sim[j][i] = i_sim[i][j]
+    elapsed_time = time.time() - start_time
     print('--train--',elapsed_time)
     pdb.set_trace()
 
