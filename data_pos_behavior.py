@@ -37,7 +37,6 @@ for index, row in data_interaction_u.iterrows():
         u_id_max = user_id
     if user_id not in u_ilist:
         u_ilist[user_id]=set(poi_list)
-        i_ulist_list.append(set(poi_list))
     else:
         print("user id double appear error",user_id)
         pdb.set_trace()
@@ -55,6 +54,7 @@ for index, row in data_interaction_i.iterrows():
         i_id_max = poi_id
     if poi_id not in i_ulist:
         i_ulist[poi_id]=set(user_list)
+        i_ulist_list.append(set(user_list))
     else:
         print("poi id double appear error",poi_id)
         pdb.set_trace()
@@ -84,7 +84,7 @@ def sets_to_sparse_matrix(sets_list):
             cols.append(element_index[element])
     
     # 稀疏布尔矩阵
-    sparse_matrix = csr_matrix((data, (rows, cols)), shape=(len(sets_list), len(all_elements)), dtype=bool)
+    sparse_matrix = csr_matrix((data, (rows, cols)), shape=(len(sets_list), len(all_elements)), dtype=int)
     return sparse_matrix
 
 def intersection_lengths_sparse(sets_list):
@@ -93,10 +93,11 @@ def intersection_lengths_sparse(sets_list):
     
     # 稀疏矩阵乘法计算交集大小
     intersect_counts = sparse_matrix @ sparse_matrix.T
+    intersect_counts = sparse_matrix.dot(sparse_matrix.T)
     # 提取上三角部分，不包括对角线元素
     upper_triangle = np.triu_indices_from(intersect_counts.toarray(), k=1)
     pdb.set_trace()
-    return intersect_counts[upper_triangle]
+    return intersect_counts[upper_triangle].toarray()
 
 # 示例
 print('set intersection set, start')
