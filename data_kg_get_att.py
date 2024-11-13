@@ -127,14 +127,14 @@ poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cat
 poi_att['poi_id'] = poi_att['poi_id'].map(lambda x: mapping_dict['poi_id'].get_loc(x) if x in mapping_dict['poi_id'] else -1)
 
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att_reid.csv'
-merged_poiatt.to_csv(file_name, sep='|')
+poi_att.to_csv(file_name, sep='|')
 
 
-file_poi = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att.csv'
-poi_att = pd.read_csv(file_poi, sep='|')
-poi_att['user_id'] = poi_att['user_id'].map(lambda x: mapping_dict['user_id'].get_loc(x) if x in mapping_dict['user_id'] else -1)
+file_user = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att.csv'
+user_att = pd.read_csv(file_user, sep='|')
+user_att['user_id'] = user_att['user_id'].map(lambda x: mapping_dict['user_id'].get_loc(x) if x in mapping_dict['user_id'] else -1)
 
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att_reid.csv'
-merged_poiatt.to_csv(file_name, sep='|')
+user_att.to_csv(file_name, sep='|')
 
 
