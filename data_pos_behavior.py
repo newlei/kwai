@@ -95,9 +95,10 @@ def intersection_lengths_sparse(sets_list):
     # intersect_counts = sparse_matrix @ sparse_matrix.T
     intersect_counts = sparse_matrix.dot(sparse_matrix.T)
     print('sparse_matrix dot is end')
+    pdb.set_trace()
+
     # 提取上三角部分，不包括对角线元素
     upper_triangle = np.triu_indices_from(intersect_counts.toarray(), k=1)
-    pdb.set_trace()
     return intersect_counts[upper_triangle].toarray()
 
 # 示例
