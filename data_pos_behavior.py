@@ -122,9 +122,10 @@ list_user_pair = np.argwhere(result_ui>0) #6830267,2
 
 print('list_user_pair is end,list_user_pair.shape',list_user_pair.shape)
 
-# result_iu+=alpah
-# np.reciprocal(result_iu, out=result_iu)
+result_iu+=alpah
+np.reciprocal(result_iu, out=result_iu)
 # result_iu = 1.0/(result_iu+alpah) #太耗时，且内存支持不了，存不下。
+pdb.set_trace()
 
 def calculate_intersection(one_pair):
     u,v = one_pair
