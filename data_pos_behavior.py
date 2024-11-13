@@ -6,7 +6,8 @@ import itertools as IT
 from collections import defaultdict
 from itertools import combinations
 from joblib import Parallel, delayed
-from itertools import combinations
+from itertools import combinations 
+from scipy.sparse import csr_matrix 
 
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
@@ -61,6 +62,48 @@ for index, row in data_interaction_i.iterrows():
 alpah=0.1
 # i_sim = np.zeros((len(i_ulist),len(i_ulist))) #reid 之后就可以用了。
 i_sim = np.zeros((i_id_max+1,i_id_max+1))
+
+
+
+
+#使用稀疏矩阵的方案。
+def sets_to_sparse_matrix(sets_list):
+    # 构建全集和索引
+    all_elements = set().union(*sets_list)
+    element_index = {element: idx for idx, element in enumerate(all_elements)}
+    
+    # 构造稀疏矩阵数据
+    data = []
+    rows = []
+    cols = []
+    for row_idx, s in enumerate(sets_list):
+        for element in s:
+            data.append(1)
+            rows.append(row_idx)
+            cols.append(element_index[element])
+    
+    # 稀疏布尔矩阵
+    sparse_matrix = csr_matrix((data, (rows, cols)), shape=(len(sets_list), len(all_elements)), dtype=bool)
+    return sparse_matrix
+
+def intersection_lengths_sparse(sets_list):
+    # 转换为稀疏矩阵
+    sparse_matrix = sets_to_sparse_matrix(sets_list)
+    
+    # 稀疏矩阵乘法计算交集大小
+    intersect_counts = sparse_matrix @ sparse_matrix.T
+    # 提取上三角部分，不包括对角线元素
+    upper_triangle = np.triu_indices_from(intersect_counts.toarray(), k=1)
+    return intersect_counts[upper_triangle]
+
+# 示例
+print('set intersection set, start')
+start_time = time.time()
+result = intersection_lengths_sparse(i_ulist_list)
+elapsed_time = time.time() - start_time
+print('--train--',elapsed_time)
+pdb.set_trace()
+
 
 
 #使用布尔运算的方案。
