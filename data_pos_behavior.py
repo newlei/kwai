@@ -111,7 +111,7 @@ def intersection_lengths_sparse(sets_list):
     # return intersect_counts[upper_triangle].toarray()
 
 # count=0
-# for i_one in range(i_ulist_list):
+# for i_one in range(len(i_ulist_list)):
 #     if len(i_one)==0:
 #         print(count)
 #         pdb.set_trace()
