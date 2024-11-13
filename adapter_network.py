@@ -20,6 +20,74 @@ import pdb
 import time
 
 
+
+class embData(data.Dataset):
+    def __init__(self,emb_dict=None,neg_sample=0,pair_dict=None):
+        super(embData, self).__init__() 
+      
+        self.emb_dict = emb_dict   
+        self.pair_dict = pair_dict #用户pos的列表。
+        self.neg_sample = neg_sample
+        self.all_id = []
+        for id_one in self.pair_dict:
+            self.all_id.append(id_one)
+        self.all_id_set = set(self.all_id)
+    def __len__(self):  
+        return len(self.all_id) #math.ceil(len(self.emb_dict)*1.0/self.batch_size)#
+
+    def __getitem__(self, idx): 
+        # u=[] u_pos=[] u_copy = [] u_neg = []
+        u_id = self.all_id[idx] 
+        pos_id_list  = self.pair_dict[u_id]
+        pos_id = np.random.choice(pos_id_list,1)[0]
+
+        u = self.emb_dict[u_id]
+        u_pos = self.emb_dict[pos_id]
+ 
+        neg_id_list = self.all_id_set -set(pos_id_list)
+        u_neg_id = np.random.choice(list(neg_id_list),self.neg_sample) #random.sample(neg_id_list,self.neg_sample)
+        u_neg = [self.emb_dict[k] for k in u_neg_id]# self.emb_dict[u_neg_id]
+ 
+        #实际上只用到一半去计算，不需要j的。
+        return torch.from_numpy(np.array(u)), torch.from_numpy(np.array(u_pos)), torch.from_numpy(np.array(u_neg))           
+ 
+
+
+class embData_allpos(data.Dataset):
+    def __init__(self,emb_dict=None,neg_sample=0,pair_dict=None):
+        super(embData_allpos, self).__init__() 
+      
+        self.emb_dict = emb_dict   
+        self.pair_dict = pair_dict #用户pos的列表。
+        self.neg_sample = neg_sample
+        self.all_id = []
+        self.all_id_pair = []
+        for id_one in self.pair_dict:
+            self.all_id.append(id_one)
+            for pos_id in self.pair_dict[id_one]:
+                self.all_id_pair.append(id_one,pos_id) 
+
+        self.all_id_set = set(self.all_id)
+
+    def __len__(self):  
+        return len(self.all_id_pair) #math.ceil(len(self.emb_dict)*1.0/self.batch_size)#
+
+    def __getitem__(self, idx): 
+        # u=[] u_pos=[] u_copy = [] u_neg = []
+        u_id, pos_id = self.all_id_pair[idx] 
+
+        u = self.emb_dict[u_id]
+        u_pos = self.emb_dict[pos_id]
+ 
+        neg_id_list = self.all_id_set -set(pos_id_list)
+        u_neg_id = np.random.choice(list(neg_id_list),self.neg_sample) #random.sample(neg_id_list,self.neg_sample)
+        u_neg = [self.emb_dict[k] for k in u_neg_id]# self.emb_dict[u_neg_id]
+ 
+        #实际上只用到一半去计算，不需要j的。
+        return torch.from_numpy(np.array(u)), torch.from_numpy(np.array(u_pos)), torch.from_numpy(np.array(u_neg))           
+ 
+
+
 class Adapter(nn.Module):
     def __init__(self,neg_sample):
         super(Adapter, self).__init__() 
@@ -67,48 +135,17 @@ class Adapter(nn.Module):
         neg_loss = neg_loss.mean(dim=1)
         # 总损失是正样本损失和负样本损失之和
         loss = pos_loss.mean() + neg_loss.mean()
-        # return loss
-
-        loss_base = torch.exp(cos_sim_pos)/torch.exp(cos_sim_neg).view(-1, self.neg_sample).sum(dim=1)
-        loss = -torch.log(loss_base).mean(-1)
         return loss
+
+        # loss_base = torch.exp(cos_sim_pos)/torch.exp(cos_sim_neg).view(-1, self.neg_sample).sum(dim=1)
+        # loss = -torch.log(loss_base).mean(-1)
+        # return loss
 
     def output_emb(self,input_emb):
         output_emb = self.net(input_emb)
         return output_emb
 
 
-class embData(data.Dataset):
-    def __init__(self,emb_dict=None,neg_sample=0,pair_dict=None):
-        super(embData, self).__init__() 
-      
-        self.emb_dict = emb_dict   
-        self.pair_dict = pair_dict #用户pos的列表。
-        self.neg_sample = neg_sample
-        self.all_id = []
-        for id_one in self.pair_dict:
-            self.all_id.append(id_one)
-        self.all_id_set = set(self.all_id)
-    def __len__(self):  
-        return len(self.all_id) #math.ceil(len(self.emb_dict)*1.0/self.batch_size)#
-
-    def __getitem__(self, idx): 
-        # u=[] u_pos=[] u_copy = [] u_neg = []
-        u_id = self.all_id[idx] 
-        pos_id_list  = self.pair_dict[u_id]
-        pos_id = np.random.choice(pos_id_list,1)[0]
-
-        u = self.emb_dict[u_id]
-        u_pos = self.emb_dict[pos_id]
- 
-        neg_id_list = self.all_id_set -set(pos_id_list)
-        u_neg_id = np.random.choice(list(neg_id_list),self.neg_sample) #random.sample(neg_id_list,self.neg_sample)
-        u_neg = [self.emb_dict[k] for k in u_neg_id]# self.emb_dict[u_neg_id]
- 
-        #实际上只用到一半去计算，不需要j的。
-        return torch.from_numpy(np.array(u)), torch.from_numpy(np.array(u_pos)), torch.from_numpy(np.array(u_neg))           
- 
- 
 
 neg_sample =10
 batch_size = 128
@@ -133,10 +170,11 @@ for i in range(user_len):
 
 
 # emb_dict=None,neg_sample=0,pair_dict=None
-train_dataset = embData(
+train_dataset = embData_allpos( #embData
         emb_dict=emb_dict, neg_sample=neg_sample, pair_dict=pair_dict)
 train_loader = DataLoader(train_dataset,
         batch_size=batch_size, shuffle=True, num_workers=2)
+
 
 # testing_dataset_loss = embData(
 #         emb_dict=emb_dict, neg_sample=neg_sample, pair_dict=pair_dict_test)
