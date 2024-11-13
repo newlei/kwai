@@ -52,7 +52,8 @@
 ###  data_pos_behavoir.py
 用于找到正样本，便于利用对比学习，将信号对齐。
 目前1/(len(i_ulist[i]&i_ulist[j])+alpah)计算过程特别慢，因为要计算所有的i，j的pair情况
-- 使用稀疏矩阵来计算就很快了。
+- 使用稀疏矩阵来计算就很快了。15s就行了
+- user set 和 user set之间的交集，也是先用稀疏矩阵来计算，获得有交集的u v id的pair，然后去计算，目前方法预计22 min。
 
 
 ###  adapter_network.py
