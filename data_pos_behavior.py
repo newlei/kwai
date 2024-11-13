@@ -15,10 +15,17 @@ file_name = '../data_process/core10/data_interaction_final_reid.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
+data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
+u_id_max = data_interaction_u.shape+1
+data_interaction_i = data_interaction.drop_duplicates(subset='poi_id')
+i_id_max = data_interaction_i.shape
+
+print(u_id_max,i_id_max)
+
 u_ilist = dict()
-u_ilist_list = []*69000
+u_ilist_list = []*u_id_max
 i_ulist = dict()
-i_ulist_list = []*240000
+i_ulist_list = []*i_id_max
 
 user_id_list =[]
 u_id_max = 0
