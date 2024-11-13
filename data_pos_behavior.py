@@ -110,12 +110,12 @@ def intersection_lengths_sparse(sets_list):
     # upper_triangle = np.triu_indices_from(intersect_counts.toarray(), k=1)
     # return intersect_counts[upper_triangle].toarray()
 
-# count=0
-# for i_one in range(len(i_ulist_list)):
-#     if len(i_one)==0:
-#         print(count)
-#         pdb.set_trace()
-#     count+=1
+count=0
+for i_one in range(len(i_ulist_list)):
+    if len(i_one)==0:
+        print(count)
+        pdb.set_trace()
+    count+=1
 
 # 示例
 print('set intersection set, start')
