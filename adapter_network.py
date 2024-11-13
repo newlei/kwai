@@ -123,10 +123,10 @@ train_dataset = embData(
 train_loader = DataLoader(train_dataset,
         batch_size=batch_size, shuffle=True, num_workers=2)
 
-testing_dataset_loss = embData(
-        emb_dict=emb_dict, neg_sample=neg_sample, pair_dict=pair_dict_test)
-testing_loader_loss = DataLoader(testing_dataset_loss,
-        batch_size=batch_size, shuffle=False, num_workers=0)
+# testing_dataset_loss = embData(
+#         emb_dict=emb_dict, neg_sample=neg_sample, pair_dict=pair_dict_test)
+# testing_loader_loss = DataLoader(testing_dataset_loss,
+#         batch_size=batch_size, shuffle=False, num_workers=0)
 
 
 ########################### TRAINING #####################################
