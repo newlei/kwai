@@ -9,49 +9,6 @@ import pickle
 
 
 
-# 做reid操作。
-
-file_name = '../data_process/core10/data_interaction_final.csv'
-data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
-print('data_interaction:',data_interaction.shape)
-
-# 创建字典保存原值和reid后的映射关系
-mapping_dict = {}
-
-data_interaction['user_id'], mapping = pd.factorize(data_interaction['user_id'])
-mapping_dict['user_id'] = mapping
-
-data_interaction['poi_id'], mapping = pd.factorize(data_interaction['poi_id'])
-mapping_dict['poi_id'] = mapping
-
-
-with open('../mapping_dict.pkl', 'wb') as f:
-    pickle.dump(mapping_dict, f)
-print("映射关系已保存至../mapping_dict.pkl")
-file = open('../mapping_dict.pkl','rb')
-mapping_dict = pickle.load(file)
-
-
-
-# mapping[0]=原始值
-# # 打印每列原值和reid值的映射关系
-# for col, mapping in mapping_dict.items():
-#     print(f"\n列 '{col}' 的映射关系：")
-#     for idx, original_value in enumerate(mapping):
-#         print(f"{original_value} -> {idx}")
-
-
-file_poi = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv'
-poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
-poi_att['poi_id'] = poi_att['poi_id'].map(lambda x: mapping_dict['poi_id'].get_loc(x) if x in mapping_dict['poi_id'] else -1)
-
-
-pdb.set_trace()
-
-
-
-
-
 #交互数据提取：user_id|photo_id|time_second|poi_id
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
@@ -119,6 +76,8 @@ merged_poiatt = pd.merge(data_interaction, poi_att_unique, on=['poi_id'], how='i
 
 print('merged_uatt:',merged_uatt.shape)
 print('merged_poiatt:',merged_poiatt.shape)
+pdb.set_trace()
+
 
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att.csv'
 merged_uatt.to_csv(file_name, sep='|')
@@ -127,4 +86,55 @@ merged_poiatt.to_csv(file_name, sep='|')
 
 
 pdb.set_trace()
+
+
+
+
+# 做reid操作。
+
+file_name = '../data_process/core10/data_interaction_final.csv'
+data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+print('data_interaction:',data_interaction.shape)
+
+# 创建字典保存原值和reid后的映射关系
+mapping_dict = {}
+
+data_interaction['user_id'], mapping = pd.factorize(data_interaction['user_id'])
+mapping_dict['user_id'] = mapping
+
+data_interaction['poi_id'], mapping = pd.factorize(data_interaction['poi_id'])
+mapping_dict['poi_id'] = mapping
+
+file_name = '../data_process/core10/data_interaction_final_reid.csv'
+merged_poiatt.to_csv(file_name, sep='|')
+
+
+with open('../data_process/core10/mapping_dict.pkl', 'wb') as f:
+    pickle.dump(mapping_dict, f)
+print("映射关系已保存至../mapping_dict.pkl")
+file = open('../data_process/core10/mapping_dict.pkl','rb')
+mapping_dict = pickle.load(file)
+
+# mapping[0]=原始值
+# # 打印每列原值和reid值的映射关系
+# for col, mapping in mapping_dict.items():
+#     print(f"\n列 '{col}' 的映射关系：")
+#     for idx, original_value in enumerate(mapping):
+#         print(f"{original_value} -> {idx}")
+
+file_poi = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv'
+poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
+poi_att['poi_id'] = poi_att['poi_id'].map(lambda x: mapping_dict['poi_id'].get_loc(x) if x in mapping_dict['poi_id'] else -1)
+
+file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att_reid.csv'
+merged_poiatt.to_csv(file_name, sep='|')
+
+
+file_poi = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att.csv'
+poi_att = pd.read_csv(file_poi, sep='|')
+poi_att['user_id'] = poi_att['user_id'].map(lambda x: mapping_dict['user_id'].get_loc(x) if x in mapping_dict['user_id'] else -1)
+
+file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att_reid.csv'
+merged_poiatt.to_csv(file_name, sep='|')
+
 
