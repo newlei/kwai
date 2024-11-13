@@ -16,8 +16,10 @@ data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id'
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
 u_ilist = dict()
+u_ilist_list = []*69000
 i_ulist = dict()
-i_ulist_list = []
+i_ulist_list = []*240000
+
 user_id_list =[]
 u_id_max = 0
 i_id_max = 0
@@ -29,15 +31,13 @@ data_interaction_u = data_interaction.groupby('user_id').agg(list).reset_index()
 for index, row in data_interaction_u.iterrows():
     user_id = row['user_id']
     poi_list = row['poi_id']
-    #reid 
-    user_id = u_id_current
-    u_id_current+=1
 
     user_id_list.append(user_id)
     if u_id_max<user_id:
         u_id_max = user_id
     if user_id not in u_ilist:
         u_ilist[user_id]=set(poi_list)
+        u_ilist_list[user_id]=set(poi_list)
     else:
         print("user id double appear error",user_id)
         pdb.set_trace()
@@ -55,7 +55,7 @@ for index, row in data_interaction_i.iterrows():
         i_id_max = poi_id
     if poi_id not in i_ulist:
         i_ulist[poi_id]=set(user_list)
-        i_ulist_list.append(set(user_list))
+        i_ulist_list[poi_id]= set(user_list)
     else:
         print("poi id double appear error",poi_id)
         pdb.set_trace()
@@ -115,6 +115,7 @@ alpah = 0.2
 list_user_pair = list(itertools.product(range(u_id_max+1), range(u_id_max+1)))
 # pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
 pos_u_v = np.zeros((u_id_max+1,u_id_max+1))
+print('pos_u_v end',u_id_max,i_id_max)
 for u,v in list_user_pair:
     same_item = u_ilist[u] &u_ilist[v] 
     sim_uv = 0
