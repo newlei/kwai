@@ -113,7 +113,7 @@ def intersection_lengths_sparse(sets_list):
 count=0
 for i_one in range(len(i_ulist_list)):
     try:
-        if len(i_one)==0:
+        if len(i_ulist_list[i_one])<=0:
             print(count)
             pdb.set_trace()
         count+=1
