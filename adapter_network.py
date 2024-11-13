@@ -155,7 +155,7 @@ for epoch in range(150):
         neg_emb = neg_emb.cuda()
 
         model.zero_grad()
-        loss= model(u_emb, pos_emb, u_copy, neg_emb) 
+        loss= model(u_emb, pos_emb, neg_emb) 
         loss.backward()
         optimizer_bpr.step() 
         count += 1  
