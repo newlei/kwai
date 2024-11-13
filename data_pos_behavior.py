@@ -127,6 +127,7 @@ print('list_user_pair is end,list_user_pair.shape',list_user_pair.shape)
 # result_iu = result_iu+alpah
 # np.reciprocal(result_iu, out=result_iu) #改了计算方式，还是太耗时，且内存支持不了，存不下。因此放弃这种方式。
 
+#开多线程计算方式
 def calculate_intersection(one_pair):
     u,v = one_pair
     same_item = u_ilist[u]&u_ilist[v] 
@@ -143,7 +144,7 @@ def compute_intersections(list_user_pair, max_workers=8):
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         # combinations 生成唯一集合对组合，避免重复计算
         res_sim_uv = executor.map(calculate_intersection, list_user_pair)
-    list_sim_uv.append(res_sim_uv)
+        list_sim_uv.append(res_sim_uv)
     return list_sim_uv
 
 start_time = time.time()
@@ -153,7 +154,7 @@ print('--each pair time--',elapsed_time)
 pdb.set_trace()
 
 
-
+#常规计算方式
 elapsed_time_all = 0
 elapsed_time_count =0
 for one_pair in list_user_pair:
