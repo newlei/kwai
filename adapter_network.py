@@ -104,7 +104,7 @@ batch_size = 128
 model = Adapter(neg_sample)
 model = model.to('cuda') 
 
-optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.001)#, betas=(0.5, 0.99))
+optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.005)#, betas=(0.5, 0.99))
 
 # emb_dict  #是个dict，dict[i]=emb，emb是llm得到的。
 # pair_dict #是个dict，dict[i]=postive of i，通过data_pos_behavior.py得到的，dict[user]的postive user of dict[user], dict[item]的postive item of dict[item]
@@ -136,7 +136,7 @@ train_loader = DataLoader(train_dataset,
 ########################### TRAINING #####################################
 print('--------training processing-------')
 count, best_hr = 0, 0
-for epoch in range(350):
+for epoch in range(50):
     model.train() 
     start_time = time.time()
     train_loss_sum=[] 
