@@ -67,7 +67,7 @@ i_sim = np.zeros((i_id_max+1,i_id_max+1))
 
 # 构建反向索引
 element_to_sets = defaultdict(list)
-for i, s in enumerate(i_ulist):
+for i, s in enumerate(i_ulist_list):
     for elem in s:
         element_to_sets[elem].append(i)
 
