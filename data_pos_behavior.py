@@ -6,7 +6,7 @@ import itertools as IT
 from collections import defaultdict
 from itertools import combinations
 from joblib import Parallel, delayed
-
+from itertools import combinations
 
 file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
@@ -63,8 +63,40 @@ alpah=0.1
 i_sim = np.zeros((i_id_max+1,i_id_max+1))
 
 
+#使用布尔运算的方案。
+def sets_to_bool_matrix(sets_list):
+    # 获取所有元素的全集
+    all_elements = set().union(*sets_list)
+    element_index = {element: idx for idx, element in enumerate(all_elements)}
+    
+    # 构造布尔矩阵，行表示集合，列表示元素
+    bool_matrix = np.zeros((len(sets_list), len(all_elements)), dtype=bool)
+    for row_idx, s in enumerate(sets_list):
+        for element in s:
+            bool_matrix[row_idx, element_index[element]] = True
+            
+    return bool_matrix
+
+def intersection_lengths_matrix(sets_list):
+    # 将集合列表转换为布尔矩阵
+    bool_matrix = sets_to_bool_matrix(sets_list)
+    
+    # 使用矩阵乘法计算交集大小
+    intersect_counts = bool_matrix @ bool_matrix.T
+    # 取上三角部分并去除对角线元素
+    upper_triangle = np.triu_indices_from(intersect_counts, k=1)
+    return intersect_counts[upper_triangle]
+
+# 示例
+print('set intersection set, start')
+start_time = time.time()
+result = intersection_lengths_matrix(i_ulist_list)
+elapsed_time = time.time() - start_time
+print('--train--',elapsed_time)
+pdb.set_trace()
 
 
+#做并行计算的方案
 def intersection_length(a, b):
     return len(a & b)
 
@@ -77,6 +109,7 @@ result = intersection_lengths_parallel(i_ulist_list)
 print(result)  # 输出每对set的交集长度
 
 
+#普通原始的方案，每个需要0.3s进行计算，一共需要23w*23w*0.3,时间不可接受。
 for i in i_ulist: 
     start_time = time.time()
     print(i)
