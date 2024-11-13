@@ -116,7 +116,7 @@ pair_dict =dict()
 all_user_list = set(np.array(range(user_len)))
 for i in range(user_len): 
     emb_dict[i] = np.random.rand(3584)
-    pair_dict[i] = random.sample(all_user_list,np.random.randint(100))
+    pair_dict[i] = random.sample(all_user_list,np.random.randint(98)+2)
 
 
 # emb_dict=None,neg_sample=0,pair_dict=None
