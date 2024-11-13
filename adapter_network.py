@@ -112,6 +112,7 @@ emb_dict =dict()
 pair_dict =dict()
 all_user_list = np.array(range(user_len))
 for i in range(user_len):
+    pdb.set_trace()
     emb_dict[i] = np.random.rand(3584)
     pair_dict[i] = random.sample(all_user_list,np.random.randint(100))
 
