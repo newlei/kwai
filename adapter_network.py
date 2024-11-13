@@ -142,12 +142,11 @@ for epoch in range(350):
     # PATH_model=path_save_model_base+'/epoch'+str(epoch)+'.pt'
     # torch.save(model.state_dict(), PATH_model)
 
-    model.eval()
-
-    emb_dict_learned = model.output_emb(emb_dict)
+    model.eval() 
+    emb_dict_learned = model.output_emb(torch.from_numpy(emb_dict))
     emb_dict_learned_path = './emb_dict_learned.npy'
     np.save(emb_dict_learned_path,emb_dict_learned)
     # np.load(emb_dict_learned_path)
 
-    
+
 
