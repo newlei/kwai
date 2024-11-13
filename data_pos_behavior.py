@@ -55,6 +55,11 @@ alpah=0.1
 # i_sim = np.zeros((len(i_ulist),len(i_ulist))) #reid 之后就可以用了。
 i_sim = np.zeros((i_id_max+1,i_id_max+1))
 for i in i_ulist:
+    pdb.set_trace()
+    
+    i_ulist[i].intersection(*i_ulist)
+    pdb.set_trace()
+    
     for j in i_ulist:
        i_sim[i][j] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
        i_sim[j][i] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
