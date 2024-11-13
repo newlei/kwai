@@ -104,7 +104,7 @@ batch_size = 128
 model = Adapter(neg_sample)
 model = model.to('cuda') 
 
-optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.01)#, betas=(0.5, 0.99))
+optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.001)#, betas=(0.5, 0.99))
 
 # emb_dict  #是个dict，dict[i]=emb，emb是llm得到的。
 # pair_dict #是个dict，dict[i]=postive of i，通过data_pos_behavior.py得到的，dict[user]的postive user of dict[user], dict[item]的postive item of dict[item]
@@ -136,7 +136,7 @@ train_loader = DataLoader(train_dataset,
 ########################### TRAINING #####################################
 print('--------training processing-------')
 count, best_hr = 0, 0
-for epoch in range(50):
+for epoch in range(150):
     model.train() 
     start_time = time.time()
     train_loss_sum=[] 
@@ -156,7 +156,7 @@ for epoch in range(50):
     elapsed_time = time.time() - start_time
     train_loss=round(np.mean(train_loss_sum[:-1]),4)#最后一个可能不满足一个batch，所以去掉这样loss就是一致的可以求mean了 
     str_print_train="epoch:"+str(epoch)+' time:'+str(round(elapsed_time,1))+'\t train loss:'+str(train_loss)
-    print('--train--',elapsed_time)
+    print('--train--',str_print_train)
 
     # PATH_model=path_save_model_base+'/epoch'+str(epoch)+'.pt'
     # torch.save(model.state_dict(), PATH_model)
