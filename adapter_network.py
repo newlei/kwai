@@ -34,14 +34,14 @@ class Adapter(nn.Module):
 
         self.net = nn.Sequential(
             nn.Linear(3584, int(3584/4)),#3584-896
-            nn.Dropout2d(0.25),
+            nn.Dropout(0.25),
             nn.Tanh(),
             # nn.LeakyReLU(0.2,inplace=True),
             nn.Linear(int(3584/4), int(3584/16)),#896-224
-            nn.Dropout2d(0.25),
+            nn.Dropout(0.25),
             nn.Tanh(),
             nn.Linear(int(3584/16), int(3584/64)),#224-56
-            nn.Dropout2d(0.25),
+            nn.Dropout(0.25),
             nn.Tanh(),
             nn.Linear(int(3584/64), int(3584/128)),#56-28
         )
@@ -117,6 +117,7 @@ all_user_list = set(np.array(range(user_len)))
 for i in range(user_len): 
     emb_dict[i] = np.random.rand(3584).astype(np.float32)
     pair_dict[i] = random.sample(all_user_list,np.random.randint(98)+2)
+    pdb.set_trace()
 
 
 # emb_dict=None,neg_sample=0,pair_dict=None
