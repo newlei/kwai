@@ -111,6 +111,28 @@ print('--train--',elapsed_time)
 pdb.set_trace()
 
 
+alpah = 0.2
+list_user_pair = []
+# pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
+pos_u_v = np.zeros((u_id_max+1,u_id_max+1))
+for u,v in list_user_pair:
+    same_item = u_ilist[u] &u_ilist[v] 
+    sim_uv = 0
+    for i_one in same_item:
+        for j_one in same_item:
+            sim_uv+=1/(result[i_one][j_one]+alpah)
+    # u_v_id = u+'-'+v
+    pos_u_v[u][v] = sim_uv
+    pos_u_v[v][u] = sim_uv
+
+pdb.set_trace()
+
+
+
+
+exit()
+
+
 
 #使用布尔运算的方案。
 def sets_to_bool_matrix(sets_list):
@@ -167,22 +189,6 @@ for i in i_ulist:
        i_sim[j][i] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
     elapsed_time = time.time() - start_time
     print('--train--',elapsed_time)
-
-list_user_pair = []
-# pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
-pos_u_v = np.zeros((u_id_max+1,u_id_max+1))
-for u,v in list_user_pair:
-    same_item = u_ilist[u] &u_ilist[v] 
-    sim_uv = 0
-    for i_one in same_item:
-        for j_one in same_item:
-            sim_uv+=i_sim[i_one][j_one]
-    # u_v_id = u+'-'+v
-    pos_u_v[u][v] = sim_uv
-    pos_u_v[v][u] = sim_uv
-
-pdb.set_trace()
-
 
 
 
