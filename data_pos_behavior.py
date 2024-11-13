@@ -44,6 +44,7 @@ for index, row in data_interaction_u.iterrows():
         u_id_max = user_id
     if user_id not in u_ilist:
         u_ilist[user_id]=set(poi_list)
+        pdb.set_trace()
         u_ilist_list[user_id]=set(poi_list)
     else:
         print("user id double appear error",user_id)
