@@ -11,7 +11,7 @@ import scipy
 from scipy.sparse import csr_matrix 
 import itertools
 
-file_name = '../data_process/core10/data_interaction_final.csv'
+file_name = '../data_process/core10/data_interaction_final_reid.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
