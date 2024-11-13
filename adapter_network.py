@@ -57,7 +57,7 @@ class Adapter(nn.Module):
         input_emb_expanded = input_emb_f.unsqueeze(1)
 
         cos_sim_pos = F.cosine_similarity(input_emb_f, pos_emb_f, dim=-1)/self.temperature
-        cos_sim_neg = F.cosine_similarity(input_copy_emb_f, neg_emb_f, dim=-1)/self.temperature
+        cos_sim_neg = F.cosine_similarity(input_emb_expanded, neg_emb_f, dim=-1)/self.temperature
 
         pos_loss = 1 - cos_sim_pos  # 希望正样本相似度越接近 1 越好
         neg_loss = F.relu(self.margin + cos_sim_neg - cos_sim_pos.unsqueeze(1))  # 保证负样本与 u_emb 相似度低于正样本
