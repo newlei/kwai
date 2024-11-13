@@ -93,7 +93,7 @@ merged_poiatt.to_csv(file_name, sep='|')
 # 做reid操作。
 
 file_name = '../data_process/core10/data_interaction_final.csv'
-data_interaction = pd.read_csv(file_name, sep='|')
+data_interaction = pd.read_csv(file_name,usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 print('data_interaction:',data_interaction.shape)
 
 # 创建字典保存原值和reid后的映射关系
@@ -125,7 +125,7 @@ mapping_dict = pickle.load(file)
 print("reid is start")
 
 file_poi = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv'
-poi_att = pd.read_csv(file_poi, sep='|')
+poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
 poi_att['poi_id'] = poi_att['poi_id'].map(lambda x: mapping_dict['poi_id'].get_loc(x) if x in mapping_dict['poi_id'] else -1)
 
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att_reid.csv'
@@ -133,7 +133,7 @@ poi_att.to_csv(file_name, sep='|')
 
 
 file_user = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att.csv'
-user_att = pd.read_csv(file_user, sep='|')
+user_att = pd.read_csv(file_user,usecols=["user_id", "u_gender", "u_age", "u_age_part","u_city","u_province","u_country","u_north","u_region"], sep='|')
 user_att['user_id'] = user_att['user_id'].map(lambda x: mapping_dict['user_id'].get_loc(x) if x in mapping_dict['user_id'] else -1)
 
 file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_u_att_reid.csv'
