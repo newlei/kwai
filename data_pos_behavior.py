@@ -9,7 +9,8 @@ from joblib import Parallel, delayed
 from itertools import combinations 
 import scipy
 from scipy.sparse import csr_matrix 
-import itertools
+import itertools 
+from concurrent.futures import ThreadPoolExecutor
 
 file_name = '../data_process/core10/data_interaction_final_reid.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
@@ -122,6 +123,30 @@ list_user_pair = np.argwhere(result_ui>0) #6830267,2
 print('list_user_pair is end,list_user_pair.shape',list_user_pair.shape)
 
 result_iu = 1/(result_iu+alpah)
+
+def calculate_intersection(one_pair):
+    u,v = one_pair
+    same_item = u_ilist[u]&u_ilist[v] 
+    same_item_list = list(same_item)
+    sim_uv = np.sum(result_iu[np.ix_(same_item_list, same_item_list)])
+    pos_u_v[v][u] = sim_uv
+    pos_u_v[u][v] = sim_uv
+    return sim_uv
+
+def compute_intersections(list_user_pair):
+    list_sim_uv = []
+    
+    # 使用并行计算
+    with ThreadPoolExecutor() as executor:
+        # combinations 生成唯一集合对组合，避免重复计算
+        res_sim_uv = executor.map(calculate_intersection, list_user_pair)
+    list_sim_uv.append(res_sim_uv)
+    return list_sim_uv
+
+list_sim_uv = compute_intersections(list_user_pair)
+pdb.set_trace()
+
+
 
 elapsed_time_all = 0
 elapsed_time_count =0
