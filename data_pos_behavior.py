@@ -109,7 +109,7 @@ print('set intersection set, start')
 start_time = time.time()
 result_iu = intersection_lengths_sparse(i_ulist_list)
 elapsed_time = time.time() - start_time
-print('--i_ulist_list, the length of set and set --',elapsed_time)#只要15s，最快的方法。
+print('i_ulist_list, computer the length of set and set, the time:',elapsed_time)#只要15s，最快的方法。
 
 
 alpah = 0.2
@@ -128,20 +128,12 @@ for one_pair in list_user_pair:
 
     u,v = one_pair
     same_item = u_ilist[u] &u_ilist[v] 
-    sim_uv = 0
-
-    
     same_item_list = list(same_item)
-    x1 = np.sum(1/(result_iu[np.ix_(same_item_list, same_item_list)]+alpah))
+    sim_uv = np.sum(1/(result_iu[np.ix_(same_item_list, same_item_list)]+alpah))
     
-
-    for i_one in same_item:
-        for j_one in same_item:
-            sim_uv+=1/(result_iu[i_one][j_one]+alpah)
-    # u_v_id = u+'-'+v
     pos_u_v[u][v] = sim_uv
     pos_u_v[v][u] = sim_uv
-    pdb.set_trace()
+    
     elapsed_time = time.time() - start_time
     elapsed_time_all+=elapsed_time
     elapsed_time_count+=1
