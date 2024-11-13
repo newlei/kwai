@@ -23,14 +23,7 @@ mapping_dict['user_id'] = mapping
 data_interaction['poi_id'], mapping = pd.factorize(data_interaction['poi_id'])
 mapping_dict['poi_id'] = mapping
 
-# # 重新编码（reid）每一列
-# for col in df.columns:
-#     df[col], mapping = pd.factorize(df[col])
-#     mapping_dict[col] = mapping
-
-pdb.set_trace()
-
-
+# mapping[0]=原始值
 # # 打印每列原值和reid值的映射关系
 # for col, mapping in mapping_dict.items():
 #     print(f"\n列 '{col}' 的映射关系：")
@@ -38,39 +31,14 @@ pdb.set_trace()
 #         print(f"{original_value} -> {idx}")
 
 
-u_reid_old2new = dict()
-u_reid_new2old = dict()
-u_reid_newid = 0 
 
-i_reid_old2new = dict()
-i_reid_new2old = dict()
-i_reid_nweid = 0 
+file_poi = '../poi_pdate_20241104.csv'
+poi_att = pd.read_csv(file_poi,usecols=['poi_id','poi_name','category_name','cate_2_name','cate_1_name','province_name','city_name','brand_name'], sep='|')
 
-
-file_name = '../data_process/core10/data_interaction_final.csv'
-data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
-print('data_interaction:',data_interaction.shape)
-
-
-for index, row in data_interaction.iterrows():
-    # print(index) # 输出每行的索引值
-    u_id = row['user_id']
-    poi_id = row['poi_id']
-
-    if u_id not in u_reid_old2new:
-        u_reid_old2new[u_id] = u_reid_newid
-        u_reid_new2old[u_reid_newid] = u_id
-        u_reid_newid+=1
-
-    if poi_id not in i_reid_old2new:
-        i_reid_old2new[poi_id] = i_reid_nweid
-        i_reid_new2old[i_reid_nweid] = poi_id
-        i_reid_nweid+=1
-    
-    row['user_id'] = u_reid_old2new[u_id]
-    row['poi_id'] = i_reid_old2new[poi_id]
+poi_att['poi_id'] = poi_att['poi_id'].map(lambda x: mapping_dict['poi_id'].get_loc(x) if x in mapping_dict['poi_id'] else -1)
 
 pdb.set_trace()
+
 
 
 
@@ -82,32 +50,31 @@ print('data_interaction:',data_interaction.shape)
 
 
 
-chunksize = 10 ** 6
-file_photo = '../photo_pdate_20241104.csv'
-photo_list =[]
-flag = 0
-for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], chunksize=chunksize, sep='|', lineterminator='\n'):
-    photo_list.append(chunk) 
-    flag+=1
-    if flag ==1:
-        data_pid = chunk
-    elif flag>1:
-        data_pid = pd.concat([data_pid, chunk], axis=0)
-    data_pid = data_pid.drop_duplicates(subset='photo_id')
-    print(data_pid.shape,flag)
+# chunksize = 10 ** 6
+# file_photo = '../photo_pdate_20241104.csv'
+# photo_list =[]
+# flag = 0
+# for chunk in pd.read_csv(file_photo,  usecols=['photo_id','poi_id','poi_name','poi_city_name','photo_type','city_name','photo_cate_type','photo_second_cate_type'], chunksize=chunksize, sep='|', lineterminator='\n'):
+#     photo_list.append(chunk) 
+#     flag+=1
+#     if flag ==1:
+#         data_pid = chunk
+#     elif flag>1:
+#         data_pid = pd.concat([data_pid, chunk], axis=0)
+#     data_pid = data_pid.drop_duplicates(subset='photo_id')
+#     print(data_pid.shape,flag)
 
-print(len(photo_list))
-print(data_pid.shape)
+# print(len(photo_list))
+# print(data_pid.shape)
 
-merged_pidatt = pd.merge(data_interaction, data_pid, on=['photo_id'], how='inner')
-print('merged_pidatt:',merged_pidatt.shape) 
+# merged_pidatt = pd.merge(data_interaction, data_pid, on=['photo_id'], how='inner')
+# print('merged_pidatt:',merged_pidatt.shape) 
 
-file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv'
-merged_pidatt.to_csv(file_name, sep='|') 
+# file_name = '../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv'
+# merged_pidatt.to_csv(file_name, sep='|') 
 
-exit()
+# exit()
 
-pdb.set_trace()
 
 
 
