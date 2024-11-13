@@ -127,6 +127,8 @@ list_user_pair = np.argwhere(result_ui>0) #6830267,2
 
 print('list_user_pair is end,list_user_pair.shape',list_user_pair.shape)
 
+elapsed_time_all = 0
+elapsed_time_count =0
 for one_pair in list_user_pair:
     start_time = time.time()
 
@@ -140,7 +142,10 @@ for one_pair in list_user_pair:
     pos_u_v[u][v] = sim_uv
     pos_u_v[v][u] = sim_uv
     elapsed_time = time.time() - start_time
-    print('--train--',elapsed_time)#只要15s，最快的方法。
+    elapsed_time_all+=elapsed_time
+    elapsed_time_count+=1
+    elapsed_time_average = elapsed_time_all/elapsed_time_count
+    print('--train--',elapsed_time,'---avg time--',elapsed_time_average)#只要15s，最快的方法。
 
 pdb.set_trace()
 
