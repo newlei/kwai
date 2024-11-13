@@ -48,18 +48,27 @@ class Adapter(nn.Module):
         )
         self.temperature = 0.7
         self.neg_sample = neg_sample#10
-    def forward(self, input_emb, pos_emb, input_copy_emb, neg_emb):
+        self.margin = 0.2
+    def forward(self, input_emb, pos_emb, neg_emb):
         
         input_emb_f = self.net(input_emb)
-        pos_emb_f = self.net(pos_emb)
-        input_copy_emb_f = self.net(input_copy_emb)
+        pos_emb_f = self.net(pos_emb) 
         neg_emb_f = self.net(neg_emb)
+        input_emb_expanded = input_emb_f.unsqueeze(1)
 
         cos_sim_pos = F.cosine_similarity(input_emb_f, pos_emb_f, dim=-1)/self.temperature
         cos_sim_neg = F.cosine_similarity(input_copy_emb_f, neg_emb_f, dim=-1)/self.temperature
-        loss_base = torch.exp(cos_sim_pos)/torch.exp(cos_sim_neg).view(-1, self.neg_sample).sum(dim=1)
-        loss = -torch.log(loss_base).mean(-1)
-        return loss
+
+        pos_loss = 1 - cos_sim_pos  # 希望正样本相似度越接近 1 越好
+        neg_loss = F.relu(self.margin + cos_sim_neg - cos_sim_pos.unsqueeze(1))  # 保证负样本与 u_emb 相似度低于正样本
+        # 取负样本损失的平均值
+        neg_loss = neg_loss.mean(dim=1)
+        # 总损失是正样本损失和负样本损失之和
+        loss = pos_loss.mean() + neg_loss.mean()
+
+        # loss_base = torch.exp(cos_sim_pos)/torch.exp(cos_sim_neg).view(-1, self.neg_sample).sum(dim=1)
+        # loss = -torch.log(loss_base).mean(-1)
+        # return loss
 
     def output_emb(self,input_emb):
         output_emb = self.net(input_emb)
@@ -89,14 +98,13 @@ class embData(data.Dataset):
 
         u = self.emb_dict[u_id]
         u_pos = self.emb_dict[pos_id]
-
-        u_copy = [u]*self.neg_sample
+ 
         neg_id_list = self.all_id_set -set(pos_id_list)
         u_neg_id = np.random.choice(list(neg_id_list),self.neg_sample) #random.sample(neg_id_list,self.neg_sample)
         u_neg = [self.emb_dict[k] for k in u_neg_id]# self.emb_dict[u_neg_id]
  
         #实际上只用到一半去计算，不需要j的。
-        return torch.from_numpy(np.array(u)), torch.from_numpy(np.array(u_pos)), torch.from_numpy(np.array(u_copy)), torch.from_numpy(np.array(u_neg))           
+        return torch.from_numpy(np.array(u)), torch.from_numpy(np.array(u_pos)), torch.from_numpy(np.array(u_neg))           
  
  
 
@@ -141,10 +149,9 @@ for epoch in range(150):
     model.train() 
     start_time = time.time()
     train_loss_sum=[] 
-    for u_emb, pos_emb, u_copy,neg_emb in train_loader:
+    for u_emb, pos_emb,neg_emb in train_loader:
         u_emb = u_emb.cuda()
-        pos_emb = pos_emb.cuda()
-        u_copy = u_copy.cuda() 
+        pos_emb = pos_emb.cuda() 
         neg_emb = neg_emb.cuda()
 
         model.zero_grad()
