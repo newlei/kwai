@@ -15,6 +15,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] =','.join(map(str, [1]))
 from torch.utils.data import DataLoader
 from torchvision import datasets
 import random
+import torch.utils.data as data
 
 
 class Adapter(nn.Module):
