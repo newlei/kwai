@@ -82,7 +82,7 @@ class embData(data.Dataset):
         # u=[] u_pos=[] u_copy = [] u_neg = []
         u_id = self.all_id[idx] 
         pos_id_list  = self.pair_dict[u_id]
-        pos_id = random.sample(pos_id_list)
+        pos_id = random.sample(set(pos_id_list))
         
         u = self.emb_dict[u_id]
         u_pos = self.emb_dict[pos_id]
@@ -111,9 +111,8 @@ optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.001)#, betas=(0.5, 0.9
 user_len = 1000
 emb_dict =dict()
 pair_dict =dict()
-all_user_list = np.array(range(user_len))
-for i in range(user_len):
-    pdb.set_trace()
+all_user_list = set(np.array(range(user_len)))
+for i in range(user_len): 
     emb_dict[i] = np.random.rand(3584)
     pair_dict[i] = random.sample(all_user_list,np.random.randint(100))
 
