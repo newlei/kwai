@@ -65,9 +65,13 @@ i_sim = np.zeros((i_id_max+1,i_id_max+1))
 # res = dict([ (t, nt(*t)) for t in pairs ])
 
 for i in i_ulist: 
+    start_time = time.time()
+    print(i)
     for j in i_ulist:
        i_sim[i][j] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
        i_sim[j][i] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
+    elapsed_time = time.time() - start_time
+    print('--train--',elapsed_time)
 
 list_user_pair = []
 # pos_u_v = np.zeros((len(u_ilist),len(u_ilist))) #reid 之后就可以用了。
