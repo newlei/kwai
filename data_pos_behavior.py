@@ -71,10 +71,12 @@ for i, s in enumerate(i_ulist_list):
     for elem in s:
         element_to_sets[elem].append(i)
 
-for target_set in i_ulist: 
+for i in i_ulist: 
     # 仅检查 target_set 中的元素对应的集合
     start_time = time.time()
     print(i)
+
+    target_set = i_ulist[i]
     candidate_indices = set()
     for elem in target_set:
         candidate_indices.update(element_to_sets.get(elem, []))
