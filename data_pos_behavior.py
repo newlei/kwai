@@ -9,6 +9,7 @@ data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id'
 
 u_ilist = dict()
 i_ulist = dict()
+i_ulist_list = []
 user_id_list =[]
 u_id_max = 0
 i_id_max = 0
@@ -29,6 +30,7 @@ for index, row in data_interaction_u.iterrows():
         u_id_max = user_id
     if user_id not in u_ilist:
         u_ilist[user_id]=set(poi_list)
+        i_ulist_list.append(set(poi_list))
     else:
         print("user id double appear error",user_id)
         pdb.set_trace()
@@ -56,10 +58,11 @@ alpah=0.1
 i_sim = np.zeros((i_id_max+1,i_id_max+1))
 for i in i_ulist:
     pdb.set_trace()
-    
-    i_ulist[i].intersection(*i_ulist)
+
+    i_ulist_one =i_ulist[i]
+    x1 = i_ulist_one.intersection(*i_ulist_list)
     pdb.set_trace()
-    
+     
     for j in i_ulist:
        i_sim[i][j] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
        i_sim[j][i] = 1/(len(i_ulist[i]&i_ulist[j])+alpah)
