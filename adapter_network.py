@@ -117,9 +117,23 @@ class Adapter(nn.Module):
             nn.Linear(int(3584/64), int(3584/128)),#56-28
             # nn.Tanh(),
         )
+        self.decoder = nn.Sequential(
+            nn.Linear(int(3584/128), int(3584/64)),
+            nn.Dropout(0.25),
+            nn.Sigmoid(),
+            nn.Linear(int(3584/64), int(3584/16)),
+            nn.Dropout(0.25),
+            nn.Sigmoid(),
+            nn.Linear(int(3584/16), int(3584/4)),
+            nn.Dropout(0.25),
+            nn.Sigmoid(),
+            nn.Linear(int(3584/4),3584)
+        )
+
         self.temperature = 0.9
         self.neg_sample = neg_sample#10
         self.margin = 0.2
+
     def forward(self, input_emb, pos_emb, neg_emb):
         
         input_emb_f = self.net(input_emb)
@@ -137,6 +151,8 @@ class Adapter(nn.Module):
         # 总损失是正样本损失和负样本损失之和
         loss = pos_loss.mean() + neg_loss.mean()
         return loss
+
+
 
         # loss_base = torch.exp(cos_sim_pos)/torch.exp(cos_sim_neg).view(-1, self.neg_sample).sum(dim=1)
         # loss = -torch.log(loss_base).mean(-1)
