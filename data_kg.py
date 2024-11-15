@@ -7,23 +7,27 @@ import os.path
 #购买行为数据
 # data_interaction = pd.read_csv('../photo_payorder_pdate_20241104.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 #点击行为数据
-data_interaction = pd.read_csv('../goods_click_pdate_20241105.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+# data_interaction = pd.read_csv('../goods_click_pdate_20241105.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+
+data_interaction = pd.read_csv('../user_poi_lat_long_pdate_20241105.csv', usecols=['user_id','photo_id','poi_id','time_second','ulat','ulong','plat','plong'], sep='|')
 print(data_interaction.size)
+
+
 
 #poi_id == 0是没有意义的数据，所以直接过滤掉。
 data_interaction1 = data_interaction.drop(data_interaction[data_interaction['poi_id']==0].index)
 print(data_interaction1.size)
 
-#先得到了data_interaction8.csv,没有和原始的数据合并。这里重新处理一下，得到最终的清洗结果。
-file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
-if os.path.isfile(file_name): 
-    data_interaction8 = pd.read_csv(file_name, usecols=['user_id','photo_id'], sep='|') 
-    merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
+#先得到了data_interaction8.csv,没有和原始的数据合并。这里重新处理一下，得到最终的清洗结果。现在用不上了。
+# file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
+# if os.path.isfile(file_name): 
+#     data_interaction8 = pd.read_csv(file_name, usecols=['user_id','photo_id'], sep='|') 
+#     merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
 
-    file_name = '../data_process/core'+str(10)+'/data_interaction_final.csv'
-    merged_table.to_csv(file_name, sep='|')
+#     file_name = '../data_process/core'+str(10)+'/data_interaction_final.csv'
+#     merged_table.to_csv(file_name, sep='|')
     
-    exit()
+#     exit()
 
 
 
@@ -67,29 +71,31 @@ def data_process(data_interaction2,core,epoch):
     print(str_out,duplicate3.size) #357366 >2  462012 >1
     return duplicate3
 
-data_interaction3 = data_process(data_interaction2,core=10,epoch=1)
-data_interaction4 = data_process(data_interaction3,core=10,epoch=2)
-data_interaction5 = data_process(data_interaction4,core=10,epoch=3)
-data_interaction6 = data_process(data_interaction5,core=10,epoch=4)
-data_interaction7 = data_process(data_interaction6,core=10,epoch=5)
-data_interaction8 = data_process(data_interaction7,core=10,epoch=6)
+core_num = 10
+data_interaction3 = data_process(data_interaction2,core=core_num,epoch=1)
+data_interaction4 = data_process(data_interaction3,core=core_num,epoch=2)
+data_interaction5 = data_process(data_interaction4,core=core_num,epoch=3)
+data_interaction6 = data_process(data_interaction5,core=core_num,epoch=4)
+data_interaction7 = data_process(data_interaction6,core=core_num,epoch=5)
+data_interaction8 = data_process(data_interaction7,core=core_num,epoch=6)
 
-file_name = '../data_process/core'+str(10)+'/data_interaction3.csv'
+file_name = '../data_process/core'+str(core_num)+'/data_interaction3.csv'
 data_interaction3.to_csv(file_name, sep='|')
-file_name = '../data_process/core'+str(10)+'/data_interaction4.csv'
+file_name = '../data_process/core'+str(core_num)+'/data_interaction4.csv'
 data_interaction4.to_csv(file_name, sep='|')
-file_name = '../data_process/core'+str(10)+'/data_interaction5.csv'
+file_name = '../data_process/core'+str(core_num)+'/data_interaction5.csv'
 data_interaction5.to_csv(file_name, sep='|')
-file_name = '../data_process/core'+str(10)+'/data_interaction6.csv'
+file_name = '../data_process/core'+str(core_num)+'/data_interaction6.csv'
 data_interaction6.to_csv(file_name, sep='|')
-file_name = '../data_process/core'+str(10)+'/data_interaction7.csv'
+file_name = '../data_process/core'+str(core_num)+'/data_interaction7.csv'
 data_interaction7.to_csv(file_name, sep='|')
-file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
+file_name = '../data_process/core'+str(core_num)+'/data_interaction8.csv'
 data_interaction8.to_csv(file_name, sep='|')
+
 
 #获得清洗后的数据
 merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
-file_name = '../data_process/core'+str(10)+'/data_interaction_final.csv'
+file_name = '../data_process/core'+str(core_num)+'/data_interaction_final.csv'
 merged_table.to_csv(file_name, sep='|')
 
 
@@ -105,6 +111,13 @@ merged_table.to_csv(file_name, sep='|')
 # 使用10-core,第6轮清洗之后的行为数量: 4396544
 
 # pdb.set_trace()
+print("merge the data to get final interaction")
+data_interaction8 = pd.read_csv(file_name, usecols=['user_id','photo_id'], sep='|') 
+merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
+
+file_name = '../data_process/core'+str(core_num)+'/data_interaction_final.csv'
+merged_table.to_csv(file_name, sep='|')
+
 
 exit()
 
