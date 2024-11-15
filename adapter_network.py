@@ -157,7 +157,7 @@ class Adapter(nn.Module):
         neg_emb_re = self.decoder(neg_emb_f)
 
         loss_reconstruction = self.mse(input_emb,input_emb_re)+self.mse(pos_emb,pos_emb_re)+self.mse(neg_emb,neg_emb_re)
-
+        # 如果loss_reconstruction和loss的量级差异过大就使用RMSE loss，也就是用torch.sqrt()开根号，降低这里的数量级。
         return loss + loss_reconstruction
 
 
