@@ -58,3 +58,5 @@
 
 ###  adapter_network.py
 adapter网络，因为现在还没有真实数据，给了一下随机的数据进行测试。目前loss稳定下降。
+本来只有一个net，现在又搞了一个decoder，用于loss_reconstruction，就成为了一个Unet，感觉不这样的话，只做对齐协同信号，但是维度降低很多，也需要reconstruction来保留语义信息。
+
