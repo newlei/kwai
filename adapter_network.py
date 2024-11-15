@@ -133,6 +133,7 @@ class Adapter(nn.Module):
         self.temperature = 0.9
         self.neg_sample = neg_sample#10
         self.margin = 0.2
+        self.mse = nn.MSELoss()
 
     def forward(self, input_emb, pos_emb, neg_emb):
         
@@ -150,7 +151,14 @@ class Adapter(nn.Module):
         neg_loss = neg_loss.mean(dim=1)
         # 总损失是正样本损失和负样本损失之和
         loss = pos_loss.mean() + neg_loss.mean()
-        return loss
+
+        input_emb_re = self.decoder(input_emb_f)
+        pos_emb_re = self.decoder(pos_emb_f) 
+        neg_emb_re = self.decoder(neg_emb_f)
+
+        loss_reconstruction = self.mse(input_emb,input_emb_re)+self.mse(pos_emb,pos_emb_re)+self.mse(neg_emb,neg_emb_re)
+
+        return loss + loss_reconstruction
 
 
 
