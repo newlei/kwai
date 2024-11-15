@@ -99,17 +99,19 @@ merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'ph
 file_name = '../data_process/core'+str(core_num)+'/data_interaction_final.csv'
 merged_table.to_csv(file_name, sep='|')
 
-
+# goods_click_pdate_20241105
 # 使用6-core,第1轮清洗之后的行为数量: 83803880
 # 使用6-core,第2轮清洗之后的行为数量: 45008556
 # 使用6-core,第3轮清洗之后的行为数量: 17144888 
-
+# goods_click_pdate_20241105
 # 用10-core,第1轮清洗之后的行为数量: 74768032
 # 使用10-core,第2轮清洗之后的行为数量: 29794666
 # 使用10-core,第3轮清洗之后的行为数量: 5685002
 # 使用10-core,第4轮清洗之后的行为数量: 4904226
 # 使用10-core,第5轮清洗之后的行为数量: 4525662
 # 使用10-core,第6轮清洗之后的行为数量: 4396544
+
+#最新的数据user_poi_lat_long_pdate_20241105
 
 # pdb.set_trace()
 print("merge the data to get final interaction")
