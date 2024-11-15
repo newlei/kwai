@@ -11,7 +11,7 @@ import os.path
 
 data_interaction = pd.read_csv('../llm_graph_data/user_poi_lat_long_pdate_20241105.csv', usecols=['uid','poi_id','photo_id','time_us','ulat','ulong','plat','plong'], sep='|')
 print(data_interaction.size)
-data_interaction.rename(columns={"uid": "user_id"})
+data_interaction = data_interaction.rename(columns={"uid": "user_id"})
 
 
 
