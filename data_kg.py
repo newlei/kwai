@@ -45,6 +45,7 @@ def data_process(data_interaction2,core,epoch):
     data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['user_id'].apply(lambda x: len(x) > core)]
     print(data_interaction2_uid_f1.shape,'user >core:',core)
     print(data_interaction2_pid_f1.shape,'item >core:',core)
+    pdb.set_trace()
 
     #拆分，过滤后的数据，然后进行比对，保留2个表中u_id和p_id都出现数据，用于下一轮的过滤
     data_interaction2_uid_f1_split =  pd.DataFrame([
