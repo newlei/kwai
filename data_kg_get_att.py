@@ -11,7 +11,7 @@ import pickle
 
 #交互数据提取：user_id|photo_id|time_second|poi_id
 file_name = '../data_process/core10/data_interaction_final.csv'
-data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_us','ulat','ulong','plat','plong'], sep='|')
 print('data_interaction:',data_interaction.shape)
 
 
