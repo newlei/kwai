@@ -16,11 +16,11 @@ import os.path
 
 file_name = '../data_process/core'+str(10)+'/data_interaction6.csv'
 data_interaction8 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
-print(merged_table.shape)
+print(data_interaction8.shape)
 
 file_name = '../data_process/core'+str(10)+'/data_interaction7.csv'
 data_interaction8 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
-print(merged_table.shape)
+print(data_interaction8.shape)
 pdb.set_trace()
 
 
