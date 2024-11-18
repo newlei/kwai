@@ -33,15 +33,15 @@ print(data_interaction1.shape)
 
 
 #先只看主要的交互行为，并统计用户交互行为数量，以及pid被点击的数量。
-data_interaction2 =  data_interaction1[['user_id', 'photo_id']]
+data_interaction2 =  data_interaction1[['user_id', 'poi_id']]#photo_id
  
 def data_process(data_interaction2,core,epoch):
         
-    data_interaction2_uid = data_interaction2.groupby('user_id')["photo_id"].apply(list).reset_index(name="photo_id")
-    data_interaction2_pid = data_interaction2.groupby('photo_id')["user_id"].apply(list).reset_index(name="user_id")
+    data_interaction2_uid = data_interaction2.groupby('user_id')["poi_id"].apply(list).reset_index(name="poi_id")
+    data_interaction2_pid = data_interaction2.groupby('poi_id')["user_id"].apply(list).reset_index(name="user_id")
 
     #过滤掉，交互行为为core以下的。
-    data_interaction2_uid_f1 = data_interaction2_uid[data_interaction2_uid['photo_id'].apply(lambda x: len(x) > core)]
+    data_interaction2_uid_f1 = data_interaction2_uid[data_interaction2_uid['poi_id'].apply(lambda x: len(x) > core)]
     data_interaction2_pid_f1 = data_interaction2_pid[data_interaction2_pid['user_id'].apply(lambda x: len(x) > core)]
 
     #拆分，过滤后的数据，然后进行比对，保留2个表中u_id和p_id都出现数据，用于下一轮的过滤
@@ -58,7 +58,7 @@ def data_process(data_interaction2,core,epoch):
     # print(data_interaction2_pid_f1_split.shape)
 
     #交换2列的顺序。
-    data_interaction2_pid_f1_split[['user_id', 'photo_id']] = data_interaction2_pid_f1_split[['photo_id', 'user_id']]
+    data_interaction2_pid_f1_split[['user_id', 'poi_id']] = data_interaction2_pid_f1_split[['poi_id', 'user_id']]
     #拼接，并保留重复的，就是2个表中均出现的数据，保留下来的就是，共同的部分。即user_id和photo_id，均出现在2张表（data_interaction2_uid_f1_split, data_interaction2_pid_f1_split）
     data_interaction3_cat = pd.concat([data_interaction2_uid_f1_split, data_interaction2_pid_f1_split], axis=0)
     #  使用duplicated()方法查找重复行
@@ -72,7 +72,7 @@ def data_process(data_interaction2,core,epoch):
     print(str_out,duplicate3.shape) #357366 >2  462012 >1
     return duplicate3
 
-core_num = 5
+core_num = 10
 data_interaction3 = data_process(data_interaction2,core=core_num,epoch=1)
 data_interaction4 = data_process(data_interaction3,core=core_num,epoch=2)
 data_interaction5 = data_process(data_interaction4,core=core_num,epoch=3)
@@ -95,7 +95,7 @@ data_interaction8.to_csv(file_name, sep='|')
 
 
 #获得清洗后的数据
-merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
+merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'poi_id'], how='inner')
 file_name = '../data_process/core'+str(core_num)+'/data_interaction_final.csv'
 merged_table.to_csv(file_name, sep='|')
 
@@ -115,8 +115,8 @@ merged_table.to_csv(file_name, sep='|')
 
 # pdb.set_trace()
 print("merge the data to get final interaction")
-data_interaction8 = pd.read_csv(file_name, usecols=['user_id','photo_id'], sep='|') 
-merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
+data_interaction8 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
+merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'poi_id'], how='inner')
 
 file_name = '../data_process/core'+str(core_num)+'/data_interaction_final.csv'
 merged_table.to_csv(file_name, sep='|')
