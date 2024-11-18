@@ -14,6 +14,17 @@ import os.path
 #点击行为数据
 # data_interaction = pd.read_csv('../goods_click_pdate_20241105.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 
+file_name = '../data_process/core'+str(10)+'/data_interaction6.csv'
+data_interaction8 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
+print(merged_table.shape)
+
+file_name = '../data_process/core'+str(10)+'/data_interaction7.csv'
+data_interaction8 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
+print(merged_table.shape)
+pdb.set_trace()
+
+
+
 data_interaction = pd.read_csv('../llm_graph_data/user_poi_lat_long_pdate_20241105.csv', usecols=['uid','poi_id','photo_id','time_us','ulat','ulong','plat','plong'], sep='|',engine="c")
 print(data_interaction.shape)
 data_interaction = data_interaction.rename(columns={"uid": "user_id"})
