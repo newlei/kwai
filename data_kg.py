@@ -75,7 +75,7 @@ def data_process(data_interaction2,core,epoch):
     print(str_out,duplicate3.shape) #357366 >2  462012 >1
     return duplicate3
 
-core_num = 10
+core_num = 5
 data_interaction3 = data_process(data_interaction2,core=core_num,epoch=1)
 data_interaction4 = data_process(data_interaction3,core=core_num,epoch=2)
 data_interaction5 = data_process(data_interaction4,core=core_num,epoch=3)
