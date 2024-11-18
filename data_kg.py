@@ -32,8 +32,8 @@ print(data_interaction1.shape)
 print("merge the data to get final interaction")
 file_name = '../data_process/core'+str(10)+'/data_interaction7.csv'
 if os.path.isfile(file_name): 
-    data_interaction8 = pd.read_csv(file_name, usecols=['user_id','photo_id'], sep='|') 
-    merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'photo_id'], how='inner')
+    data_interaction8 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
+    merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'poi_id'], how='inner')
     print(merged_table.shape)
     pdb.set_trace()
 
