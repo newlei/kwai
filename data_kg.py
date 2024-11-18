@@ -76,6 +76,7 @@ def data_process(data_interaction2,core,epoch):
     return duplicate3
 
 core_num = 5
+print('core_num:',core_num)
 data_interaction3 = data_process(data_interaction2,core=core_num,epoch=1)
 data_interaction4 = data_process(data_interaction3,core=core_num,epoch=2)
 data_interaction5 = data_process(data_interaction4,core=core_num,epoch=3)
