@@ -5,7 +5,7 @@ import os.path
 
 import ray
 ray.init(num_cpus=4)
-import modin.pandasas pd
+import modin.pandas as pd
 
 
 #交互数据提取：user_id|photo_id|time_second|poi_id
