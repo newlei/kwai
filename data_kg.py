@@ -10,14 +10,14 @@ import os.path
 # data_interaction = pd.read_csv('../goods_click_pdate_20241105.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 
 data_interaction = pd.read_csv('../llm_graph_data/user_poi_lat_long_pdate_20241105.csv', usecols=['uid','poi_id','photo_id','time_us','ulat','ulong','plat','plong'], sep='|')
-print(data_interaction.size)
+print(data_interaction.shape)
 data_interaction = data_interaction.rename(columns={"uid": "user_id"})
 
 
 
 #poi_id == 0是没有意义的数据，所以直接过滤掉。
 data_interaction1 = data_interaction.drop(data_interaction[data_interaction['poi_id']==0].index)
-print(data_interaction1.size)
+print(data_interaction1.shape)
 
 #先得到了data_interaction8.csv,没有和原始的数据合并。这里重新处理一下，得到最终的清洗结果。现在用不上了。
 # file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
@@ -54,8 +54,8 @@ def data_process(data_interaction2,core,epoch):
         for p in P 
     ], columns=data_interaction2_pid_f1.columns)
 
-    # print(data_interaction2_uid_f1_split.size)
-    # print(data_interaction2_pid_f1_split.size)
+    # print(data_interaction2_uid_f1_split.shape)
+    # print(data_interaction2_pid_f1_split.shape)
 
     #交换2列的顺序。
     data_interaction2_pid_f1_split[['user_id', 'photo_id']] = data_interaction2_pid_f1_split[['photo_id', 'user_id']]
@@ -69,10 +69,10 @@ def data_process(data_interaction2,core,epoch):
     duplicate3 = duplicate3_all.drop_duplicates()
     
     str_out = "使用"+str(core)+"-core,第"+str(epoch)+"轮清洗之后的行为数量:"
-    print(str_out,duplicate3.size) #357366 >2  462012 >1
+    print(str_out,duplicate3.shape) #357366 >2  462012 >1
     return duplicate3
 
-core_num = 10
+core_num = 5
 data_interaction3 = data_process(data_interaction2,core=core_num,epoch=1)
 data_interaction4 = data_process(data_interaction3,core=core_num,epoch=2)
 data_interaction5 = data_process(data_interaction4,core=core_num,epoch=3)
@@ -146,7 +146,7 @@ for index, row in data_interaction.iterrows():
         data_interaction.drop(index=index)
     count+=1
 
-print(data_interaction.size)
+print(data_interaction.shape)
 print(count)
 
 pdb.set_trace()
@@ -166,7 +166,7 @@ df3 = pd.concat([df1, df2]).drop_duplicates(keep=False)
 #  df1.append(df2).drop_duplicates(keep=False)
 
 #476890, 224728631 , 1945239
-print(df3.size,df2.szie,df1.size)
+print(df3.shape,df2.szie,df1.shape)
 
 
 pdb.set_trace()
