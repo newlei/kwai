@@ -31,7 +31,8 @@ print(data_interaction1.shape)
 
 #先得到了data_interaction8.csv,没有和原始的数据合并。这里重新处理一下，得到最终的清洗结果。
 print("merge the data to get final interaction")
-file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
+# file_name = '../data_process/core'+str(10)+'/data_interaction8.csv'
+file_name = '../data_process/core'+str(10)+'/data_interaction7.csv'
 if os.path.isfile(file_name): 
     data_interaction8 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
     merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'poi_id'], how='inner')
