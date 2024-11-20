@@ -9,7 +9,7 @@ from geopy.distance import geodesic
 file_name = '../data_process/core10/data_interaction_final_reid.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_us','ulat','ulong','plat','plong'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
-pdb.set_trace()
+# pdb.set_trace()
 
 data_interaction['distance_km'] = data_interaction.apply(lambda row: geodesic((row['ulat'], row['ulong']), (row['plat'], row['plong'])).kilometers, axis=1)
 
