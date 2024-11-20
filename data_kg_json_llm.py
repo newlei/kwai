@@ -11,7 +11,9 @@ data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id'
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 # pdb.set_trace()
 
-data_interaction['distance_km'] = data_interaction.apply(lambda row: geodesic((row['ulat'], row['ulong']), (row['plat'], row['plong'])).kilometers, axis=1)
+# data_interaction['distance_km'] = data_interaction.apply(lambda row: geodesic((row['ulat'], row['ulong']), (row['plat'], row['plong'])).kilometers, axis=1)
+
+data_interaction['distance_km'] = data_interaction.apply(lambda row: round(geodesic((row['lat1'], row['lon1']), (row['lat2'], row['lon2'])).kilometers, 2), axis=1)
 
 
 file_name = '../data_process/core10/data_interaction_final_cat_u_att_reid.csv'
@@ -82,7 +84,7 @@ for index, row in data_interaction.iterrows():
             time_local = time.localtime(time_list[count_sel])  
             dt1 = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
             distance_local = distance_list[count_sel]
-            text = text+ "在"+dt1+"时间且相对距离为"+str(distance_local)+"交互的产品ID是："+str(poi_id)+","+poi_att_dict[poi_id]
+            text = text+ "在"+dt1+"时间交互了相对距离为"+str(distance_local)+"KM的产品ID是："+str(poi_id)+","+poi_att_dict[poi_id]
             text+='\\n'
         except:
             continue
