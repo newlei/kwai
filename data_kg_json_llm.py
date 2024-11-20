@@ -3,11 +3,14 @@ import numpy as np
 import pandas as pd 
 import pdb
 import time
+from geopy.distance import geodesic
 
 
 file_name = '../data_process/core10/data_interaction_final_reid.csv'
-data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_us','ulat','ulong','plat','plong'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
+data_interaction['distance_km'] = data_interaction.apply(lambda row: geodesic((row['ulat'], row['ulong']), (row['plat'], row['plong'])).kilometers, axis=1)
+
 
 file_name = '../data_process/core10/data_interaction_final_cat_u_att_reid.csv'
 data_interaction_u_att = pd.read_csv(file_name, sep='|')
@@ -67,7 +70,7 @@ for index, row in data_interaction.iterrows():
         text = ""
     text += "\\n 用户交互的产品序列如下：\\n"
     poi_list = row['poi_id']
-    time_list = row['time_second']
+    time_list = row['time_us']
     count_sel = -1
     for poi_id in poi_list:  
         count_sel+=1 
