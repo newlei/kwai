@@ -37,11 +37,14 @@ print("merge the data to get final interaction")
 file_name = '../data_process/core'+str(10)+'/data_interaction6.csv'
 if os.path.isfile(file_name): 
     data_interaction8 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
-    
+
+    data_interaction8 = data_interaction8[pd.to_numeric(data_interaction8['user_id'], errors='coerce').notnull()]
+    data_interaction8['user_id'] = data_interaction8['user_id'].astype('int64') 
+
     data_interaction1 = data_interaction1[pd.to_numeric(data_interaction1['user_id'], errors='coerce').notnull()]
     data_interaction1['user_id'] = data_interaction1['user_id'].astype('int64') 
 
-    merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'poi_id'], how='inner')
+    merged_table = pd.merge(data_interaction6, data_interaction1, on=['user_id', 'poi_id'], how='inner')
     print(merged_table.shape)
     pdb.set_trace()
 
