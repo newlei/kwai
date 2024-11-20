@@ -44,11 +44,17 @@ if os.path.isfile(file_name):
     data_interaction1 = data_interaction1[pd.to_numeric(data_interaction1['user_id'], errors='coerce').notnull()]
     data_interaction1['user_id'] = data_interaction1['user_id'].astype('int64') 
 
+    data_interaction1 = data_interaction1[pd.to_numeric(data_interaction1['ulat'], errors='coerce').notnull()]
+    data_interaction1['ulat'] = data_interaction1['ulat'].astype('float64') 
+    data_interaction1 = data_interaction1[pd.to_numeric(data_interaction1['ulong'], errors='coerce').notnull()]
+    data_interaction1['ulong'] = data_interaction1['ulong'].astype('float64') 
+
     merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'poi_id'], how='inner')
     print(merged_table.shape)
 
     file_name = '../data_process/core'+str(10)+'/data_interaction_final.csv'
     merged_table.to_csv(file_name, sep='|')
+    x1=pd.read_csv(file_name, sep='|') 
 
     pdb.set_trace()
 
