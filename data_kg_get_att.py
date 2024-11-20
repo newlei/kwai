@@ -102,7 +102,8 @@ merged_poiatt.to_csv(file_name, sep='|')
 # 做reid操作。
 
 file_name = '../data_process/core10/data_interaction_final.csv'
-data_interaction = pd.read_csv(file_name,usecols=['user_id','photo_id','poi_id','time_us'], sep='|')
+# data_interaction = pd.read_csv(file_name,usecols=['user_id','photo_id','poi_id','time_us'], sep='|')
+data_interaction = pd.read_csv(file_name, sep='|')
 print('data_interaction:',data_interaction.shape)
 
 # 创建字典保存原值和reid后的映射关系
