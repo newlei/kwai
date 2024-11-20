@@ -71,6 +71,7 @@ for index, row in data_interaction.iterrows():
     text += "\\n 用户交互的产品序列如下：\\n"
     poi_list = row['poi_id']
     time_list = row['time_us']
+    distance_list = row['distance_km']
     count_sel = -1
     for poi_id in poi_list:  
         count_sel+=1 
@@ -78,7 +79,8 @@ for index, row in data_interaction.iterrows():
         try:
             time_local = time.localtime(time_list[count_sel])  
             dt1 = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
-            text = text+ "在"+dt1+"时间交互的产品ID是："+str(poi_id)+","+poi_att_dict[poi_id]
+            distance_local = distance_list[count_sel]
+            text = text+ "在"+dt1+"时间且相对距离为"+str(distance_local)+"交互的产品ID是："+str(poi_id)+","+poi_att_dict[poi_id]
             text+='\\n'
         except:
             continue
