@@ -74,6 +74,8 @@ data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
 # print(poi_att_unique['poi_id'].duplicated().sum())
 # merged_table0 = pd.merge(data_interaction_u, poi_att_unique, on=['poi_id'], how='inner') 
 
+pdb.set_trace()
+
 # data_interaction.shape  (3201191, 4)
 merged_uatt = pd.merge(data_interaction,  user_att_unique,  on=['user_id'], how='inner')
 merged_poiatt = pd.merge(data_interaction, poi_att_unique, on=['poi_id'], how='inner')
