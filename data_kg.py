@@ -44,12 +44,12 @@ if os.path.isfile(file_name):
     data_interaction1 = data_interaction1[pd.to_numeric(data_interaction1['user_id'], errors='coerce').notnull()]
     data_interaction1['user_id'] = data_interaction1['user_id'].astype('int64') 
 
-    merged_table = pd.merge(data_interaction6, data_interaction1, on=['user_id', 'poi_id'], how='inner')
+    merged_table = pd.merge(data_interaction8, data_interaction1, on=['user_id', 'poi_id'], how='inner')
     print(merged_table.shape)
 
     file_name = '../data_process/core'+str(10)+'/data_interaction_final.csv'
     merged_table.to_csv(file_name, sep='|')
-    
+
     pdb.set_trace()
 
     exit()
