@@ -14,6 +14,12 @@ file_name = '../data_process/core10/data_interaction_final.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_us','ulat','ulong','plat','plong'], sep='|')
 print('data_interaction:',data_interaction.shape)
 
+data_interaction = data_interaction[pd.to_numeric(data_interaction['ulat'], errors='coerce').notnull()]
+data_interaction['ulat'] = data_interaction['ulat'].astype('float64') 
+data_interaction = data_interaction[pd.to_numeric(data_interaction['ulong'], errors='coerce').notnull()]
+data_interaction['ulong'] = data_interaction['ulong'].astype('float64') 
+
+
 
 
 # chunksize = 10 ** 6
