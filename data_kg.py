@@ -14,16 +14,6 @@ import os.path
 #点击行为数据
 # data_interaction = pd.read_csv('../goods_click_pdate_20241105.csv', usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
 
-# file_name = '../data_process/core'+str(10)+'/data_interaction6.csv'
-# if os.path.isfile(file_name): 
-#     data_interaction6 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
-#     data_interaction = data_interaction6
-
-# data_interaction = data_interaction[pd.to_numeric(data_interaction['user_id'], errors='coerce').notnull()]
-# data_interaction['user_id'] = data_interaction['user_id'].astype('int64') 
-
-# pdb.set_trace()
-
 
 
 data_interaction = pd.read_csv('../llm_graph_data/user_poi_lat_long_pdate_20241105.csv', usecols=['uid','poi_id','photo_id','time_us','ulat','ulong','plat','plong'], sep='|',engine="c")
