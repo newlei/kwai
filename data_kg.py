@@ -17,7 +17,7 @@ import os.path
 file_name = '../data_process/core'+str(10)+'/data_interaction6.csv'
 if os.path.isfile(file_name): 
     data_interaction6 = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|') 
-    data_interaction = data_interaction8
+    data_interaction = data_interaction6
 
 data_interaction = data_interaction[pd.to_numeric(data_interaction['user_id'], errors='coerce').notnull()]
 data_interaction['user_id'] = data_interaction['user_id'].astype('int64') 
