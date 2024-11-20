@@ -46,6 +46,8 @@ print('data_interaction:',data_interaction.shape)
 file_user = '../llm_graph_data/user_fix_pdate_20241112.csv' 
 user_att = pd.read_csv(file_user, sep='|')
 # 1039494098  3622322528    2259270636
+user_att = user_att[pd.to_numeric(poi_att['user_id'], errors='coerce').notnull()]
+user_att['user_id'] = user_att['user_id'].astype('int64') 
 
 # column_names = ["user_id", "u_gender", "u_age", "u_age_part","u_city","u_province","u_country","u_north","u_region"]
 # user_att = pd.read_csv(file_user, names=column_names, header=None, sep='|')
