@@ -73,6 +73,8 @@ data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
 merged_uatt = pd.merge(data_interaction,  user_att_unique,  on=['user_id'], how='inner')
 merged_poiatt = pd.merge(data_interaction, poi_att_unique, on=['poi_id'], how='inner')
 
+pdb.set_trace()
+
 print('merged_uatt:',merged_uatt.shape)
 print('merged_poiatt:',merged_poiatt.shape)
 # pdb.set_trace()
@@ -92,7 +94,7 @@ merged_poiatt.to_csv(file_name, sep='|')
 # 做reid操作。
 
 file_name = '../data_process/core10/data_interaction_final.csv'
-data_interaction = pd.read_csv(file_name,usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+data_interaction = pd.read_csv(file_name,usecols=['user_id','photo_id','poi_id','time_us'], sep='|')
 print('data_interaction:',data_interaction.shape)
 
 # 创建字典保存原值和reid后的映射关系
