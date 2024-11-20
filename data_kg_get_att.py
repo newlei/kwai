@@ -62,8 +62,7 @@ poi_att1 = poi_att[pd.to_numeric(poi_att['poi_id'], errors='coerce').notnull()]
 poi_att1['poi_id'] = poi_att1['poi_id'].astype('int64') 
 
 
-# user_att = user_att[pd.to_numeric(user_att['user_id'], errors='coerce').notnull()]
-# user_att['user_id'] = user_att['user_id'].astype('int64') 
+
 
 # user att中有太多重复的了。
 # print(user_att['user_id'].duplicated().sum())
@@ -74,8 +73,10 @@ data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
 # print(poi_att_unique['poi_id'].duplicated().sum())
 # merged_table0 = pd.merge(data_interaction_u, poi_att_unique, on=['poi_id'], how='inner') 
 
-pdb.set_trace()
 # 1039494098  3622322528    2259270636
+
+# data_interaction = data_interaction[pd.to_numeric(data_interaction['user_id'], errors='coerce').notnull()]
+# data_interaction['user_id'] = data_interaction['user_id'].astype('int64') 
 
 # data_interaction.shape  (3201191, 4)
 merged_uatt = pd.merge(data_interaction,  user_att_unique,  on=['user_id'], how='inner')
