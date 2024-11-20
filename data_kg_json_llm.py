@@ -13,7 +13,7 @@ data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id'
 
 # data_interaction['distance_km'] = data_interaction.apply(lambda row: geodesic((row['ulat'], row['ulong']), (row['plat'], row['plong'])).kilometers, axis=1)
 
-data_interaction['distance_km'] = data_interaction.apply(lambda row: round(geodesic((row['lat1'], row['lon1']), (row['lat2'], row['lon2'])).kilometers, 2), axis=1)
+data_interaction['distance_km'] = data_interaction.apply(lambda row: round(geodesic((row['ulat'], row['ulong']), (row['plat'], row['plong'])).kilometers, 2), axis=1)
 
 
 file_name = '../data_process/core10/data_interaction_final_cat_u_att_reid.csv'
