@@ -27,11 +27,11 @@ data_interaction_poi_att = pd.read_csv(file_name, sep='|')
 
 u_att_dict = dict()
 #去重复的
-data_interaction_u_att = data_interaction_u_att.drop_duplicates(subset='poi_id') 
+data_interaction_u_att = data_interaction_u_att.drop_duplicates(subset='user_id') 
 #u_gender|u_age|u_age_part|u_city|play_duration|u_region
 for index, row in data_interaction_u_att.iterrows():
     # print(index) # 输出每行的索引值
-    user_id = row['poi_id']
+    user_id = row['user_id']
     if user_id not in u_att_dict:
         u_att_dict[user_id] = "性别是"+str(row['u_gender'])+",年龄是"+str(row['u_age'])+",居住地是"+str(row['u_city'])+",居住地属于中国"+str(row['u_region'])
 
@@ -55,11 +55,11 @@ instruction = "针对时空场景的推荐问题，请总结产品在时空场�
 # data_interaction = data_interaction.groupby('user_id').agg(list).reset_index()
 data_interaction = data_interaction.groupby('poi_id').agg(list).reset_index()
 for index, row in data_interaction.iterrows():
-    poi_id = row['poi_id']
-    pdb.set_trace()
+    poi_id = row['poi_id'] 
+    
     text = ""
     try:
-        text = "产品"+"ID是："+str(poi_id)+","+ poi_att_dict[poi_i]#u_att_dict[user_id]
+        text = "产品"+"ID是："+str(poi_id)+","+ poi_att_dict[poi_id]#u_att_dict[user_id]
     except:
         text = ""
     text += "\\n 产品被交互的用户序列如下：\\n"
