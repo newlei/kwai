@@ -65,7 +65,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # llm_summary(prompt_one)
         if count>4:
             break
-            # pdb.set_trace()
+        pdb.set_trace()
         count+=1
 
 
