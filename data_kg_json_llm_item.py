@@ -52,8 +52,7 @@ data = []
 instruction = "针对时空场景的推荐问题，请总结出用户在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，产品类型偏好，总体偏好，每个偏好用一句话描述，其中总体偏好是结合时间偏好，空间偏好，时空整体偏好和产品类型偏好形成的。此外，对于出现的时间信息需先分类成，早上，上午，中午，下午，傍晚，晚上，凌晨，工作日，节假日，法定节假日等多种细粒度的时间标签，然后用于推理总结偏好" 
 
 
-data_interaction = data_interaction.groupby('user_id').agg(list).reset_index()
-
+# data_interaction = data_interaction.groupby('user_id').agg(list).reset_index()
 data_interaction = data_interaction.groupby('poi_id').agg(list).reset_index()
 for index, row in data_interaction.iterrows():
     poi_id = row['poi_id']
@@ -83,7 +82,7 @@ for index, row in data_interaction.iterrows():
         "input": text
     })
 
-output_file = '../data_process/core'+str(10)+'/data_kg_llm.json'
+output_file = '../data_process/core'+str(10)+'/data_kg_llm_item.json'
 
 with open(output_file, 'w', encoding='utf-8') as f:
     for item in data:
