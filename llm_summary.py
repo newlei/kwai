@@ -61,8 +61,7 @@ count=0
 input_texts =[] 
 json_path = '../data_process/core'+str(10)+'/data_kg_llm.json'
 
-json_res_path = '../data_process/core'+str(10)+'/data_kg_llm_summary.json'
-
+res_data = []
 with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
     for one_data in f.readlines(): 
@@ -72,6 +71,11 @@ with open(json_path, 'r', encoding="utf-8") as f:
         input_texts.append(response_one)
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
+        res_data.append({
+            "user_id":  prompt_one["user_id"],
+            "data": response_one
+        })
+       
 
         if count>4:
             break
@@ -79,6 +83,11 @@ with open(json_path, 'r', encoding="utf-8") as f:
         count+=1
 
 
+json_res_path = '../data_process/core'+str(10)+'/data_kg_llm_summary.json'
+with open(output_file, 'w', encoding='utf-8') as f:
+    for item in res_data:
+        json.dump(item, f, ensure_ascii=False)
+        f.write('\n')
 
 
 def last_token_pool(last_hidden_states: Tensor,
