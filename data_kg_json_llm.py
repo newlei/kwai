@@ -62,7 +62,7 @@ data = []
 # 4. **产品类型偏好**：用户偏好与美容美体相关的服务项目，尤其是涉及皮肤管理和瘦身纤体的类别。
 # 5. **总体偏好**：用户倾向于在凌晨时分，在其居住地鞍山，选择美容美体类服务，特别是皮肤管理和瘦身项目。
 
-instruction = "针对时空场景的推荐问题，请总结出用户在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，产品类型偏好，总体偏好，每个偏好用一句话描述，其中总体偏好是结合时间偏好，空间偏好，时空整体偏好和产品类型偏好形成的。此外，对于出现的时间信息需先分类成，早上，上午，中午，下午，傍晚，晚上，凌晨，工作日，节假日，法定节假日等多种细粒度的时间标签，然后用于推理总结偏好" 
+instruction = "针对时空场景的推荐问题，请总结出用户在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，产品类型偏好，总体偏好，每个偏好用一句话描述，其中总体偏好是结合时间偏好，空间偏好，时空整体偏好和产品类型偏好形成的。此外，对于出现的时间信息需先分类成，早上，上午，中午，下午，傍晚，晚上，凌晨，工作日，节假日，法定节假日等多种细粒度的时间标签，对于空间信息区分开1km，3km，5km这类细粒度信息，然后用于推理总结偏好" 
 
 data_interaction = data_interaction.groupby('user_id').agg(list).reset_index()
 for index, row in data_interaction.iterrows():
@@ -89,9 +89,11 @@ for index, row in data_interaction.iterrows():
         except:
             continue
     data.append({
+        "user_id": user_id
+        "data":{
         "instruction": instruction,
         "input": text
-    })
+    }})
 
 output_file = '../data_process/core'+str(10)+'/data_kg_llm.json'
 

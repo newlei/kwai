@@ -1,6 +1,11 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import pdb
 import json
+import torch
+import torch.nn.functional as F
+from torch import Tensor
+from transformers import AutoTokenizer, AutoModel
+
 
 # model_name = "Qwen/Qwen2.5-7B-Instruct"
 model_name ="Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
@@ -55,6 +60,9 @@ def llm_summary(prompt):
 count=0
 input_texts =[] 
 json_path = '../data_process/core'+str(10)+'/data_kg_llm.json'
+
+json_res_path = '../data_process/core'+str(10)+'/data_kg_llm_summary.json'
+
 with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
     for one_data in f.readlines(): 
@@ -63,6 +71,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         input_texts.append(response_one)
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
+        
         if count>4:
             break
         pdb.set_trace()
@@ -70,10 +79,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
 
 
 
-import torch
-import torch.nn.functional as F
-from torch import Tensor
-from transformers import AutoTokenizer, AutoModel
+
 def last_token_pool(last_hidden_states: Tensor,
                  attention_mask: Tensor) -> Tensor:
     left_padding = (attention_mask[:, -1].sum() == attention_mask.shape[0])
