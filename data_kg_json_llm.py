@@ -89,7 +89,7 @@ for index, row in data_interaction.iterrows():
         except:
             continue
     data.append({
-        "user_id": user_id
+        "user_id": user_id,
         "data":{
         "instruction": instruction,
         "input": text
