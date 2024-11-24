@@ -13,7 +13,7 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击产品1（肯德基套餐）,时间：周六的晚上，空间：商场；点击产品2（麦当劳套餐）,时间：周一的晚上，空间：公司。对于时间信息先分类成工作日、节假日、上午、中午、晚上这类细粒度的时间信息，然后请总结出用户在时空场景的推荐偏好：从时间偏好，空间偏好，时空整体偏好，产品类型偏好。"#"Give me a short introduction to large language model."
+prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击产品1（肯德基套餐）,时间：周六的晚上，空间：商场；点击产品2（麦当劳套餐）,时间：周一的晚上，空间：公司。对于时间信息先分类成工作日、节假日、上午、中午、晚上这类细粒度的时间信息，对于空间信息区分开1km，3km，5km这类细粒度信息，然后请总结出用户在时空场景的推荐偏好：从时间偏好，空间偏好，时空整体偏好，产品类型偏好。"#"Give me a short introduction to large language model."
 
 
 # You are a helpful assistant.你是一个推荐系统的助手
