@@ -67,11 +67,12 @@ with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
     for one_data in f.readlines(): 
         # 将josn字符串转化为dict字典
-        response_one = llm_summary(one_data) 
+        prompt_one = json.loads(one_data) 
+        response_one = llm_summary(prompt_one["data"]) 
         input_texts.append(response_one)
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
-        
+
         if count>4:
             break
         pdb.set_trace()
