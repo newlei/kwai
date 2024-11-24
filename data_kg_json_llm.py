@@ -93,7 +93,8 @@ for index, row in data_interaction.iterrows():
         "data":{
         "instruction": instruction,
         "input": text
-    }})
+        }
+    })
 
 output_file = '../data_process/core'+str(10)+'/data_kg_llm.json'
 
