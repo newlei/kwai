@@ -76,11 +76,10 @@ with open(json_path, 'r', encoding="utf-8") as f:
             "data": response_one
         })
        
-
-        if count>4:
-            break
-        pdb.set_trace()
-        count+=1
+        # if count>4:
+        #     break
+        # pdb.set_trace()
+        # count+=1
 
 
 json_res_path = '../data_process/core'+str(10)+'/data_kg_llm_summary.json'
