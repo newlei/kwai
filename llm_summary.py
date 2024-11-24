@@ -71,6 +71,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         input_texts.append(response_one)
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
+        print("user_id",prompt_one["user_id"])
         res_data.append({
             "user_id":  prompt_one["user_id"],
             "data": response_one
