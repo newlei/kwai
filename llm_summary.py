@@ -68,7 +68,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
     for one_data in f.readlines(): 
         # 将josn字符串转化为dict字典
         prompt_one = json.loads(one_data) 
-        response_one = llm_summary(prompt_one["data"]) 
+        response_one = llm_summary(str(prompt_one["data"]))
         input_texts.append(response_one)
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
