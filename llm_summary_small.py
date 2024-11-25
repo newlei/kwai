@@ -23,9 +23,10 @@ def llm_summary(batch_data):
     results = [tokenizer.decode(ids, skip_special_tokens=True) for ids in generated_ids]
 
     for i, text in enumerate(batch_data):
-        print(f"输入: {text}")
+        # print(f"输入: {text}")
         print(f"生成结果: {results[i]}")
         print("-" * 30)
+    pdb.set_trace()
     return results
 
 
