@@ -52,11 +52,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # 将josn字符串转化为dict字典
         start_time = time.time()
         prompt_one = json.loads(one_data)  
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": str(prompt_one["data"])}
-        ]
-        batch_data.append(str(messages))#str(prompt_one["data"]))
+        
+        batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
         batch_data_id.append(prompt_one["user_id"])
         if batch_size<4:
             batch_size+=1
