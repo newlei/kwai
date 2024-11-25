@@ -21,7 +21,7 @@ batch_data = [
 
 # Step 3: 设置采样参数
 sampling_params = SamplingParams(
-    temperature=0.7,
+    temperature=0.9,
     top_p=0.9,
     max_tokens=1000,  # 限制生成的最大长度
 )
