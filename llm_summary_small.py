@@ -52,7 +52,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # 将josn字符串转化为dict字典
         start_time = time.time()
         prompt_one = json.loads(one_data)  
-        str_in = prompt_one["data"]["instruction"]+"上下文信息："+prompt_one["data"]["input"]+"写出简要总结，不包含原句重复。"
+        str_in = prompt_one["data"]["instruction"]+"上下文信息："+prompt_one["data"]["input"]+"\n \n 写出总结性的回答，不包含原句重复。"
 
         batch_data.append(str_in)#str(prompt_one["data"])+"\n 请用中文回答")
         batch_data_id.append(prompt_one["user_id"])
