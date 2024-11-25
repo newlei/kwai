@@ -46,10 +46,11 @@ with open(json_path, 'r', encoding="utf-8") as f:
         start_time = time.time()
         prompt_one = json.loads(one_data)  
         batch_data.append(str(prompt_one["data"]))
+        print('batch_count')
         if batch_count<32:
             batch_count+=1
             continue
-
+        print('send data')
         response_one = llm_summary(batch_data)
         input_texts.append(response_one)
         # prompt_one = json.loads(one_data)
