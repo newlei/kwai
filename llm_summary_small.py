@@ -102,7 +102,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
 
 
 json_res_path = '../data_process/core'+str(10)+'/data_kg_llm_summary1.json'
-with open(output_file, 'w', encoding='utf-8') as f:
+with open(json_res_path, 'w', encoding='utf-8') as f:
     for item in res_data:
         json.dump(item, f, ensure_ascii=False)
         f.write('\n')
