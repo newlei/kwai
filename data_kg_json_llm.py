@@ -96,7 +96,7 @@ for index, row in data_interaction.iterrows():
         }
     })
 
-output_file = '../data_process/core'+str(10)+'/data_kg_llm.json'
+output_file = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
 
 with open(output_file, 'w', encoding='utf-8') as f:
     for item in data:
