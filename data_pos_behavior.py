@@ -26,6 +26,8 @@ i_id_max = data_interaction_i.shape[0]
 
 print(u_id_max,i_id_max)
 
+pdb.set_trace()
+
 u_ilist = dict()
 u_ilist_list = [None]*u_id_max #[set() for _ in range(u_id_max)]
 i_ulist = dict()
