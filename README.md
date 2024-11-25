@@ -40,18 +40,35 @@
 ../data_process/core'+str(10)+'/data_interaction_final_cat_p_att_redi.csv
 
 
-###  data_kg_json_llm.py
+###  data_kg_json_llm.py and data_kg_json_llm_item.py
 将生成的数据构建成LLM读取的json文件。文件路径
 
-'../data_process/core'+str(10)+'/data_kg_llm.json'
+使用data_kg_json_llm.py ：
+- 针对user的数据构建。 '../data_process/core'+str(10)+'/train/data_kg_llm.json'
 
-- 还缺一个针对item的数据构建。
+使用data_kg_json_llm_item.py ：
+- 针对item的数据构建。'../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
+
+
 
 ###  llm_summary.py and llm_summary_small.py
 总结用户的时空偏好并提取emb，目前是一条条的送进去，还没有形成batch，因为显存不够。
 
 llm_summary_small.py 改成了，vllm+"Qwen/Qwen2.5-3B-Instruct"，这样batch可以设置为64，1张卡就行了。
 
+
+输入文件：
+- 用户侧的json文件：json_path = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
+- 产品侧的json文件：json_path = '../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
+
+
+输出2个文件：
+- 用户侧总结的结果：json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary.json'
+- 产品侧总结的结果：json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary_item.json'
+
+
+###  llm_summary_small_emb.py
+是在llm_summary_small.py得到结果后，输出user emb和item emb。
 
 ###  data_pos_behavoir.py
 用于找到正样本，便于利用对比学习，将信号对齐。
