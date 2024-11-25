@@ -26,13 +26,13 @@ sampling_params = SamplingParams(
     max_tokens=1000,  # 限制生成的最大长度
 )
 
-# Step 4: 执行批量推理
-results = llm.generate(batch_data, sampling_params)
+# # Step 4: 执行批量推理
+# results = llm.generate(batch_data, sampling_params)
 
-# Step 5: 输出结果
-for i, output in enumerate(results):
-    print(f"输入: {batch_data[i]}")
-    print(f"生成结果: {output.outputs[0].text}\n")
+# # Step 5: 输出结果
+# for i, output in enumerate(results):
+#     print(f"输入: {batch_data[i]}")
+#     print(f"生成结果: {output.outputs[0].text}\n")
 
  
 
