@@ -79,8 +79,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # llm_summary(prompt_one)
         # Step 5: 输出结果
         for i, output in enumerate(response):
-            print(f"输入 useri id: {batch_data_id[i]}")
-            print(f"生成结果: {output.outputs[0].text.strip()}\n")
+            # print(f"输入 useri id: {batch_data_id[i]}")
+            # print(f"生成结果: {output.outputs[0].text.strip()}\n")
             res_data.append({
                 "user_id":  batch_data_id[i],
                 "data": output.outputs[0].text
@@ -94,11 +94,10 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # pdb.set_trace()
         batch_data = []
         batch_data_id = []
-    
-        if count>2:
-            break
-        # pdb.set_trace()
-        count+=1
+        # if count>2:
+        #     break
+        # # pdb.set_trace()
+        # count+=1
 
 
 json_res_path = '../data_process/core'+str(10)+'/data_kg_llm_summary1.json'
@@ -110,10 +109,12 @@ with open(json_res_path, 'w', encoding='utf-8') as f:
 f1 = open(json_res_path, 'r', encoding="utf-8")
 for one_data in f1.readlines(): 
     prompt_one = json.loads(one_data) 
-    pdb.set_trace()
 
-
+print('end')
 pdb.set_trace()
+exit()
+
+
 
 def last_token_pool(last_hidden_states: Tensor,
                  attention_mask: Tensor) -> Tensor:
