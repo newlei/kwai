@@ -23,7 +23,7 @@ batch_data = [
 sampling_params = SamplingParams(
     temperature=0.7,
     top_p=0.9,
-    # max_tokens=100,  # 限制生成的最大长度
+    max_tokens=1000,  # 限制生成的最大长度
 )
 
 # Step 4: 执行批量推理
