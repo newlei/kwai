@@ -81,6 +81,7 @@ for index, row in data_interaction.iterrows():
         count_sel+=1 
 
         try:
+            #除1000，10^6.检查一下。
             time_local = time.localtime(time_list[count_sel])  
             dt1 = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
             distance_local = distance_list[count_sel]

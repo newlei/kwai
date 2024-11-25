@@ -10,7 +10,7 @@ from vllm import LLM, SamplingParams
 
 # Step 1: 初始化模型
 model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
-llm = LLM(model=model_path)
+llm = LLM(model=model_path, dtype='half')
 
 # Step 2: 定义批量输入数据
 batch_data = [
