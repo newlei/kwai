@@ -12,9 +12,12 @@ from scipy.sparse import csr_matrix
 import itertools 
 from concurrent.futures import ThreadPoolExecutor
 
-file_name = '../data_process/core10/data_interaction_final_reid.csv'
-data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_second'], sep='|')
+# file_name = '../data_process/core10/data_interaction_final_reid.csv'
+file_name = '../data_process/core10/train.csv'
+data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id','photo_id','time_us','ulat','ulong','plat','plong'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
+
+
 
 data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
 u_id_max = data_interaction_u.shape[0]
@@ -151,7 +154,12 @@ start_time = time.time()
 list_sim_uv = compute_intersections(list_user_pair,8)
 elapsed_time = time.time() - start_time
 print('--each pair time--',elapsed_time) #550.3678503036499, 9min
+
+np.save(pos_u_v,'../data_process/core10/train/user_pos_pair.pkl')
+
 pdb.set_trace()
+
+
 
 
 #常规计算方式
@@ -176,6 +184,7 @@ for one_pair in list_user_pair:
 
 elapsed_time = time.time() - start_time
 print('--all time--',elapsed_time,'---avg time--',elapsed_time_average) #预计22分钟。
+
 
 pdb.set_trace()
 
