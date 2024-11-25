@@ -58,7 +58,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
             batch_size+=1
             continue
 
-        response = llm.generate(batch_data, sampling_params)
+        response = llm.generate(batch_data)#, sampling_params)
 
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
