@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModel
 import time
 
 # model_name = "Qwen/Qwen2.5-7B-Instruct"
-model_name ="Qwen/Qwen2.5-1.5B-Instruct"#"Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
+model_name = "Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
 # from_pretrained(model_path, device_map = "balanced_low_0")
 
 model = AutoModelForCausalLM.from_pretrained(
@@ -86,8 +86,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         elapsed_time_all+=elapsed_time
         elapsed_time_count+=1
         elapsed_time_average = elapsed_time_all/elapsed_time_count
-        print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
-        batch_data = []
+        print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average) 
         # if count>4:
         #     break
         # pdb.set_trace()
