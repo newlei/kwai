@@ -6,10 +6,40 @@ import torch.nn.functional as F
 from torch import Tensor
 from transformers import AutoTokenizer, AutoModel
 import time
+from vllm import LLM, SamplingParams
 
-# model_name = "Qwen/Qwen2.5-7B-Instruct"
-model_name ="Qwen/Qwen2.5-1.5B-Instruct"#"Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
-# from_pretrained(model_path, device_map = "balanced_low_0")
+# Step 1: 初始化模型
+model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
+llm = LLM(model=model_path)
+
+# Step 2: 定义批量输入数据
+batch_data = [
+    "请简述量子计算的基本原理。",
+    "给出关于人工智能伦理的三条建议。",
+    "如何评价最近的大模型技术发展？",
+]
+
+# Step 3: 设置采样参数
+sampling_params = SamplingParams(
+    temperature=0.7,
+    top_p=0.9,
+    max_tokens=100,  # 限制生成的最大长度
+)
+
+# Step 4: 执行批量推理
+results = llm.generate(batch_data, sampling_params)
+
+# Step 5: 输出结果
+for i, output in enumerate(results):
+    print(f"输入: {batch_data[i]}")
+    print(f"生成结果: {output.outputs[0].text}\n")
+
+exit()
+
+
+
+
+
 
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
