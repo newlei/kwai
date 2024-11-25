@@ -47,8 +47,10 @@
 
 - 还缺一个针对item的数据构建。
 
-###  llm_summary.py
+###  llm_summary.py and llm_summary_small.py
 总结用户的时空偏好并提取emb，目前是一条条的送进去，还没有形成batch，因为显存不够。
+
+改成了，vllm+"Qwen/Qwen2.5-3B-Instruct"，这样batch可以设置为64，1张卡就行了。
 
 
 ###  data_pos_behavoir.py
