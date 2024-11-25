@@ -47,7 +47,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         prompt_one = json.loads(one_data)  
         batch_data.append(str(prompt_one["data"]))
         print('batch_count')
-        if batch_count<32:
+        if batch_count<2:
             batch_count+=1
             continue
         print('send data')
