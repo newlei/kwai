@@ -23,7 +23,7 @@ prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击
 
 # You are a helpful assistant.你是一个推荐系统的助手
 def llm_summary(prompt):
-    messages = [
+    # messages = [
     #     {"role": "system", "content": "You are a helpful assistant."},
     #     {"role": "user", "content": prompt}
     # ]
