@@ -87,9 +87,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
         elapsed_time_count+=1
         elapsed_time_average = elapsed_time_all/elapsed_time_count
         print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average) 
-        if count>4:
-            break
-        pdb.set_trace()
+        if count>2:
+            break 
         count+=1
 
 
@@ -98,6 +97,11 @@ with open(output_file, 'w', encoding='utf-8') as f:
     for item in res_data:
         json.dump(item, f, ensure_ascii=False)
         f.write('\n')
+f1 = open(json_res_path, 'r', encoding="utf-8")
+for one_data in f1.readlines(): 
+    prompt_one = json.loads(one_data) 
+    pdb.set_trace()
+    
 
 pdb.set_trace()
 
