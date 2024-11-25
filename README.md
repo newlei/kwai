@@ -6,11 +6,6 @@
 
 '../data_process/core'+str(10)+'/data_interaction_final.csv
 
-文件中的实例如下：
-|user_id|photo_id|time_second|poi_id|
-0|8686|100014228410658|1729353600|3002790283314925585
-1|8686|100014228410658|1729094400|3002790283314925585
-
 新使用文件是:user_poi_lat_long_pdate_20241105
 
 
@@ -27,7 +22,7 @@
 - 进行reid后的结果
 ../data_process/core'+str(10)+'/data_interaction_final_cat_u_att_reid.csv
 
-- 拼接了poi的属性，几乎poi都在，交互还是300万，少了一点零头
+- 拼接了poi的属性
 ../data_process/core'+str(10)+'/data_interaction_final_cat_poi_att.csv
 
 - 进行reid后的结果
@@ -37,17 +32,26 @@
 ../data_process/core'+str(10)+'/data_interaction_final_cat_p_att.csv
 
 - 进行reid后的结果
-../data_process/core'+str(10)+'/data_interaction_final_cat_p_att_redi.csv
+../data_process/core'+str(10)+'/data_interaction_final_cat_p_att_reid.csv
+
+- id的映射关系已保存至
+file = open('../data_process/core10/mapping_dict.pkl','rb')
+
+### data_split_train.py
+
+- 输入reid的交互行为：file_name = '../data_process/core10/data_interaction_final_reid.csv'
+- 根据user对交互行为进行拆分，train：val：text=0.7:0.1:0.2
+- 输出：../data_process/core10/train.csv or val.csv or test,csv
 
 
 ###  data_kg_json_llm.py and data_kg_json_llm_item.py
 将生成的数据构建成LLM读取的json文件。文件路径
 
 使用data_kg_json_llm.py ：
-- 针对user的数据构建。 '../data_process/core'+str(10)+'/train/data_kg_llm.json'
+- 针对user的数据构建结果： '../data_process/core'+str(10)+'/train/data_kg_llm.json'
 
 使用data_kg_json_llm_item.py ：
-- 针对item的数据构建。'../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
+- 针对item的数据构建结果：'../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
 
 
 
@@ -69,6 +73,9 @@ llm_summary_small.py 改成了，vllm+"Qwen/Qwen2.5-3B-Instruct"，这样batch�
 
 ###  llm_summary_small_emb.py
 是在llm_summary_small.py得到结果后，输出user emb和item emb。
+- np.save(user_emb,'../data_process/core'+str(10)+'/train/llm_user_emb.pkl')
+- np.save(user_emb,'../data_process/core'+str(10)+'/train/llm_item_emb.pkl')
+
 
 ###  data_pos_behavoir.py
 用于找到正样本，便于利用对比学习，将信号对齐。

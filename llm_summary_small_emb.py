@@ -63,3 +63,4 @@ with open(json_path, 'r', encoding="utf-8") as f:
         batch_data_id = []
 
 np.save(user_emb,'../data_process/core'+str(10)+'/train/llm_user_emb.pkl')
+# np.save(user_emb,'../data_process/core'+str(10)+'/train/llm_item_emb.pkl')
