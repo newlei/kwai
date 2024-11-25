@@ -73,7 +73,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # response = llm.generate(batch_data, sampling_params)
         # llm.generate(str_in, sampling_params)
         # conversation = [{"role": "system", "content": str(prompt_one["data"])}]
-        response = llm.chat(conversation, sampling_params)
+        response = llm.chat(batch_data, sampling_params)
 
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
