@@ -8,8 +8,8 @@ from transformers import AutoTokenizer, AutoModel
 import time
 
 # 加载模型和分词器
-tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen-2.5-1.5B")
-model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen-2.5-1.5B")
+tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-1.5B-Instruct")
+model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-1.5B-Instruct")
 
 
 def llm_summary(batch_data):
