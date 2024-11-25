@@ -55,8 +55,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
         start_time = time.time()
         prompt_one = json.loads(one_data)  
         str_in = prompt_one["data"]["instruction"]+"上下文信息："+prompt_one["data"]["input"]+"\n \n 写出总结性的回答，不包含原句重复。"
-
-        batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
+        batch_data.append(str_in)
+        # batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
         batch_data_id.append(prompt_one["user_id"])
         if batch_size<4:
             batch_size+=1
