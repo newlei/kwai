@@ -82,13 +82,15 @@ for index, row in data_interaction.iterrows():
 
         try:
             #除1000，10^6.检查一下。
-            time_local = time.localtime(time_list[count_sel])  
+            time_local = time.localtime(time_list[count_sel]/1000)  
             dt1 = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
             distance_local = distance_list[count_sel]
             text = text+ "在"+dt1+"时间交互了相对距离为"+str(distance_local)+"KM的产品ID是："+str(poi_id)+","+poi_att_dict[poi_id]
             text+='\\n'
         except:
             continue
+        pdb.set_trace()
+        
     data.append({
         "user_id": user_id,
         "data":{
