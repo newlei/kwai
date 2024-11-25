@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModel
 import time
 
 # model_name = "Qwen/Qwen2.5-7B-Instruct"
-model_name ="Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
+model_name ="Qwen/Qwen2.5-1.5B-Instruct"#"Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
 # from_pretrained(model_path, device_map = "balanced_low_0")
 
 model = AutoModelForCausalLM.from_pretrained(
