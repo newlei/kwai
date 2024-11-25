@@ -76,7 +76,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
             add_generation_prompt=True
         )
         batch_data.append(text)
-        if batch_size<=2:
+        if batch_size<2:
             batch_size+=1
         
         # response_one = llm_summary(str(prompt_one["data"]))
