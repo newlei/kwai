@@ -42,7 +42,7 @@ sampling_params = SamplingParams(
 
 count=0
 input_texts =[] 
-json_path = '../data_process/core'+str(10)+'/data_kg_llm.json'
+json_path = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
 elapsed_time_all = 0
 elapsed_time_count = 0
 
@@ -100,7 +100,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # count+=1
 
 
-json_res_path = '../data_process/core'+str(10)+'/data_kg_llm_summary1.json'
+json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary.json'
 with open(json_res_path, 'w', encoding='utf-8') as f:
     for item in res_data:
         json.dump(item, f, ensure_ascii=False)
