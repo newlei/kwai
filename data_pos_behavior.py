@@ -24,6 +24,7 @@ u_id_max = data_interaction_u.shape[0]
 data_interaction_i = data_interaction.drop_duplicates(subset='poi_id')
 i_id_max = data_interaction_i.shape[0]
 
+# 101700 81488
 print(u_id_max,i_id_max)
 
 # pdb.set_trace()
