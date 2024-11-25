@@ -23,7 +23,7 @@ batch_data = [
 sampling_params = SamplingParams(
     temperature=0.7,
     top_p=0.9,
-    max_tokens=100,  # 限制生成的最大长度
+    # max_tokens=100,  # 限制生成的最大长度
 )
 
 # Step 4: 执行批量推理
@@ -34,50 +34,7 @@ for i, output in enumerate(results):
     print(f"输入: {batch_data[i]}")
     print(f"生成结果: {output.outputs[0].text}\n")
 
-exit()
-
-
-
-
-
-
-model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    torch_dtype="auto",
-    device_map="auto",
-)
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-
-prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击产品1（肯德基套餐）,时间：周六的晚上，空间：商场；点击产品2（麦当劳套餐）,时间：周一的晚上，空间：公司。对于时间信息先分类成工作日、节假日、上午、中午、晚上这类细粒度的时间信息，对于空间信息区分开1km，3km，5km这类细粒度信息，然后请总结出用户在时空场景的推荐偏好：从时间偏好，空间偏好，时空整体偏好，产品类型偏好。"#"Give me a short introduction to large language model."
-
-
-# You are a helpful assistant.你是一个推荐系统的助手
-def llm_summary(prompt):
-    print(model.device,"model.device")
-
-    model_inputs = tokenizer(prompt, return_tensors="pt",padding='longest').to(model.device) #"cuda:1")#
-    # model_inputs = tokenizer(prompt, return_tensors="pt").to(model.device) #"cuda:1")#
-    # sampling_params = SamplingParams(temperature=0.7, top_p=0.8,top_k=20, repetition_penalty=1.1, max_tokens=1024)
-    generated_ids = model.generate(
-        **model_inputs,
-        temperature=0.7,
-        top_p=0.8,
-        top_k=20,
-        repetition_penalty=1.1,
-        max_new_tokens=512
-    )
-
-    generated_ids = [
-        output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
-    ]
-    response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
-    pdb.set_trace()
-    
-    print(response)
-    return response
-
-# llm_summary(prompt)
-# pdb.set_trace()
+ 
 
 count=0
 input_texts =[] 
@@ -109,10 +66,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
         if batch_size<2:
             batch_size+=1
             continue
-        
-        # response_one = llm_summary(str(prompt_one["data"]))
-        response_one = llm_summary(batch_data)
-        input_texts.append(response_one)
+
+        response_one = llm.generate(batch_data, sampling_params)
 
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
@@ -127,6 +82,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
         elapsed_time_average = elapsed_time_all/elapsed_time_count
         print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
         batch_data = []
+        pdb.set_trace()
+
         # if count>4:
         #     break
         # pdb.set_trace()
