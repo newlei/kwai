@@ -10,7 +10,7 @@ from vllm import LLM, SamplingParams
 
 # Step 1: 初始化模型
 # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
-model_path ="Qwen/Qwen2.5-7B-Instruct"
+model_path ="Qwen/Qwen2.5-3B-Instruct"
 llm = LLM(model=model_path, dtype='half')
 
 # Step 2: 定义批量输入数据
@@ -22,8 +22,9 @@ batch_data = [
 
 # Step 3: 设置采样参数
 sampling_params = SamplingParams(
-    temperature=0.9,
-    top_p=0.9,
+    temperature=0.7,
+    top_p=0.8,
+    top_k=20,
     max_tokens=1500,  # 限制生成的最大长度
 )
 
