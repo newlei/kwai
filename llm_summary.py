@@ -24,17 +24,19 @@ prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击
 # You are a helpful assistant.你是一个推荐系统的助手
 def llm_summary(prompt):
     messages = [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": prompt}
-    ]
-    # messages = [prompt]
-    text = tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=True
-    )
-    print(model.device,"model.device")
-    model_inputs = tokenizer([text], return_tensors="pt").to(model.device) #"cuda:1")#
+    #     {"role": "system", "content": "You are a helpful assistant."},
+    #     {"role": "user", "content": prompt}
+    # ]
+    # # messages = [prompt]
+    # text = tokenizer.apply_chat_template(
+    #     messages,
+    #     tokenize=False,
+    #     add_generation_prompt=True
+    # )
+    # print(model.device,"model.device")
+
+    # model_inputs = tokenizer([text], return_tensors="pt").to(model.device) #"cuda:1")#
+    model_inputs = tokenizer(prompt, return_tensors="pt").to(model.device) #"cuda:1")#
     # sampling_params = SamplingParams(temperature=0.7, top_p=0.8,top_k=20, repetition_penalty=1.1, max_tokens=1024)
     generated_ids = model.generate(
         **model_inputs,
@@ -66,11 +68,18 @@ elapsed_time_count = 0
 res_data = []
 with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
+    count_batch = 0
+    batch_data = []
     for one_data in f.readlines(): 
         # 将josn字符串转化为dict字典
         start_time = time.time()
         prompt_one = json.loads(one_data) 
-        response_one = llm_summary(str(prompt_one["data"]))
+        batch_data.append(str(prompt_one["data"]))
+        if count_batch<4:
+            count_batch+=1 
+            continue
+        # response_one = llm_summary(str(prompt_one["data"]))
+        response_one = llm_summary(batch_data)
         input_texts.append(response_one)
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
@@ -84,6 +93,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         elapsed_time_count+=1
         elapsed_time_average = elapsed_time_all/elapsed_time_count
         print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
+        batch_data = []
         # if count>4:
         #     break
         # pdb.set_trace()
