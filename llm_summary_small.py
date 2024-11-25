@@ -81,12 +81,14 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # response_one = llm_summary(str(prompt_one["data"]))
         response_one = llm_summary(batch_data)
         input_texts.append(response_one)
+        pdb.set_trace()
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
         res_data.append({
             "user_id":  prompt_one["user_id"],
             "data": response_one
         }) 
+
         elapsed_time = time.time() - start_time
         elapsed_time_all+=elapsed_time
         elapsed_time_count+=1
