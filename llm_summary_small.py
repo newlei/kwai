@@ -25,7 +25,7 @@ prompt =  "针对时空场景的推荐问题，用户交互行为如下：点击
 def llm_summary(prompt):
     print(model.device,"model.device")
 
-    model_inputs = tokenizer([text], return_tensors="pt").to(model.device) #"cuda:1")#
+    model_inputs = tokenizer(prompt, return_tensors="pt").to(model.device) #"cuda:1")#
     # model_inputs = tokenizer(prompt, return_tensors="pt").to(model.device) #"cuda:1")#
     # sampling_params = SamplingParams(temperature=0.7, top_p=0.8,top_k=20, repetition_penalty=1.1, max_tokens=1024)
     generated_ids = model.generate(
