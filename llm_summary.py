@@ -5,7 +5,7 @@ import torch
 import torch.nn.functional as F
 from torch import Tensor
 from transformers import AutoTokenizer, AutoModel
-
+import time
 
 # model_name = "Qwen/Qwen2.5-7B-Instruct"
 model_name ="Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
@@ -60,12 +60,15 @@ def llm_summary(prompt):
 count=0
 input_texts =[] 
 json_path = '../data_process/core'+str(10)+'/data_kg_llm.json'
+elapsed_time_all = 0
+elapsed_time_count = 0
 
 res_data = []
 with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
     for one_data in f.readlines(): 
         # 将josn字符串转化为dict字典
+        start_time = time.time()
         prompt_one = json.loads(one_data) 
         response_one = llm_summary(str(prompt_one["data"]))
         input_texts.append(response_one)
@@ -75,8 +78,12 @@ with open(json_path, 'r', encoding="utf-8") as f:
         res_data.append({
             "user_id":  prompt_one["user_id"],
             "data": response_one
-        })
-       
+        }) 
+        elapsed_time = time.time() - start_time
+        elapsed_time_all+=elapsed_time
+        elapsed_time_count+=1
+        elapsed_time_average = elapsed_time_all/elapsed_time_count
+        print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
         # if count>4:
         #     break
         # pdb.set_trace()
