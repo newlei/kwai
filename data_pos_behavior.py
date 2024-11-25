@@ -159,8 +159,11 @@ np.save(pos_u_v,'../data_process/core10/train/user_pos_pair.pkl')
 
 pdb.set_trace()
 
+exit()
 
 
+
+# ================废弃代码===========================
 
 #常规计算方式
 elapsed_time_all = 0
@@ -192,6 +195,9 @@ pdb.set_trace()
 
 exit()
 
+
+
+# ================不要的代码===========================
 
 
 
