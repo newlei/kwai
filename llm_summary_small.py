@@ -55,7 +55,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         
         batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
         batch_data_id.append(prompt_one["user_id"])
-        if batch_size<4:
+        if batch_size<32:
             batch_size+=1
             continue
 
@@ -77,9 +77,10 @@ with open(json_path, 'r', encoding="utf-8") as f:
         elapsed_time_count+=1
         elapsed_time_average = elapsed_time_all/elapsed_time_count
         print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
+        pdb.set_trace()
         batch_data = []
         batch_data_id = []
-        pdb.set_trace()
+        
 
         # if count>4:
         #     break
