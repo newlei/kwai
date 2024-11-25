@@ -168,4 +168,5 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # pdb.set_trace()
         batch_data = []
         batch_data_id = []
-        
+
+np.save(user_emb,'../data_process/core'+str(10)+'/train/llm_user_emb.pkl')
