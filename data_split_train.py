@@ -57,8 +57,8 @@ print('val_df',val_df.shape)
 print('test_df',test_df.shape)
 
 # 保存到 CSV 文件
-train_df.to_csv("train.csv", index=False)
-val_df.to_csv("val.csv", index=False)
-test_df.to_csv("test.csv", index=False)
+train_df.to_csv("../data_process/core10/train.csv", index=False, sep='|')
+val_df.to_csv("../data_process/core10/val.csv", index=False, sep='|')
+test_df.to_csv("../data_process/core10/test.csv", index=False, sep='|')
 
 
