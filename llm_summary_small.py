@@ -51,19 +51,9 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # 将josn字符串转化为dict字典
         start_time = time.time()
         prompt_one = json.loads(one_data)  
-
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": str(prompt_one["data"])}
-        ]
-        # messages = [prompt]
-        text = tokenizer.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True
-        )
-        batch_data.append(text)
-        if batch_size<2:
+        batch_data.append(str(prompt_one["data"]))
+        
+        if batch_size<4:
             batch_size+=1
             continue
 
