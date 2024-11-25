@@ -67,7 +67,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # Step 5: 输出结果
         for i, output in enumerate(response):
             print(f"输入 useri id: {batch_data_id[i]}")
-            print(f"生成结果: {output.outputs[0].text}\n")
+            print(f"生成结果: {output.outputs[0].text.strip()}\n")
             res_data.append({
                 "user_id":  batch_data_id[i],
                 "data": output.outputs[0].text
