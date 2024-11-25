@@ -56,7 +56,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": str(prompt_one["data"])}
         ]
-        batch_data.append(messages)#str(prompt_one["data"]))
+        batch_data.append(str(messages))#str(prompt_one["data"]))
         batch_data_id.append(prompt_one["user_id"])
         if batch_size<4:
             batch_size+=1
