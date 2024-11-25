@@ -47,24 +47,29 @@ with open(json_path, 'r', encoding="utf-8") as f:
     # 读取所有行 每行会是一个字符串
     batch_size=0
     batch_data=[]
+    batch_data_id = []
     for one_data in f.readlines(): 
         # 将josn字符串转化为dict字典
         start_time = time.time()
         prompt_one = json.loads(one_data)  
         batch_data.append(str(prompt_one["data"]))
-        
+        batch_data_id.append(prompt_one["user_id"])
         if batch_size<4:
             batch_size+=1
             continue
 
-        response_one = llm.generate(batch_data, sampling_params)
+        response = llm.generate(batch_data, sampling_params)
 
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
-        res_data.append({
-            "user_id":  prompt_one["user_id"],
-            "data": response_one
-        }) 
+        # Step 5: 输出结果
+        for i, output in enumerate(response):
+            print(f"输入 useri id: {batch_data_id[i]}")
+            print(f"生成结果: {output.outputs[0].text}\n")
+            res_data.append({
+                "user_id":  batch_data_id[i],
+                "data": output.outputs[0].text
+            }) 
 
         elapsed_time = time.time() - start_time
         elapsed_time_all+=elapsed_time
@@ -72,6 +77,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         elapsed_time_average = elapsed_time_all/elapsed_time_count
         print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
         batch_data = []
+        batch_data_id = []
         pdb.set_trace()
 
         # if count>4:
