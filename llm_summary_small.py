@@ -41,7 +41,8 @@ def llm_summary(prompt):
         output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
     ]
     response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
-
+    pdb.set_trace()
+    
     print(response)
     return response
 
@@ -81,7 +82,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # response_one = llm_summary(str(prompt_one["data"]))
         response_one = llm_summary(batch_data)
         input_texts.append(response_one)
-        pdb.set_trace()
+
         # prompt_one = json.loads(one_data)
         # llm_summary(prompt_one)
         res_data.append({
