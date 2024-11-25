@@ -97,13 +97,8 @@ with open(output_file, 'w', encoding='utf-8') as f:
     for item in res_data:
         json.dump(item, f, ensure_ascii=False)
         f.write('\n')
-f1 = open(json_res_path, 'r', encoding="utf-8")
-for one_data in f1.readlines(): 
-    prompt_one = json.loads(one_data) 
-    pdb.set_trace()
-    
+        
 
-pdb.set_trace()
 
 
 

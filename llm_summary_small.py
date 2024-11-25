@@ -91,15 +91,14 @@ with open(json_path, 'r', encoding="utf-8") as f:
         elapsed_time_count+=1
         elapsed_time_average = elapsed_time_all/elapsed_time_count
         print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
-        pdb.set_trace()
+        # pdb.set_trace()
         batch_data = []
         batch_data_id = []
-        
-
-        # if count>4:
-        #     break
+    
+        if count>2:
+            break
         # pdb.set_trace()
-        # count+=1
+        count+=1
 
 
 json_res_path = '../data_process/core'+str(10)+'/data_kg_llm_summary1.json'
@@ -108,6 +107,13 @@ with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(item, f, ensure_ascii=False)
         f.write('\n')
 
+f1 = open(json_res_path, 'r', encoding="utf-8")
+for one_data in f1.readlines(): 
+    prompt_one = json.loads(one_data) 
+    pdb.set_trace()
+
+
+pdb.set_trace()
 
 def last_token_pool(last_hidden_states: Tensor,
                  attention_mask: Tensor) -> Tensor:
