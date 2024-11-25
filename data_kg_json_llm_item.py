@@ -6,7 +6,8 @@ import time
 from geopy.distance import geodesic
 
 
-file_name = '../data_process/core10/data_interaction_final_reid.csv'
+# file_name = '../data_process/core10/data_interaction_final_reid.csv'
+file_name = '../data_process/core10/train.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','photo_id','poi_id','time_us','ulat','ulong','plat','plong'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 # pdb.set_trace()
@@ -49,7 +50,8 @@ for index, row in data_interaction_poi_att.iterrows():
 
 data = []
 
-instruction = "针对时空场景的推荐问题，请总结产品在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，用户画像，总体偏好，每个偏好用一句话描述，其中总体偏好是结合时间偏好，空间偏好，时空整体偏好和用户画像偏好形成的。此外，对于出现的时间信息需先分类成，早上，上午，中午，下午，傍晚，晚上，凌晨，工作日，节假日，法定节假日等多种细粒度的时间标签，然后用于推理总结偏好" 
+
+instruction = "针对时空场景的推荐问题，请总结出用户在时空场景的推荐偏好包括：时间偏好，空间偏好，时空整体偏好，产品类型偏好，总体偏好，每个偏好用一句话描述，其中总体偏好是结合时间偏好，空间偏好，时空整体偏好和产品类型偏好形成的。此外，对于出现的时间信息需先分类成，早上，上午，中午，下午，傍晚，晚上，凌晨，工作日，节假日，法定节假日等多种细粒度的时间标签，对于空间信息区分开1km，3km，5km这类细粒度信息，然后用于推理总结偏好" 
 
 
 # data_interaction = data_interaction.groupby('user_id').agg(list).reset_index()
@@ -71,7 +73,7 @@ for index, row in data_interaction.iterrows():
         count_sel+=1 
 
         try:
-            time_local = time.localtime(time_list[count_sel])  
+            time_local = time.localtime(time_list[count_sel]/1000000)  
             dt1 = time.strftime("%Y-%m-%d %H:%M:%S",time_local)
             distance_local = distance_list[count_sel]
             text = text+ "在"+dt1+"时间被相对距离为"+str(distance_local)+"KM的用户交互了，用户的ID是："+str(user_id)+","+u_att_dict[user_id]
@@ -83,7 +85,7 @@ for index, row in data_interaction.iterrows():
         "input": text
     })
 
-output_file = '../data_process/core'+str(10)+'/data_kg_llm_item.json'
+output_file = '../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
 
 with open(output_file, 'w', encoding='utf-8') as f:
     for item in data:
