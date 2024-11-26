@@ -53,9 +53,10 @@ with open(json_path, 'r', encoding="utf-8") as f:
     batch_size=0
     batch_data=[]
     batch_data_id = []
+    start_time = time.time()
     for one_data in f.readlines(): 
+        count+=1
         # 将josn字符串转化为dict字典
-        start_time = time.time()
         prompt_one = json.loads(one_data)  
         # str_in = prompt_one["data"]["instruction"]+"上下文信息："+prompt_one["data"]["input"]+"\n \n 写出总结性的回答，不包含原句重复。"
         # batch_data.append(str_in)
@@ -91,10 +92,12 @@ with open(json_path, 'r', encoding="utf-8") as f:
         elapsed_time_all+=elapsed_time
         elapsed_time_count+=1
         elapsed_time_average = elapsed_time_all/elapsed_time_count
-        print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average)
+        print('--each pair time--',elapsed_time,'---avg time--',elapsed_time_average,'---count---',count)
         # pdb.set_trace()
         batch_data = []
         batch_data_id = []
+        batch_size = 0
+        start_time = time.time()
         # if count>2:
         #     break
         # # pdb.set_trace()
