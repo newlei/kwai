@@ -36,6 +36,7 @@ def send_requests():
                         time.sleep(s_time)
                 except json.JSONDecodeError as e:
                     print(f"Error parsing line: {line[:20]}{line[-20:]}. Error: {e}")
+                    pdb.set_trace()
                 
             
             # 发送剩余数据
