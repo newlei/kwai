@@ -35,7 +35,7 @@ def send_requests():
                         s_time= int(10*random.random())+1
                         time.sleep(s_time)
                 except json.JSONDecodeError as e:
-                    print(f"Error parsing line: {line}. Error: {e}")
+                    print(f"Error parsing line: {line[:20]}{line[-20:]}. Error: {e}")
                 
             
             # 发送剩余数据
