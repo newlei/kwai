@@ -1,6 +1,9 @@
 import json
 import requests
 import pdb
+import numpy as np
+import time
+
 # JSON 文件路径
 json_file = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
 # 服务器地址
@@ -9,7 +12,7 @@ server_url = "http://101.6.69.60:5000/process"
 
 # pdb.set_trace()
 
-batch_size = 4
+batch_size = 1024
 # 读取 JSON 文件并逐条发送请求
 def send_requests():
     try:
@@ -26,7 +29,8 @@ def send_requests():
                         response = requests.post(server_url, json=buffer)
                         print(f"Sent {batch_size} items. Response: {response.status_code}, {response.json()}")
                         buffer = []  # 清空缓冲区
-                        exit()
+                        s_time= 10*np.random.randn()
+                        time.sleep(s_time)
                 except json.JSONDecodeError as e:
                     print(f"Error parsing line: {line}. Error: {e}")
                 
