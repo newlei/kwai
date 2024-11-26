@@ -6,14 +6,15 @@ import time
 import random
 
 # JSON 文件路径
-json_file = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
+# json_file = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
+json_file = '../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
 # 服务器地址
-server_url = "http://101.6.69.60:5000/process"
+server_url = "http://101.6.69.60:8001/process"
 
 
 # pdb.set_trace()
 
-batch_size = 1024
+batch_size = 4096
 # 读取 JSON 文件并逐条发送请求
 def send_requests():
     try:
