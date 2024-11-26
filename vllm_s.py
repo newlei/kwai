@@ -27,7 +27,7 @@ def send_requests():
                     json_data = json.loads(line.strip())
                     
                     # 发送 POST 请求
-                    response = requests.post(SERVER_URL, json=json_data)
+                    response = requests.post(server_url, json=json_data)
                     
                     # 打印结果
                     print(f"Line {i + 1}: Status {response.status_code}, Response: {response.json()}")
