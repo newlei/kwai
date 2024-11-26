@@ -13,15 +13,15 @@ json_file = '../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
 server_url = "http://101.6.69.60:8001/process"
 
 
-# with open(json_file, 'r', encoding='utf-8') as file:
-#     buffer = []
-#     for line in file:
-#         # 解析每一行 JSON
-#         data = json.loads(line)
-#         buffer.append(data)
+with open(json_file, 'r', encoding='utf-8') as file:
+    buffer = []
+    for line in file:
+        # 解析每一行 JSON
+        data = json.loads(line)
+        buffer.append(data)
 
 
-# pdb.set_trace()
+pdb.set_trace()
 
 
 batch_size = 1024
@@ -31,20 +31,21 @@ def send_requests():
         # 加载 JSON 文件
         with open(json_file, 'r', encoding='utf-8') as file:
             buffer = []
-            try:
-                # 解析每一行 JSON
-                data = json.loads(line)
-                buffer.append(data)
-                # 当缓冲区达到 batch_size 时，发送请求
-                if len(buffer) == batch_size:
-                    response = requests.post(server_url, json=buffer)
-                    print(f"Sent {batch_size} items. Response: {response.status_code}, {response}")
-                    buffer = []  # 清空缓冲区
-                    s_time= int(10*random.random())+1
-                    time.sleep(s_time)
-            except json.JSONDecodeError as e:
-                print(f"Error parsing line: {line[:20]}{line[-20:]}. Error: {e}")
-                pdb.set_trace()
+            for line in file:
+                try:
+                    # 解析每一行 JSON
+                    data = json.loads(line)
+                    buffer.append(data)
+                    # 当缓冲区达到 batch_size 时，发送请求
+                    if len(buffer) == batch_size:
+                        response = requests.post(server_url, json=buffer)
+                        print(f"Sent {batch_size} items. Response: {response.status_code}, {response.json()}")
+                        buffer = []  # 清空缓冲区
+                        s_time= int(10*random.random())+1
+                        time.sleep(s_time)
+                except json.JSONDecodeError as e:
+                    print(f"Error parsing line: {line[:20]}{line[-20:]}. Error: {e}")
+                    pdb.set_trace()
                 
             
             # 发送剩余数据
