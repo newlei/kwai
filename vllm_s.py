@@ -6,27 +6,28 @@ json_file = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
 # 服务器地址
 server_url = "http://101.6.69.60:5000/process"
 
-file =open(json_file, 'r') 
-pdb.set_trace()
+
+# pdb.set_trace()
 
 batch_size = 64
 # 读取 JSON 文件并逐条发送请求
 def send_requests():
     try:
         # 加载 JSON 文件
-        with open(json_file, 'r') as file:
-            data = json.load(file)
-        
-        # 确保是列表格式
-        if not isinstance(data, list):
-            print("JSON 文件内容不是列表格式")
-            return
+        # with open(json_file, 'r') as file:
+        #     # data = json.load(file)
 
-        # 分批发送数据
-        for i in range(0, len(data), batch_size):
-            batch = data[i:i+batch_size]  # 获取当前批次数据
-            print(f"发送第 {i//batch_size + 1} 批请求，包含 {len(batch)} 条记录")
-
+        batch_size=0
+        batch=[]
+        file =open(json_file, 'r') 
+        count =0 
+        for one_data in file.readlines(): 
+            batch.append(one_data)  
+            if batch_size<=4:
+                batch_size+=1
+                continue
+            print(f"发送第 {count} 批请求，包含 {len(batch_size)} 条记录")
+            
             try:
                 response = requests.post(server_url, json=batch)  # 批量发送数据
                 if response.status_code == 200:
