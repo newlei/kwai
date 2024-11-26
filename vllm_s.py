@@ -14,7 +14,7 @@ server_url = "http://101.6.69.60:8001/process"
 
 # pdb.set_trace()
 
-batch_size = 2048
+batch_size = 1024
 # 读取 JSON 文件并逐条发送请求
 def send_requests():
     try:
