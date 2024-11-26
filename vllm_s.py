@@ -25,7 +25,6 @@ def send_requests():
             for line in file:
                 try:
                     # 解析每一行 JSON
-                    print(line[:20])
                     data = json.loads(line)
                     buffer.append(data)
                     # 当缓冲区达到 batch_size 时，发送请求
