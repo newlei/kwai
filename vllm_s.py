@@ -3,6 +3,7 @@ import requests
 import pdb
 import numpy as np
 import time
+import random
 
 # JSON 文件路径
 json_file = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
@@ -29,7 +30,7 @@ def send_requests():
                         response = requests.post(server_url, json=buffer)
                         print(f"Sent {batch_size} items. Response: {response.status_code}, {response.json()}")
                         buffer = []  # 清空缓冲区
-                        s_time= int(10*np.random.randn())+1
+                        s_time= int(10*random.random())+1
                         time.sleep(s_time)
                 except json.JSONDecodeError as e:
                     print(f"Error parsing line: {line}. Error: {e}")
