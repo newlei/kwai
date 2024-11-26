@@ -23,6 +23,7 @@ with open(json_file, 'r', encoding='utf-8') as file:
 
 pdb.set_trace()
 
+
 batch_size = 1024
 # 读取 JSON 文件并逐条发送请求
 def send_requests():
@@ -30,7 +31,7 @@ def send_requests():
         # 加载 JSON 文件
         with open(json_file, 'r', encoding='utf-8') as file:
             buffer = []
-            for line in file:
+            try:
                 # 解析每一行 JSON
                 data = json.loads(line)
                 buffer.append(data)
@@ -41,21 +42,9 @@ def send_requests():
                     buffer = []  # 清空缓冲区
                     s_time= int(10*random.random())+1
                     time.sleep(s_time)
-                    
-                # try:
-                #     # 解析每一行 JSON
-                #     data = json.loads(line)
-                #     buffer.append(data)
-                #     # 当缓冲区达到 batch_size 时，发送请求
-                #     if len(buffer) == batch_size:
-                #         response = requests.post(server_url, json=buffer)
-                #         print(f"Sent {batch_size} items. Response: {response.status_code}, {response.json()}")
-                #         buffer = []  # 清空缓冲区
-                #         s_time= int(10*random.random())+1
-                #         time.sleep(s_time)
-                # except json.JSONDecodeError as e:
-                #     print(f"Error parsing line: {line[:20]}{line[-20:]}. Error: {e}")
-                #     pdb.set_trace()
+            except json.JSONDecodeError as e:
+                print(f"Error parsing line: {line[:20]}{line[-20:]}. Error: {e}")
+                pdb.set_trace()
                 
             
             # 发送剩余数据
