@@ -38,7 +38,7 @@ def send_requests():
                 # 当缓冲区达到 batch_size 时，发送请求
                 if len(buffer) == batch_size:
                     response = requests.post(server_url, json=buffer)
-                    print(f"Sent {batch_size} items. Response: {response.status_code}, {response.json()}")
+                    print(f"Sent {batch_size} items. Response: {response.status_code}, {response}")
                     buffer = []  # 清空缓冲区
                     s_time= int(10*random.random())+1
                     time.sleep(s_time)
