@@ -13,7 +13,15 @@ json_file = '../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
 server_url = "http://101.6.69.60:8001/process"
 
 
-# pdb.set_trace()
+with open(json_file, 'r', encoding='utf-8') as file:
+    buffer = []
+    for line in file:
+        # 解析每一行 JSON
+        data = json.loads(line)
+        buffer.append(data)
+
+
+pdb.set_trace()
 
 batch_size = 1024
 # 读取 JSON 文件并逐条发送请求
