@@ -26,7 +26,7 @@ def send_requests():
             if batch_size<=4:
                 batch_size+=1
                 continue
-            print(f"发送第 {count} 批请求，包含 {len(batch_size)} 条记录")
+            print(f"发送第 {count} 批请求，包含 {batch_size} 条记录")
             
             try:
                 response = requests.post(server_url, json=batch)  # 批量发送数据
