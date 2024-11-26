@@ -1,11 +1,12 @@
 import json
 import requests
-
+import pdb
 # JSON 文件路径
 json_file = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
 # 服务器地址
 server_url = "http://101.6.69.60:5000/process"
 
+file =open(json_file, 'r') 
 pdb.set_trace()
 
 batch_size = 64
