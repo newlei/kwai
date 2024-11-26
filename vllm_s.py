@@ -6,6 +6,8 @@ json_file = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
 # 服务器地址
 server_url = "http://101.6.69.60:5000/process"
 
+pdb.set_trace()
+
 batch_size = 64
 # 读取 JSON 文件并逐条发送请求
 def send_requests():
