@@ -59,9 +59,9 @@ data_interaction = data_interaction.groupby('poi_id').agg(list).reset_index()
 for index, row in data_interaction.iterrows():
     poi_id = row['poi_id'] 
     
-    text = ""
+    text = "产品"+"ID是："+str(poi_id)
     try:
-        text = "产品"+"ID是："+str(poi_id)+","+ poi_att_dict[poi_id]#u_att_dict[user_id]
+        text = text + poi_att_dict[poi_id]#u_att_dict[user_id]
     except:
         text = ""
     text += "\\n 产品被交互的用户序列如下：\\n"
