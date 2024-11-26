@@ -26,9 +26,10 @@ def send_requests():
                         response = requests.post(server_url, json=buffer)
                         print(f"Sent {batch_size} items. Response: {response.status_code}, {response.json()}")
                         buffer = []  # 清空缓冲区
+                        exit()
                 except json.JSONDecodeError as e:
                     print(f"Error parsing line: {line}. Error: {e}")
-                exit()
+                
             
             # 发送剩余数据
             if buffer:
