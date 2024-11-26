@@ -69,7 +69,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         batch_data.append(messages)  
         # batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
         batch_data_id.append(prompt_one["user_id"])
-        if batch_size<=254:
+        if batch_size<=510:
             batch_size+=1
             continue
    
