@@ -81,8 +81,11 @@ for index, row in data_interaction.iterrows():
         except:
             continue
     data.append({
+        "poi_id": poi_id,
+        "data":{
         "instruction": instruction,
         "input": text
+        }
     })
 
 output_file = '../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
