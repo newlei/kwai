@@ -28,6 +28,7 @@ def send_requests():
                         buffer = []  # 清空缓冲区
                 except json.JSONDecodeError as e:
                     print(f"Error parsing line: {line}. Error: {e}")
+                exit()
             
             # 发送剩余数据
             if buffer:
