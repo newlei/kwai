@@ -46,7 +46,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
    
         outputs = model.encode(batch_data)
         # Print the outputs.
-        for i in range(len(outputs))
+        for i in range(len(outputs)):
             user_id  = batch_data_id[i]
             user_emb = outputs[i]
             user_emb[user_id] = user_emb
