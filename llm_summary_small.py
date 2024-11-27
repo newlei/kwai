@@ -9,14 +9,14 @@ import time
 from vllm import LLM, SamplingParams
 import os
 
-# 设置环境变量
+# 设置环境变量，对于item序列太长了只能设置最长的处理max_model_len。为了能有效，就设置了下面这个。
 os.environ["VLLM_ALLOW_LONG_MAX_MODEL_LEN"] = "1"
 
 # Step 1: 初始化模型
 # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
 model_path ="Qwen/Qwen2.5-3B-Instruct"
+# llm = LLM(model=model_path, dtype='half', tensor_parallel_size=2) 
 llm = LLM(model=model_path, dtype='half', tensor_parallel_size=2, max_model_len=128000) 
-
 
 # Step 2: 定义批量输入数据
 batch_data = [
