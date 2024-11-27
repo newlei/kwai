@@ -7,8 +7,10 @@ from torch import Tensor
 from transformers import AutoTokenizer, AutoModel
 import time
 from vllm import LLM, SamplingParams
+import os
 
-
+# 设置环境变量
+os.environ["VLLM_ALLOW_LONG_MAX_MODEL_LEN"] = "1"
 
 # Step 1: 初始化模型
 # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
