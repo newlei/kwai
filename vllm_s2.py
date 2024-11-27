@@ -51,7 +51,7 @@ if __name__ == "__main__":
     server_url = "http://101.6.69.60:5000/process"
 
     # CSV 文件路径
-    csv_file_path = '../data_process/core'+str(10)+'/test.csv'  # 替换为实际路径
+    csv_file_path = '../data_process/core'+str(10)+'/val.csv'  # 替换为实际路径
 
     # 每 10000 行发送一次
     send_data_in_batches(csv_file_path, server_url, batch_size=10000)
