@@ -43,8 +43,8 @@ sampling_params = SamplingParams(
 
 count=0
 input_texts =[] 
-json_path = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
-# json_path = '../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
+# json_path = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
+json_path = '../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
 elapsed_time_all = 0
 elapsed_time_count = 0
 
@@ -69,6 +69,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
         batch_data.append(messages)  
         # batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
         batch_data_id.append(prompt_one["user_id"])
+        if batch_size==10:
+            break
         if batch_size<=1022:
             batch_size+=1
             continue
@@ -114,8 +116,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
             }) 
 
 
-json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary.json'
-# json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary_item.json'
+# json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary.json'
+json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary_item.json'
 with open(json_res_path, 'w', encoding='utf-8') as f:
     for item in res_data:
         json.dump(item, f, ensure_ascii=False)
