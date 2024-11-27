@@ -108,7 +108,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         response = llm.chat(batch_data, sampling_params)
         for i, output in enumerate(response): 
             res_data.append({
-                "user_id":  batch_data_id[i],
+                "poi_id":  batch_data_id[i],
                 "data": output.outputs[0].text
             }) 
 
