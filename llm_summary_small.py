@@ -10,13 +10,15 @@ from vllm import LLM, SamplingParams
 import os
 
 # 设置环境变量，对于item序列太长了只能设置最长的处理max_model_len。为了能有效，就设置了下面这个。
-os.environ["VLLM_ALLOW_LONG_MAX_MODEL_LEN"] = "1"
+# os.environ["VLLM_ALLOW_LONG_MAX_MODEL_LEN"] = "1"
+# llm = LLM(model=model_path, dtype='half', tensor_parallel_size=2, max_model_len=128000) 
+# 用了上面的还依旧报错，算求，截断就截断吧，
 
 # Step 1: 初始化模型
 # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
 model_path ="Qwen/Qwen2.5-3B-Instruct"
-# llm = LLM(model=model_path, dtype='half', tensor_parallel_size=2) 
-llm = LLM(model=model_path, dtype='half', tensor_parallel_size=2, max_model_len=128000) 
+llm = LLM(model=model_path, dtype='half', tensor_parallel_size=2) 
+
 
 # Step 2: 定义批量输入数据
 batch_data = [
@@ -72,7 +74,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # batch_data_id.append(prompt_one["user_id"])
         batch_data_id.append(prompt_one["poi_id"])
 
-        if batch_size<=254: #user 1022 item 510
+        if batch_size<=1022: #user 1022 item 510
             batch_size+=1
             continue
  
