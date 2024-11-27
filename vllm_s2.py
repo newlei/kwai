@@ -1,6 +1,8 @@
 import csv
 import json
 import requests
+import random
+import time
 
 def send_data_in_batches(csv_file, url, batch_size=64):
     """
@@ -19,7 +21,9 @@ def send_data_in_batches(csv_file, url, batch_size=64):
             if len(batch) == batch_size:
                 send_batch(batch, url)
                 batch = []  # 清空当前批次
-        
+                s_time= int(5*random.random())+1
+                time.sleep(s_time)
+
         # 发送剩余的行
         if batch:
             send_batch(batch, url)
@@ -44,10 +48,10 @@ def send_batch(batch, url):
 
 if __name__ == "__main__":
     # 服务器 URL
-    server_url = "http://101.6.69.60:8001/process"
+    server_url = "http://101.6.69.60:5000/process"
 
     # CSV 文件路径
     csv_file_path = '../data_process/core'+str(10)+'/train.csv'  # 替换为实际路径
 
-    # 每 64 行发送一次
+    # 每 10000 行发送一次
     send_data_in_batches(csv_file_path, server_url, batch_size=10000)
