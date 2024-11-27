@@ -72,7 +72,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         if batch_size<=1022:
             batch_size+=1
             continue
-   
+
         # response = llm.generate(batch_data, sampling_params)
         # llm.generate(str_in, sampling_params)
         # conversation = [{"role": "system", "content": str(prompt_one["data"])}]
@@ -104,6 +104,15 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # # pdb.set_trace()
         # count+=1
 
+    if  batch_size>0:
+        print("laster batch", batch_size)
+        response = llm.chat(batch_data, sampling_params)
+        for i, output in enumerate(response): 
+            res_data.append({
+                "user_id":  batch_data_id[i],
+                "data": output.outputs[0].text
+            }) 
+
 
 json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary.json'
 # json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary_item.json'
@@ -115,6 +124,15 @@ with open(json_res_path, 'w', encoding='utf-8') as f:
 f1 = open(json_res_path, 'r', encoding="utf-8")
 for one_data in f1.readlines(): 
     prompt_one = json.loads(one_data) 
+
+
+# response1 = llm.chat(batch_data, sampling_params)
+# res_data1= res_data
+# for i, output in enumerate(response1):   res_data1.append({"user_id":  batch_data_id[i],"data": output.outputs[0].text}) 
+# json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary1.json'
+# f= open(json_res_path, 'w', encoding='utf-8') 
+# f.write('\n'.join(map(lambda item: json.dumps(item, ensure_ascii=False), res_data1)) + '\n')
+
 
 print('end')
 pdb.set_trace()
