@@ -72,7 +72,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # batch_data_id.append(prompt_one["user_id"])
         batch_data_id.append(prompt_one["poi_id"])
 
-        if batch_size<=1022:
+        if batch_size<=510: #user 1022 item 510
             batch_size+=1
             continue
  
