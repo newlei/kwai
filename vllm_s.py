@@ -10,7 +10,7 @@ import random
 # json_file = '../data_process/core'+str(10)+'/train/data_kg_llm.json'
 json_file = '../data_process/core'+str(10)+'/train/data_kg_llm_item.json'
 # 服务器地址
-server_url = "http://101.6.69.60:8001/process"
+server_url = "http://101.6.69.60:5000/process"
 
 
 # with open(json_file, 'r', encoding='utf-8') as file:
