@@ -69,6 +69,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
         batch_data.append(messages) 
         # batch_data_id.append(prompt_one["user_id"])
         batch_data_id.append(prompt_one["poi_id"])
+        if batch_size==10:
+            break
         if batch_size<=1022:
             batch_size+=1
             continue
@@ -129,6 +131,7 @@ for one_data in f1.readlines():
 # json_res_path = '../data_process/core'+str(10)+'/train/data_kg_llm_summary1.json'
 # f= open(json_res_path, 'w', encoding='utf-8') 
 # f.write('\n'.join(map(lambda item: json.dumps(item, ensure_ascii=False), res_data1)) + '\n')
+
 
 print('end')
 pdb.set_trace()
