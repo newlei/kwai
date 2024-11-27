@@ -66,30 +66,27 @@ with open(json_path, 'r', encoding="utf-8") as f:
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": str(prompt_one["data"])}
             ]
-        batch_data.append(messages)  
-        # batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
-        batch_data_id.append(prompt_one["user_id"])
+        batch_data.append(messages) 
+        # batch_data_id.append(prompt_one["user_id"])
+        batch_data_id.append(prompt_one["poi_id"])
         if batch_size==10:
             break
         if batch_size<=1022:
             batch_size+=1
             continue
-
-        # response = llm.generate(batch_data, sampling_params)
-        # llm.generate(str_in, sampling_params)
-        # conversation = [{"role": "system", "content": str(prompt_one["data"])}]
+ 
         response = llm.chat(batch_data, sampling_params)
-
-        # prompt_one = json.loads(one_data)
-        # llm_summary(prompt_one)
-        # Step 5: 输出结果
-        for i, output in enumerate(response):
-            # print(f"输入 useri id: {batch_data_id[i]}")
-            # print(f"生成结果: {output.outputs[0].text.strip()}\n")
+ 
+        for i, output in enumerate(response): 
+            # res_data.append({
+            #     "user_id":  batch_data_id[i],
+            #     "data": output.outputs[0].text
+            # }) 
             res_data.append({
-                "user_id":  batch_data_id[i],
+                "poi_id":  batch_data_id[i],
                 "data": output.outputs[0].text
             }) 
+
 
         elapsed_time = time.time() - start_time
         elapsed_time_all+=elapsed_time
