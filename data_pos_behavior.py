@@ -11,6 +11,9 @@ import scipy
 from scipy.sparse import csr_matrix 
 import itertools 
 from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
+from joblib import Parallel, delayed
+
 
 # file_name = '../data_process/core10/data_interaction_final_reid.csv'
 file_name = '../data_process/core10/train.csv'
@@ -152,6 +155,22 @@ def compute_intersections(list_user_pair, max_workers=8):
         res_sim_uv = executor.map(calculate_intersection, list_user_pair)
         list_sim_uv.append(res_sim_uv)
     return list_sim_uv
+
+
+start_time = time.time()
+list_sim_uv = []
+res_sim_uv = Parallel(n_jobs=32)(
+    delayed(calculate_intersection)(pair) for pair in list_user_pair
+)
+list_sim_uv.extend(res_sim_uv)
+elapsed_time = time.time() - start_time
+print('--each pair time--',elapsed_time) #550.3678503036499, 9min
+
+np.save(pos_u_v,'../data_process/core10/train/user_pos_pair.pkl')
+
+pdb.set_trace()
+
+
 
 start_time = time.time()
 list_sim_uv = compute_intersections(list_user_pair,64)
