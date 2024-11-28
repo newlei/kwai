@@ -14,13 +14,22 @@ from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import ProcessPoolExecutor
 from joblib import Parallel, delayed
 
+#和data_pos_behavior.py代码一样，只是把user_id和poi_id交互了名字
 
 # file_name = '../data_process/core10/data_interaction_final_reid.csv'
-file_name = '../data_process/core10/train.csv'
+file_name = '../data/train.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id','photo_id','time_us','ulat','ulong','plat','plong'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
 
+print(data_interaction.head(5))
+# 交换列名 user_id 和 poi_id
+columns = data_interaction.columns.tolist()
+idx1, idx2 = columns.index("user_id"), columns.index("poi_id")
+columns[idx1], columns[idx2] = columns[idx2], columns[idx1]
+data_interaction.columns = columns
+print(data_interaction.head(5))
+# pdb.set_trace()
 
 data_interaction_u = data_interaction.drop_duplicates(subset='user_id')
 u_id_max = data_interaction_u.shape[0]
@@ -136,6 +145,8 @@ print('list_user_pair is end,list_user_pair.shape',list_user_pair.shape)
 # result_iu = result_iu+alpah
 # np.reciprocal(result_iu, out=result_iu) #改了计算方式，还是太耗时，且内存支持不了，存不下。因此放弃这种方式。
 
+
+
 #开多线程计算方式
 def calculate_intersection(one_pair):
     u,v = one_pair
@@ -158,30 +169,22 @@ def compute_intersections(list_user_pair, max_workers=8):
 
 
 start_time = time.time()
-list_sim_uv = []
-res_sim_uv = Parallel(n_jobs=32)(
-    delayed(calculate_intersection)(pair) for pair in list_user_pair
-)
-list_sim_uv.extend(res_sim_uv)
-elapsed_time = time.time() - start_time
-print('--each pair time--',elapsed_time) #550.3678503036499, 9min
-
-np.save('../data_process/core10/train/user_pos_pair.pkl',pos_u_v)
-
-pdb.set_trace()
-
-
-
-start_time = time.time()
-list_sim_uv = compute_intersections(list_user_pair,64)
+list_sim_uv = compute_intersections(list_user_pair,16)
 elapsed_time = time.time() - start_time
 print('--each pair time--',elapsed_time) # 10448.213822126389 3h
 
-np.save(pos_u_v,'../data_process/core10/train/user_pos_pair.pkl')
+np.save('../data/user_pos_pair.npy',pos_u_v)
+
+# x1 = np.load('../data/user_pos_pair.pkl.npy')
 
 pdb.set_trace()
 
 exit()
+
+
+
+
+
 
 
 
