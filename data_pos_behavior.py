@@ -33,9 +33,9 @@ i_id_max = 81689+1
 # pdb.set_trace()
 
 u_ilist = dict()
-u_ilist_list = [None]*u_id_max #[set() for _ in range(u_id_max)]
+u_ilist_list = [set()]*u_id_max #[set() for _ in range(u_id_max)]
 i_ulist = dict()
-i_ulist_list = [None]*i_id_max #[set() for _ in range(i_id_max)]
+i_ulist_list = [set()]*i_id_max #[set() for _ in range(i_id_max)]
 
 user_id_list =[]
 
