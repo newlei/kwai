@@ -84,5 +84,6 @@ with open(json_path, 'r', encoding="utf-8") as f:
 np.save('../../data/llm_user_emb.npy',user_emb_dict)
 
 pdb.set_trace()
+user_emb_dict1 = np.load('../../data/llm_user_emb.npy')
 
 exit()
