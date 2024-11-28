@@ -17,7 +17,7 @@ model = LLM(model="../../gte-Qwen2-7B-instruct", enforce_eager=True)
 # model = LLM(model='Alibaba-NLP/gte-Qwen2-7B-instruct', enforce_eager=True, tensor_parallel_size=2)
 # Generate embedding. The output is a list of EmbeddingRequestOutputs.
 
-json_res_path = '../../data/data_llm_summary_user_summary.json' 
+json_path = '../../data/data_llm_summary_user_summary.json' 
 # json_res_path = '../data_process/core10/train/data_kg_llm_summary_item.json'
 elapsed_time_all = 0
 elapsed_time_count = 0
