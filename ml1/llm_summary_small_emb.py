@@ -13,7 +13,7 @@ from vllm import LLM, SamplingParams
 
 # Create an LLM.
 # model = LLM(model="intfloat/e5-mistral-7b-instruct", enforce_eager=True)
-model = LLM(model="../../gte-Qwen2-7B-instruct", enforce_eager=True)
+model = LLM(model="../../gte-Qwen2-7B-instruct", task="embedding", enforce_eager=True)
 # model = LLM(model='Alibaba-NLP/gte-Qwen2-7B-instruct', enforce_eager=True, tensor_parallel_size=2)
 # Generate embedding. The output is a list of EmbeddingRequestOutputs.
 
