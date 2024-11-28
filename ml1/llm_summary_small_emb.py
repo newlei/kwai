@@ -80,7 +80,6 @@ with open(json_path, 'r', encoding="utf-8") as f:
                 print('double user id error')
                 pdb.set_trace()
 
-pdb.set_trace()
 
 np.save('../../data/llm_user_emb.npy',user_emb_dict)
 
