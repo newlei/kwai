@@ -65,6 +65,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # pdb.set_trace()
         batch_data = []
         batch_data_id = []
+        batch_size = 0
 
     if batch_size>0:
         outputs = model.encode(batch_data)
