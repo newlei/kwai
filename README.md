@@ -81,7 +81,7 @@ llm_summary_small.py 改成了，vllm+"Qwen/Qwen2.5-3B-Instruct"，这样batch�
 用于找到正样本，便于利用对比学习，将信号对齐。
 目前1/(len(i_ulist[i]&i_ulist[j])+alpah)计算过程特别慢，因为要计算所有的i，j的pair情况
 - 使用稀疏矩阵来计算就很快了。15s就行了
-- user set 和 user set之间的交集，也是先用稀疏矩阵来计算，获得有交集的u v id的pair，然后去计算，常规方法计算预计22 min。采用多线程的方法。550s=9min，少了一点时间，还可以接受。
+- user set 和 user set之间的交集，也是先用稀疏矩阵来计算，获得有交集的u v id的pair，然后去计算，常规方法计算预计22 min。采用多线程的方法。550s=9min，少了一点时间，还可以接受。在新的数据集上需要3个小时。
 
 
 ###  adapter_network.py
