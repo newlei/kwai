@@ -88,3 +88,9 @@ llm_summary_small.py 改成了，vllm+"Qwen/Qwen2.5-3B-Instruct"，这样batch�
 adapter网络，因为现在还没有真实数据，给了一下随机的数据进行测试。目前loss稳定下降。
 本来只有一个net，现在又搞了一个decoder，用于loss_reconstruction，就成为了一个Unet，感觉不这样的话，只做对齐协同信号，但是维度降低很多，也需要reconstruction来保留语义信息。
 
+
+
+###  ml1
+为测试使用，
+- llm_summary_small.py测试7b模型的效果，包括对user和item 2个的summaty
+- data_pos_behavior_user.py和data_pos_behavior_item.py是分别测试找到user和item的正样本pair的。其中data_pos_behavior_item.py实现方式和user的一样，只是将数据集中的user_id和poi_id进行了替换。
