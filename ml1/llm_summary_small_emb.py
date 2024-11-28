@@ -46,6 +46,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         for i in range(len(outputs)):
             user_id  = batch_data_id[i]
             user_emb = outputs[i]
+            pdb.set_trace()
             user_emb[user_id] = user_emb
             print(output.outputs.embedding)  # list of 4096 floats
         pdb.set_trace()
