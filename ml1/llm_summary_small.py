@@ -14,7 +14,7 @@ from vllm import LLM, SamplingParams
 
 # Step 1: 初始化模型
 # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
-model_path ="../Qwen2.5-7B-Instruct"
+model_path ="../../Qwen2.5-7B-Instruct"
 llm = LLM(model=model_path)#, dtype='half', tensor_parallel_size=2) 
 
 # Step 2: 定义批量输入数据
@@ -46,7 +46,7 @@ sampling_params = SamplingParams(
 count=0
 input_texts =[] 
 # json_path = '../data/data_llm_summary_user.json'
-json_path = '../data/data_llm_summary_item.json' 
+json_path = '../../data/data_llm_summary_item.json' 
 elapsed_time_all = 0
 elapsed_time_count = 0
 
@@ -122,7 +122,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
 
 
 # json_res_path = '../data/data_llm_summary_user_summary.json'
-json_res_path = '../data/data_llm_summary_item_summary.json'
+json_res_path = '../../data/data_llm_summary_item_summary.json'
 with open(json_res_path, 'w', encoding='utf-8') as f:
     for item in res_data:
         json.dump(item, f, ensure_ascii=False)
