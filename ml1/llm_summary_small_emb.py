@@ -7,7 +7,7 @@ from torch import Tensor
 from transformers import AutoTokenizer, AutoModel
 import time
 from vllm import LLM, SamplingParams
-
+import numpy as np
 # CUDA_VISIBLE_DEVICES=5  python llm_summary_small_emb.py
 
 
@@ -37,7 +37,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
 
         batch_data.append(str(prompt_one["data"]))
         batch_data_id.append(prompt_one["user_id"])
-        if batch_size<=1022:
+        if batch_size<=2046:
             batch_size+=1
             continue
    
