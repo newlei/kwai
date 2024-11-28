@@ -29,7 +29,7 @@ i_id_max = data_interaction_i.shape[0]
 
 # 101700 81488
 print(u_id_max,i_id_max)
-
+i_id_max = 81689+1
 # pdb.set_trace()
 
 u_ilist = dict()
@@ -38,9 +38,6 @@ i_ulist = dict()
 i_ulist_list = [None]*i_id_max #[set() for _ in range(i_id_max)]
 
 user_id_list =[]
-
-u_id_current=0
-i_id_current=0
 
 data_interaction_u = data_interaction.groupby('user_id').agg(list).reset_index()
 for index, row in data_interaction_u.iterrows():
@@ -60,9 +57,6 @@ data_interaction_i = data_interaction.groupby('poi_id').agg(list).reset_index()
 for index, row in data_interaction_i.iterrows():
     poi_id = row['poi_id']
     user_list = row['user_id']
-    #reid 
-    poi_id = i_id_current
-    i_id_current+=1
 
     if poi_id not in i_ulist:
         i_ulist[poi_id]=set(user_list)
