@@ -22,7 +22,7 @@ json_path = '../../data/data_llm_summary_user_summary.json'
 elapsed_time_all = 0
 elapsed_time_count = 0
 
-user_emb = dict()
+user_emb_dict = dict()
 
 with open(json_path, 'r', encoding="utf-8") as f:
     batch_size=0
@@ -37,7 +37,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
 
         batch_data.append(str(prompt_one["data"]))
         batch_data_id.append(prompt_one["user_id"])
-        if batch_size<=64:
+        if batch_size<=1022:
             batch_size+=1
             continue
    
@@ -47,8 +47,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
             user_id  = batch_data_id[i]
             user_emb = outputs[i] 
 
-            if user_id not in user_emb:
-                user_emb[user_id] = user_emb.outputs.embedding #3584
+            if user_id not in user_emb_dict:
+                user_emb_dict[user_id] = user_emb.outputs.embedding #3584
             else:
                 print('double user id error')
                 pdb.set_trace()
@@ -66,7 +66,20 @@ with open(json_path, 'r', encoding="utf-8") as f:
         batch_data = []
         batch_data_id = []
 
-np.save(user_emb,'../../data/llm_user_emb.npy')
+    if batch_size>0:
+        outputs = model.encode(batch_data)
+        # Print the outputs.
+        for i in range(len(outputs)):
+            user_id  = batch_data_id[i]
+            user_emb = outputs[i] 
+
+            if user_id not in user_emb_dict:
+                user_emb_dict[user_id] = user_emb.outputs.embedding #3584
+            else:
+                print('double user id error')
+                pdb.set_trace()
+
+np.save(user_emb_dict,'../../data/llm_user_emb.npy')
 
 pdb.set_trace()
 
