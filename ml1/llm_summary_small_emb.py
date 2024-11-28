@@ -46,8 +46,14 @@ with open(json_path, 'r', encoding="utf-8") as f:
         for i in range(len(outputs)):
             user_id  = batch_data_id[i]
             user_emb = outputs[i] 
-            pdb.set_trace()
-            user_emb[user_id] = user_emb.outputs.embedding #3584
+
+            if user_id not in user_emb:
+                user_emb[user_id] = user_emb.outputs.embedding #3584
+            else:
+                print('double user id error')
+                pdb.set_trace()
+
+
             # print(outputs[i].outputs.embedding)  # list of 4096 floats
         # pdb.set_trace()
 
