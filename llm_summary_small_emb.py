@@ -12,10 +12,14 @@ from vllm import LLM, SamplingParams
 
 # Create an LLM.
 # model = LLM(model="intfloat/e5-mistral-7b-instruct", enforce_eager=True)
+# 现在的vllm版本是不支持的，task这个参数，同时也不支持。这个机器上vllm是不支持高版本的
 # model = LLM(model="Alibaba-NLP/gte-Qwen2-1.5B-instruct", task="embedding", enforce_eager=True)#, tensor_parallel_size=2)
 
-model = LLM(model="BAAI/bge-multilingual-gemma2", enforce_eager=True, dtype='half')#, tensor_parallel_size=2)
+# "BAAI/bge-multilingual-gemma2" 现在的vllm版本是不支持的gemma2结构，这个机器上vllm是不支持高版本的
+# model = LLM(model="BAAI/bge-multilingual-gemma2", enforce_eager=True, dtype='half')#, tensor_parallel_size=2)
 # Generate embedding. The output is a list of EmbeddingRequestOutputs.
+
+model = LLM(model="intfloat/e5-mistral-7b-instruct", enforce_eager=True)
 
 json_path = '../data_process/core10/train/data_kg_llm_summary.json' 
 # json_res_path = '../data_process/core10/train/data_kg_llm_summary_item.json'
