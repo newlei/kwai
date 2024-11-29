@@ -21,6 +21,7 @@ import os
 # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
 model_path ="../../Qwen2.5-7B-Instruct"
 llm = LLM(model=model_path)#, dtype='half', tensor_parallel_size=2) 
+# llm = LLM(model=model_path, max_model_len=128000) 
 
 # Step 2: 定义批量输入数据
 batch_data = [
