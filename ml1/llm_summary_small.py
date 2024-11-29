@@ -110,6 +110,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         #     break
         # # pdb.set_trace()
         # count+=1
+        break
 
     if  batch_size>0:
         print("laster batch", batch_size)
