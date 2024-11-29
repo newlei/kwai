@@ -41,8 +41,11 @@ with open(json_path, 'r', encoding="utf-8") as f:
         if batch_size<=2046:
             batch_size+=1
             continue
-   
-        outputs = model.encode(batch_data)
+        try:
+            outputs = model.encode(batch_data)
+        except:
+            pdb.set_trace()
+            
         # Print the outputs.
         for i in range(len(outputs)):
             user_id  = batch_data_id[i]
