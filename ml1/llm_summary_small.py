@@ -12,10 +12,15 @@ from vllm import LLM, SamplingParams
 # CUDA_VISIBLE_DEVICES=4  python llm_summary_small.py
 
 
-# Step 1: 初始化模型
-# model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
+# 设置环境变量，对于item序列太长了只能设置最长的处理max_model_len。为了能有效，就设置了下面这个。
+os.environ["VLLM_ALLOW_LONG_MAX_MODEL_LEN"] = "1"
 model_path ="../../Qwen2.5-7B-Instruct"
-llm = LLM(model=model_path)#, dtype='half', tensor_parallel_size=2) 
+llm = LLM(model=model_path, max_model_len=128000) 
+
+# Step 1: 初始化模型
+# # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
+# model_path ="../../Qwen2.5-7B-Instruct"
+# llm = LLM(model=model_path)#, dtype='half', tensor_parallel_size=2) 
 
 # Step 2: 定义批量输入数据
 batch_data = [
