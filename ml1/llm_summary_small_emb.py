@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModel
 import time
 from vllm import LLM, SamplingParams
 import numpy as np
-# CUDA_VISIBLE_DEVICES=5  python llm_summary_small_emb.py
+# CUDA_VISIBLE_DEVICES=4  python llm_summary_small_emb.py
 
 
 # Create an LLM.
