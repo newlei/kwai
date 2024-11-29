@@ -7,7 +7,7 @@ from torch import Tensor
 from transformers import AutoTokenizer, AutoModel
 import time
 from vllm import LLM, SamplingParams
-
+import os
 
 # CUDA_VISIBLE_DEVICES=4  python llm_summary_small.py
 
