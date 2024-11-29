@@ -44,6 +44,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
         try:
             outputs = model.encode(batch_data)
         except:
+            empty_items = [i for i, v in enumerate(batch_data) if not v]
             pdb.set_trace()
             
         # Print the outputs.
