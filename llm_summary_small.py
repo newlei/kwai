@@ -65,6 +65,9 @@ with open(json_path, 'r', encoding="utf-8") as f:
         prompt_one = json.loads(one_data)  
         # str_in = prompt_one["data"]["instruction"]+"上下文信息："+prompt_one["data"]["input"]+"\n \n 写出总结性的回答，不包含原句重复。"
         # batch_data.append(str_in)
+        input_data = str(prompt_one["data"])
+        if len(input_data) >=32750: #qwen只支持32768 tokens，手动截断了
+            input_data = input_data[:32750]
 
         messages = [
                 {"role": "system", "content": "You are a helpful assistant."},
