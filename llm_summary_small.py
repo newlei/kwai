@@ -71,7 +71,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
 
         messages = [
                 {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": str(prompt_one["data"])}
+                {"role": "user", "content": input_data}
             ]
         batch_data.append(messages) 
         # batch_data_id.append(prompt_one["user_id"])
