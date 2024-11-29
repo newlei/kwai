@@ -8,6 +8,7 @@ from transformers import AutoTokenizer, AutoModel
 import time
 from vllm import LLM, SamplingParams
 import os
+import tiktoken
 
 # CUDA_VISIBLE_DEVICES=4  python llm_summary_small.py
 
@@ -19,7 +20,7 @@ import os
 
 # Step 1: 初始化模型
 # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
-model_path ="../../Qwen2.5-7B-Instruct"
+model_path ="../../Qwen2.5-7B-Instruct" #只支持32768: #太长了qwen不支持，做截断。
 llm = LLM(model=model_path)#, dtype='half', tensor_parallel_size=2) 
 # llm = LLM(model=model_path, max_model_len=128000) 
 
@@ -36,7 +37,8 @@ sampling_params = SamplingParams(
     top_p=0.8,
     top_k=20,
     max_tokens=500,  # 限制生成的最大长度
-    stop=["<|endoftext|>"]
+    stop=["<|endoftext|>"],
+    truncate_prompt_tokens = 32768
 )
 
 # # Step 4: 执行批量推理
@@ -69,13 +71,17 @@ with open(json_path, 'r', encoding="utf-8") as f:
         prompt_one = json.loads(one_data)  
         # str_in = prompt_one["data"]["instruction"]+"上下文信息："+prompt_one["data"]["input"]+"\n \n 写出总结性的回答，不包含原句重复。"
         # batch_data.append(str_in)
+        input_data = str(prompt_one["data"])
+        if len(input_data) >=32750: #qwen只支持32768 tokens，手动截断了
+            input_data = input_data[:32750]
 
         messages = [
                 {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": str(prompt_one["data"])}
+                {"role": "user", "content": input_data}
             ]
         batch_data.append(messages)   
         # batch_data_id.append(prompt_one["user_id"])
+
         batch_data_id.append(prompt_one["poi_id"])
         if batch_size<=2046:
             batch_size+=1
