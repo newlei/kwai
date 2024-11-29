@@ -14,7 +14,7 @@ from vllm import LLM, SamplingParams
 # model = LLM(model="intfloat/e5-mistral-7b-instruct", enforce_eager=True)
 # model = LLM(model="Alibaba-NLP/gte-Qwen2-1.5B-instruct", task="embedding", enforce_eager=True)#, tensor_parallel_size=2)
 
-model = LLM(model="BAAI/bge-multilingual-gemma2", enforce_eager=True, tensor_parallel_size=2)
+model = LLM(model="BAAI/bge-multilingual-gemma2", enforce_eager=True, dtype='half', tensor_parallel_size=2)
 # Generate embedding. The output is a list of EmbeddingRequestOutputs.
 
 json_path = '../data_process/core10/train/data_kg_llm_summary.json' 
