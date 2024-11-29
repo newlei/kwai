@@ -56,8 +56,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
             user_id  = batch_data_id[i]
             user_emb_one = outputs[i]
             user_emb[user_id] = user_emb_one.outputs.embedding
-            print(output.outputs.embedding)  # list of 4096 floats
-        pdb.set_trace()
+            # print(output.outputs.embedding)  # list of 4096 floats
+        # pdb.set_trace()
 
         elapsed_time = time.time() - start_time
         elapsed_time_all+=elapsed_time
