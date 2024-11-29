@@ -8,11 +8,11 @@ from transformers import AutoTokenizer, AutoModel
 import time
 from vllm import LLM, SamplingParams
 
-
+# CUDA_VISIBLE_DEVICES=2,3  python llm_summary_small_emb.py
 
 # Create an LLM.
 # model = LLM(model="intfloat/e5-mistral-7b-instruct", enforce_eager=True)
-model = LLM(model='Alibaba-NLP/gte-Qwen2-7B-instruct', enforce_eager=True, tensor_parallel_size=2)
+model = LLM(model='Alibaba-NLP/gte-Qwen2-1.5B-instruct', enforce_eager=True, tensor_parallel_size=2)
 # Generate embedding. The output is a list of EmbeddingRequestOutputs.
 
 json_res_path = '../data_process/core10/train/data_kg_llm_summary.json' 
@@ -62,5 +62,6 @@ with open(json_path, 'r', encoding="utf-8") as f:
         batch_data = []
         batch_data_id = []
 
-np.save(user_emb,'../data_process/core'+str(10)+'/train/llm_user_emb.pkl')
+pdb.set_trace()
+np.save('../data_process/core'+str(10)+'/train/llm_user_emb.npy',user_emb)
 # np.save(user_emb,'../data_process/core'+str(10)+'/train/llm_item_emb.pkl')
