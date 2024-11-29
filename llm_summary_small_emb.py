@@ -54,8 +54,8 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # Print the outputs.
         for i in range(len(outputs)):
             user_id  = batch_data_id[i]
-            user_emb = outputs[i]
-            user_emb[user_id] = user_emb
+            user_emb_one = outputs[i]
+            user_emb[user_id] = user_emb_one.outputs.embedding
             print(output.outputs.embedding)  # list of 4096 floats
         pdb.set_trace()
 
@@ -67,6 +67,19 @@ with open(json_path, 'r', encoding="utf-8") as f:
         # pdb.set_trace()
         batch_data = []
         batch_data_id = []
+    
+    if batch_size>0:
+        outputs = model.encode(batch_data)
+        # Print the outputs.
+        for i in range(len(outputs)):
+            user_id  = batch_data_id[i]
+            user_emb_one = outputs[i] 
+
+            if user_id not in user_emb:
+                user_emb[user_id] = user_emb_one.outputs.embedding #3584
+            else:
+                print('double user id error')
+                pdb.set_trace()    
 
 pdb.set_trace()
 np.save('../data_process/core'+str(10)+'/train/llm_user_emb.npy',user_emb)
