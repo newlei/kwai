@@ -46,6 +46,10 @@ with open(json_path, 'r', encoding="utf-8") as f:
         batch_data.append(prompt_one["data"])  
         # batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
         batch_data_id.append(prompt_one["user_id"])
+        if len(set(batch_data_id))!=len(batch_data_id)
+            print(prompt_one["user_id"])
+            pdb.set_trace()
+
         if batch_size<=64:
             batch_size+=1
             continue
@@ -55,7 +59,14 @@ with open(json_path, 'r', encoding="utf-8") as f:
         for i in range(len(outputs)):
             user_id  = batch_data_id[i]
             user_emb_one = outputs[i]
-            user_emb[user_id] = user_emb_one.outputs.embedding
+
+            if user_id not in user_emb:
+                user_emb[user_id] = user_emb_one.outputs.embedding #3584
+            else:
+                print('double user id error')
+                pdb.set_trace()    
+
+            # user_emb[user_id] = user_emb_one.outputs.embedding
             # print(output.outputs.embedding)  # list of 4096 floats
         # pdb.set_trace()
 
