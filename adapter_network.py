@@ -10,7 +10,7 @@ import numpy as np
 import math
 import sys
 
-os.environ["CUDA_VISIBLE_DEVICES"] =','.join(map(str, [1]))
+os.environ["CUDA_VISIBLE_DEVICES"] =','.join(map(str, [4]))
 
 from torch.utils.data import DataLoader
 from torchvision import datasets
@@ -19,6 +19,7 @@ import torch.utils.data as data
 import pdb
 import time
 
+# CUDA_VISIBLE_DEVICES=4  python adapter_network.py
 
 
 class embData(data.Dataset):
@@ -111,16 +112,16 @@ class Adapter(nn.Module):
             # nn.Tanh(),
             nn.LeakyReLU(0.2,inplace=True),
             nn.Linear(int(3584/16), int(3584/64)),#224-56
-            nn.Dropout(0.25),
-            # nn.Tanh(),
-            nn.LeakyReLU(0.2,inplace=True),
-            nn.Linear(int(3584/64), int(3584/128)),#56-28
+            # nn.Dropout(0.25),
+            # # nn.Tanh(),
+            # nn.LeakyReLU(0.2,inplace=True),
+            # nn.Linear(int(3584/64), int(3584/128)),#56-28
             # nn.Tanh(),
         )
         self.decoder = nn.Sequential(
-            nn.Linear(int(3584/128), int(3584/64)),
-            nn.Dropout(0.25),
-            nn.Sigmoid(),
+            # nn.Linear(int(3584/128), int(3584/64)),
+            # nn.Dropout(0.25),
+            # nn.Sigmoid(),
             nn.Linear(int(3584/64), int(3584/16)),
             nn.Dropout(0.25),
             nn.Sigmoid(),
@@ -136,7 +137,11 @@ class Adapter(nn.Module):
         self.mse = nn.MSELoss()
 
     def forward(self, input_emb, pos_emb, neg_emb):
-        
+
+        input_emb = input_emb.float()
+        pos_emb = pos_emb.float()
+        neg_emb = neg_emb.float()
+        # pdb.set_trace()
         input_emb_f = self.net(input_emb)
         pos_emb_f = self.net(pos_emb) 
         neg_emb_f = self.net(neg_emb)
@@ -167,6 +172,7 @@ class Adapter(nn.Module):
         # return loss
 
     def output_emb(self,input_emb):
+        input_emb = input_emb.float()
         output_emb = self.net(input_emb)
         return output_emb
 
@@ -182,15 +188,39 @@ optimizer_bpr = torch.optim.Adam(model.parameters(), lr=0.001)#, betas=(0.5, 0.9
 # emb_dict  #是个dict，dict[i]=emb，emb是llm得到的。
 # pair_dict #是个dict，dict[i]=postive of i，通过data_pos_behavior.py得到的，dict[user]的postive user of dict[user], dict[item]的postive item of dict[item]
 
-# 测试的案例 emb_dict and pair_dict
-user_len = 1000
-emb_dict =dict()
+# # 测试的案例 emb_dict and pair_dict
+# user_len = 1000
+# emb_dict =dict()
+# pair_dict =dict()
+# all_user_list = np.array(range(user_len))
+# for i in range(user_len): 
+#     emb_dict[i] = np.random.rand(3584).astype(np.float32)
+#     pair_dict[i] = np.random.choice(all_user_list,np.random.randint(98)+2)
+#     # pdb.set_trace()
+
+
+# # 101700 81488
+# print(u_id_max,i_id_max)
+# u_id_max =101700
+# i_id_max = 81689+1
+user_len = 101700
+emb_dict = np.load('../data_process/core'+str(10)+'/train/llm_user_emb.npy', allow_pickle=True).item() #dict()
+pos_u_v = np.load('../data_process/core10/train/user_pos_pair.npy') #dict()
+
 pair_dict =dict()
-all_user_list = np.array(range(user_len))
-for i in range(user_len): 
-    emb_dict[i] = np.random.rand(3584).astype(np.float32)
-    pair_dict[i] = np.random.choice(all_user_list,np.random.randint(98)+2)
+for user_id in  range(user_len):
+    try:
+        top_k_ids = np.argsort(pos_u_v[user_id])[-15:][::-1]
+    except:
+        print(user_id,'not in pos_u_v')
+        continue
+    
+    if len(top_k_ids)>15:
+        pdb.set_trace()
+    pair_dict[user_id] = top_k_ids[1:] #第一个是自己和自己的相识度。
     # pdb.set_trace()
+
+
 
 
 # emb_dict=None,neg_sample=0,pair_dict=None
@@ -240,6 +270,7 @@ for i in emb_dict:
 emb_dict_list_input = torch.from_numpy(np.array(emb_dict_list)).cuda()
 emb_dict_learned = model.output_emb(emb_dict_list_input)
 pdb.set_trace()
+
 # emb_dict_learned_path = './emb_dict_learned.npy'
 # np.save(emb_dict_learned_path,emb_dict_learned)
 # np.load(emb_dict_learned_path)

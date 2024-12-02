@@ -160,7 +160,7 @@ list_sim_uv.extend(res_sim_uv)
 elapsed_time = time.time() - start_time
 print('--each pair time--',elapsed_time) #550.3678503036499, 9min
 
-np.save('../data_process/core10/train/user_pos_pair.pkl',pos_u_v)
+np.save('../data_process/core10/train/user_pos_pair.npy',pos_u_v)
 
 pdb.set_trace()
 
@@ -171,7 +171,7 @@ list_sim_uv = compute_intersections(list_user_pair,64)
 elapsed_time = time.time() - start_time
 print('--each pair time--',elapsed_time) # 10448.213822126389 3h
 
-np.save(pos_u_v,'../data_process/core10/train/user_pos_pair.pkl')
+np.save('../data_process/core10/train/user_pos_pair.npy',pos_u_v)
 
 pdb.set_trace()
 
