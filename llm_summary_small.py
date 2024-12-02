@@ -17,7 +17,7 @@ import os
 # Step 1: 初始化模型
 # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
 model_path ="Qwen/Qwen2.5-3B-Instruct"
-llm = LLM(model=model_path, dtype='half', tensor_parallel_size=2) 
+llm = LLM(model=model_path, dtype='half', tensor_parallel_size=4) 
 
 
 # Step 2: 定义批量输入数据
