@@ -17,7 +17,7 @@ from joblib import Parallel, delayed
 
 
 # file_name = '../data_process/core10/data_interaction_final_reid.csv'
-file_name = '../data_process/core10/train.csv'
+file_name = '../data_process/core10/train/train.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id','photo_id','time_us','ulat','ulong','plat','plong'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
@@ -160,7 +160,7 @@ list_sim_uv = compute_intersections(list_user_pair,16)
 elapsed_time = time.time() - start_time
 print('--each pair time--',elapsed_time) # 10448.213822126389 3h
 
-np.save('../data_process/core10/user_pos_pair.npy',pos_u_v)
+np.save('../data_process/core10/train/user_pos_pair.npy',pos_u_v)
 
 # x1 = np.load('../../data/user_pos_pair.pkl.npy')
 
