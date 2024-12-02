@@ -15,6 +15,7 @@ from concurrent.futures import ProcessPoolExecutor
 from joblib import Parallel, delayed
 
 
+
 # file_name = '../data_process/core10/data_interaction_final_reid.csv'
 file_name = '../data_process/core10/train.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id','photo_id','time_us','ulat','ulong','plat','plong'], sep='|')
@@ -38,6 +39,7 @@ i_ulist = dict()
 i_ulist_list = [set()]*i_id_max #[set() for _ in range(i_id_max)]
 
 user_id_list =[]
+
 
 data_interaction_u = data_interaction.groupby('user_id').agg(list).reset_index()
 for index, row in data_interaction_u.iterrows():
@@ -130,6 +132,8 @@ print('list_user_pair is end,list_user_pair.shape',list_user_pair.shape)
 # result_iu = result_iu+alpah
 # np.reciprocal(result_iu, out=result_iu) #改了计算方式，还是太耗时，且内存支持不了，存不下。因此放弃这种方式。
 
+
+
 #开多线程计算方式
 def calculate_intersection(one_pair):
     u,v = one_pair
@@ -152,30 +156,22 @@ def compute_intersections(list_user_pair, max_workers=8):
 
 
 start_time = time.time()
-list_sim_uv = []
-res_sim_uv = Parallel(n_jobs=32)(
-    delayed(calculate_intersection)(pair) for pair in list_user_pair
-)
-list_sim_uv.extend(res_sim_uv)
-elapsed_time = time.time() - start_time
-print('--each pair time--',elapsed_time) #550.3678503036499, 9min
-
-np.save('../data_process/core10/train/user_pos_pair.npy',pos_u_v)
-
-pdb.set_trace()
-
-
-
-start_time = time.time()
-list_sim_uv = compute_intersections(list_user_pair,64)
+list_sim_uv = compute_intersections(list_user_pair,16)
 elapsed_time = time.time() - start_time
 print('--each pair time--',elapsed_time) # 10448.213822126389 3h
 
-np.save('../data_process/core10/train/user_pos_pair.npy',pos_u_v)
+np.save('../data_process/core10/user_pos_pair.npy',pos_u_v)
+
+# x1 = np.load('../../data/user_pos_pair.pkl.npy')
 
 pdb.set_trace()
 
 exit()
+
+
+
+
+
 
 
 
