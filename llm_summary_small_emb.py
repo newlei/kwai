@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModel
 import time
 from vllm import LLM, SamplingParams
 
-# CUDA_VISIBLE_DEVICES=2  python llm_summary_small_emb.py
+# CUDA_VISIBLE_DEVICES=3  python llm_summary_small_emb.py
 
 # Create an LLM.
 # model = LLM(model="intfloat/e5-mistral-7b-instruct", enforce_eager=True)
@@ -21,8 +21,8 @@ from vllm import LLM, SamplingParams
 
 model = LLM(model="intfloat/e5-mistral-7b-instruct", enforce_eager=True)
 
-json_path = '../data_process/core10/train/data_kg_llm_summary.json' 
-# json_res_path = '../data_process/core10/train/data_kg_llm_summary_item.json'
+# json_path = '../data_process/core10/train/data_kg_llm_summary.json' 
+json_path = '../data_process/core10/train/data_kg_llm_summary_item.json'
 elapsed_time_all = 0
 elapsed_time_count = 0
 
@@ -93,6 +93,7 @@ with open(json_path, 'r', encoding="utf-8") as f:
                 print('double user id error')
                 pdb.set_trace()    
 
+
+# np.save('../data_process/core'+str(10)+'/train/llm_user_emb.npy',user_emb)
+np.save('../data_process/core'+str(10)+'/train/llm_item_emb.npy',user_emb)
 pdb.set_trace()
-np.save('../data_process/core'+str(10)+'/train/llm_user_emb.npy',user_emb)
-# np.save(user_emb,'../data_process/core'+str(10)+'/train/llm_item_emb.pkl')
