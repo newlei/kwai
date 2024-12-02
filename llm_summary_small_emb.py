@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModel
 import time
 from vllm import LLM, SamplingParams
 
-# CUDA_VISIBLE_DEVICES=3  python llm_summary_small_emb.py
+# CUDA_VISIBLE_DEVICES=4  python llm_summary_small_emb.py
 
 # Create an LLM.
 # model = LLM(model="intfloat/e5-mistral-7b-instruct", enforce_eager=True)
