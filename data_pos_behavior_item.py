@@ -17,7 +17,7 @@ from joblib import Parallel, delayed
 #和data_pos_behavior.py代码一样，只是把user_id和poi_id交互了名字
 
 # file_name = '../data_process/core10/data_interaction_final_reid.csv'
-file_name = '../data_process/core10/train/train.csv'
+file_name = '../data_process/core10/train.csv'
 data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id','photo_id','time_us','ulat','ulong','plat','plong'], sep='|')
 # data_interaction = pd.read_csv(file_name, usecols=['user_id','poi_id'], sep='|')
 
