@@ -45,9 +45,11 @@ with open(json_path, 'r', encoding="utf-8") as f:
             ]
         batch_data.append(prompt_one["data"])  
         # batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
-        batch_data_id.append(prompt_one["user_id"])
+        # batch_data_id.append(prompt_one["user_id"])
+        batch_data_id.append(prompt_one["poi_id"])
         if len(set(batch_data_id))!=len(batch_data_id):
-            print(prompt_one["user_id"])
+            # print(prompt_one["user_id"])
+            print(prompt_one["poi_id"])
             pdb.set_trace()
 
         if batch_size<=64:
