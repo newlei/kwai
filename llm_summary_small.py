@@ -15,6 +15,7 @@ import os
 # 用了上面的还依旧报错，算求，截断就截断吧，
 
 # CUDA_VISIBLE_DEVICES=0,1,2,3 python llm_summary_small.py
+# CUDA_VISIBLE_DEVICES=4,5,6,7 python llm_summary_small.py
 
 # Step 1: 初始化模型
 # model_path ="Qwen/Qwen2.5-1.5B-Instruct"  
