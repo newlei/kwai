@@ -7,7 +7,7 @@ from torch import Tensor
 from transformers import AutoTokenizer, AutoModel
 import time
 from vllm import LLM, SamplingParams
-
+import numpy as np
 # CUDA_VISIBLE_DEVICES=4  python llm_summary_small_emb.py
 
 # Create an LLM.
@@ -21,8 +21,8 @@ from vllm import LLM, SamplingParams
 
 model = LLM(model="intfloat/e5-mistral-7b-instruct", enforce_eager=True)
 
-json_path = '../data_process/core10/train/data_kg_llm_summary.json' 
-# json_path = '../data_process/core10/train/data_kg_llm_summary_item.json'
+# json_path = '../data_process/core10/train/data_kg_llm_summary.json' 
+json_path = '../data_process/core10/train/data_kg_llm_summary_item.json'
 elapsed_time_all = 0
 elapsed_time_count = 0
 
@@ -45,11 +45,11 @@ with open(json_path, 'r', encoding="utf-8") as f:
             ]
         batch_data.append(prompt_one["data"])  
         # batch_data.append(str(prompt_one["data"])+"\n 请用中文回答")
-        batch_data_id.append(prompt_one["user_id"])
-        # batch_data_id.append(prompt_one["poi_id"])
+        # batch_data_id.append(prompt_one["user_id"])
+        batch_data_id.append(prompt_one["poi_id"])
         if len(set(batch_data_id))!=len(batch_data_id):
-            print(prompt_one["user_id"])
-            # print(prompt_one["poi_id"])
+            # print(prompt_one["user_id"])
+            print(prompt_one["poi_id"])
             pdb.set_trace()
 
         if batch_size<=1022:
@@ -96,6 +96,9 @@ with open(json_path, 'r', encoding="utf-8") as f:
                 pdb.set_trace()    
 
 
-np.save('../data_process/core'+str(10)+'/train/llm_user_emb.npy',user_emb)
+
+np.save('../data_process/core'+str(10)+'/train/llm_item_emb_last_out.npy',outputs)
+np.save('../data_process/core'+str(10)+'/train/llm_item_emb.npy',user_emb)
 # np.save('../data_process/core'+str(10)+'/train/llm_item_emb.npy',user_emb)
 pdb.set_trace()
+outputs1 = np.load('../data_process/core'+str(10)+'/train/llm_item_emb_last_out.npy',allow_pickle=True)
