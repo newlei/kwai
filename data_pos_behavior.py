@@ -156,10 +156,9 @@ def compute_intersections(list_user_pair, max_workers=8):
 
 
 start_time = time.time()
-list_sim_uv = compute_intersections(list_user_pair,8)
+list_sim_uv = compute_intersections(list_user_pair,16)
 elapsed_time = time.time() - start_time
 print('--each pair time--',elapsed_time) # 10448.213822126389 3h
-
 np.save('../data_process/core10/train/user_pos_pair.npy',pos_u_v)
 
 # x1 = np.load('../../data/user_pos_pair.pkl.npy')
